@@ -1,0 +1,203 @@
+% Copyright (c) 2022 Fr4nk1in-USTC
+% 
+% This software is released under the MIT License.
+% https://opensource.org/licenses/MIT
+
+\documentclass[
+    mode=hazy,
+    color=blue,
+    device=normal,
+    lang=cn
+]{elegantnote}
+
+% Title Format
+\title{1\hspace{.5cm}命题演算}
+\author{Fr4nk1in-USTC}
+\institute{中国科学技术大学计算机学院}
+\date{\zhtoday}
+
+% Packages
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amscd}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{cleveref}
+\newtheorem{axiom}{公理}[section]
+
+\begin{document}
+    \maketitle
+    \section{命题联结词与真值表}
+        \subsection{命题}
+            \begin{itemize}
+                \item 命题: 判断结果惟一的陈述句.
+                \item 命题的真值: 判断的结果.
+
+                约定: 一命题若为真, 则它的真值为 1; 若为假, 则它的真值为 0.
+            \end{itemize}
+            本章使用字母 $p,q,r$ 等用来表示命题.
+        \subsection{命题联结词}
+            \subsubsection{否定词}
+                \begin{description}
+                    \item[符号] ``$\lnot$'', 给定命题 $p$, $\lnot p$ 表示 $p$ 的否定.
+                    \item[关系] $\lnot p\text{ 为真}\Leftrightarrow p\text{ 为假}$.
+                    \item[真值表] 
+                        \begin{tabular}{c|c}
+                            $p$ & $\lnot p$ \\
+                            \hline
+                            1 & 0\\
+                            0 & 1
+                        \end{tabular}
+                \end{description}
+            \subsubsection{合取词}
+                \begin{description}
+                    \item[符号] ``$\land$'', 由命题 $p,q$ 用 $\land$ 连接得到新命题 $p\land q$.
+                    \item[含义] 相当于中文的 ``与'' 或 ``且''.
+                    \item[关系] $p\land q\text{ 为真}\Leftrightarrow p\text{ 与}\ q\text{ 皆为真}$.
+                    \item[真值表]
+                    \begin{tabular}{c|c|c}
+                        $p$ & $q$ & $p\land q$\\
+                        \hline
+                        1 & 1 & 1\\
+                        1 & 0 & 0\\
+                        0 & 1 & 0\\
+                        0 & 0 & 0
+                    \end{tabular}    
+                \end{description}
+            \subsubsection{析取词}
+                \begin{description}
+                    \item[符号] ``$\lor$'', 由命题 $p,q$ 用 $\lor$ 连接得到新命题 $p\lor q$.
+                    \item[含义] 相当于中文的 ``或''.
+                    \item[关系] $p\lor q\text{ 为真}\Leftrightarrow p\text{ 或}\ q\text{ 皆为真}$.
+                    \item[真值表]
+                    \begin{tabular}{c|c|c}
+                        $p$ & $q$ & $p\lor q$\\
+                        \hline
+                        1 & 1 & 1\\
+                        1 & 0 & 1\\
+                        0 & 1 & 1\\
+                        0 & 0 & 0
+                    \end{tabular}    
+                \end{description}
+            \subsubsection{蕴含词}
+                \begin{description}
+                    \item[符号] ``$\to$'', 由命题 $p,q$ 用 $\to$ 连接得到新命题 $p\to q$, $p$ 叫做该式的 ``前件'', $q$ 叫做该式的 ``后件''.
+                    \item[含义] 相当于中文的 ``如果 ... 那么 ...'', 但是有所差别, 两个命题之间可以没有因果关系.
+                    \item[关系] $p\to q\text{ 为假}\Leftrightarrow p\text{ 为真且}\ q\text{ 为假}$.  
+                    \item[真值表]
+                    \begin{tabular}{c|c|c}
+                        $p$ & $q$ & $p\to q$\\
+                        \hline
+                        1 & 1 & 1\\
+                        1 & 0 & 0\\
+                        0 & 1 & 1\\
+                        0 & 0 & 1
+                    \end{tabular} 
+                \end{description}
+            \subsubsection{等价词 (或等值词)}
+                \begin{description}
+                    \item[符号] ``$\leftrightarrow$'', 由命题 $p,q$ 用 $\leftrightarrow$ 连接得到新命题 $p\leftrightarrow q$.
+                    \item[含义] 相当于中文的 ``当且仅当''.
+                    \item[关系] $p\leftrightarrow q\text{ 为真}\Leftrightarrow p\text{ 与}\ q\text{ 同为真或同为假}$.   
+                    \item[真值表]
+                    \begin{tabular}{c|c|c}
+                        $p$ & $q$ & $p\leftrightarrow q$\\
+                        \hline
+                        1 & 1 & 1\\
+                        1 & 0 & 0\\
+                        0 & 1 & 0\\
+                        0 & 0 & 1
+                    \end{tabular}  
+                \end{description}
+        \subsection{复合命题的真值表}
+        复合命题的真假如何由构成它的支命题的真假来确定?
+        \begin{example}\label{ex:1.1}
+            $(\lnot p)\land q$ 的真值表
+            \begin{table}[!htbp]
+                \centering
+                \begin{tabular}{cc|c|c}
+                    $(\lnot$ & $p)$ & $\land$ & $p$\\
+                    \hline
+                    0 & 1 & 0 & 1\\
+                    0 & 1 & 0 & 0\\
+                    1 & 0 & 1 & 1\\
+                    1 & 0 & 0 & 0
+                \end{tabular}
+            \end{table}
+        \end{example}
+        列表过程为
+        \begin{enumerate}
+            \item 将支命题所有可能的真值组合分别在对应的支命题下方一一写出. 在例 \ref{ex:1.1} 中共有四种 $(1, 1; 1, 0; 0, 1; 0, 0)$.
+            \item 按命题中联结词的作用顺序将每次作用所得的真值写在该联结词下方.
+            \item 最后得到的一列结果写在最后一个联结词 (例 \ref{ex:1.1} 为 $\land$) 下, 并用竖线标出.
+        \end{enumerate}
+        在例 \ref{ex:1.1} 中, 只有当 $(p, q)$ 取真值 $(0,1)$ 时命题才为真. 所以我们称 $(0,1)$ 是 $(\lnot p)\land q$ 的 ``成真指派'', 其他三种指派均为 ``成假指派''.
+
+        \subsection{联结词之间的关系}
+        \begin{example}\label{ex:1.2}
+            复合命题 $(p \lor q)\leftrightarrow ((\lnot p)\to q)$ 的真值表是
+            \begin{table}[!htbp]
+                \centering
+                \begin{tabular}{ccc|c|cccc}
+                    $(p$ & $\lor$ & $q)$ & $\leftrightarrow$ & $((\lnot$ & $p)$ & $\to$ & $q)$\\
+                    \hline
+                    1 & 1 & 1 & 1 & 0 & 1 & 1 & 1 \\
+                    1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 \\
+                    0 & 1 & 1 & 1 & 1 & 0 & 1 & 1 \\
+                    0 & 0 & 0 & 1 & 1 & 0 & 0 & 0
+                \end{tabular}
+            \end{table}
+            不论 $(p, q)$ 取哪个真值, 命题都为真, 这样的命题是永真式.
+        \end{example}
+        包括例 \ref{ex:1.2} 中的永真式, 我们还有下面的三个永真式.
+        \begin{enumerate}
+            \item $(p \lor q)\leftrightarrow ((\lnot p)\to q)$
+            \item $(p \land q)\leftrightarrow \lnot(p\to (\lnot q))$
+            \item $(p\leftrightarrow q)\leftrightarrow ((p\to q)\land (q\to p))$
+        \end{enumerate}
+        这说明五个联结词是相互关联的. 联结词 $\land$, $\lor$, $\leftrightarrow$ 可用 $\lnot$ 和 $\to$ 取代.
+
+    \section{命题演算的建立}
+    命题演算的形式化, 公理化.
+        \subsection{命题演算公式集}
+        \begin{definition}[命题演算公式]
+            我们采用的字母表由下面两类符号组成.
+            \begin{enumerate}[(1)]
+                \item 两个运算符: $\lnot$ 和 $\to$.
+                前者为一元运算符, 后者为二元运算符.
+                \item 命题变元的可数序列:
+                $$
+                x_1, x_2, \cdots, x_n, \cdots
+                $$
+            \end{enumerate}
+            公式的形成规则如下: (归纳定义)
+            \begin{enumerate}[(i)]
+                \item 命题变元 $x_1, x_2, \cdots, x_n, \cdots$ 中的每一个都是公式.
+                \item 若 $p, q$ 是公式, 则 $\lnot p$, $p\to q$ 都是公式.
+                \item 任一公式皆由规则 (i), (ii) 的有限次使用形成.
+            \end{enumerate}
+        \end{definition}
+        \begin{definition}[公式集的分层]
+            记 $X=\{x_1, x_2, \cdots, x_n, \cdots\}$. 用 $L(X)$ 表示所有公式构成的集.
+
+            公式集 $L(X)$ 可进行如下分层:
+            $$
+            L(X)=L_0\cup L_1\cup \cdots\cup L_n \cup\cdots
+            $$
+            其中
+            \begin{align*}
+                L_0=&\ X=\{x_1, x_2, \cdots, x_n, \cdots\},\\
+                L_1=&\ \{\lnot x_1, \lnot x_2,\cdots,\lnot x_n,\cdots,\\
+                    &\ x_1\to x_1, x_1\to x_2, x_2\to x_1,\cdots,x_i\to x_j,\cdots\},\\
+                L_2=&\ \{\lnot (\lnot x_1), \lnot (\lnot x_2),\cdots,\lnot (\lnot x_n),\cdots,\\
+                    &\ x_1\to (\lnot x_1), (\lnot x_1)\to x_1, \cdots,\\
+                    &\ x_1\to (x_1\to x_1), (x_1\to x_1)\to x_1, \cdots\}\\
+                \cdots&\cdots
+            \end{align*}
+        \end{definition}
+        有如下性质
+        \begin{enumerate}[(1)]
+            \item $i$ 层 $L_i$ 中公式由命题变元经过 $i$ 次运算得来.
+            \item (分层性) 不同层次之间没有公共元素.
+            \item 从层 $L_2$ 开始出现了括号.
+            \item $L_i(X)$ 是可数集, $L(X)$ 是可数集.
+        \end{enumerate}
+\end{document}
