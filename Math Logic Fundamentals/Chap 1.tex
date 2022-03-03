@@ -22,6 +22,7 @@
 \usepackage{multirow}
 \usepackage{cleveref}
 \newtheorem{axiom}{公理}[section]
+\newtheorem{quality}{性质}[section]
 
 \begin{document}
     \maketitle
@@ -200,4 +201,136 @@
             \item 从层 $L_2$ 开始出现了括号.
             \item $L_i(X)$ 是可数集, $L(X)$ 是可数集.
         \end{enumerate}
+        \subsection{命题演算 $L$}
+        \begin{definition}[命题演算 $L$]
+            \label{def:2.3}
+            命题变元集 $X=\{x_1, x_2,\cdots\}$ 上的命题演算 $L$ 是指带有下面规定的 ``公理'' 和 ``证明'' 的命题代数 $L(X)$:
+            \begin{enumerate}[(1)]
+                \item ``公理''\\
+                取 $L(X)$ 的具有以下形状的公式作为 ``公理'':
+                \begin{enumerate}[label=(L\arabic*)]
+                    \item (肯定后件律) $p\to (q\to p)$
+                    \item (蕴含词分配律) $(p\to (q\to r))\to ((p\to q)\to (q\to r))$
+                    \item (换位律) $(\lnot p\to \lnot q)\to (q\to p)$
+                \end{enumerate}
+                其中 $p,q,r\in L(X)$
+                \item ``证明''\\
+                设 $\Gamma\subseteq L(X)$, $p\in L(X)$. 当我们说 ``公式 $p$ 是从公式集 $\Gamma$ 可证的'', 是指存在着 $L(X)$ 的公式的有序序列 $p_1, \cdots, p_n$, 其中尾项 $p_n=p$, 且每个 $p_k(k=1,\cdots, n)$ 满足:
+                \begin{enumerate}[(i)]
+                    \item $p_k\in\Gamma$, 或
+                    \item $p_k$ 是 ``公理'', 或
+                    \item 存在 $i,j < k$ 使 $p_j=p_i\to p_k$
+                \end{enumerate}
+                具有上述性质的有限序列 $p_1, \cdots, p_n$ 叫做 $p$ 从 $\Gamma$ 的 ``证明''.
+            \end{enumerate}
+        \end{definition}
+        \begin{definition}[语法推论]
+            \begin{enumerate}[(1)]
+                \item 如果公式 $p$ 从公式集 $\Gamma$ 可证, 那么我们写 $\Gamma\vdash p$, 必要时也可写成 $\Gamma\vdash_L p$, 这时 $\Gamma$ 中的公式叫做 ``假定'', $p$ 叫做假定集 $\Gamma$ 的语法推论.
+                \item 若 $\varnothing\vdash p$, 则称 $p$ 是 $L$ 的 ``定理'', 记为 $\vdash p$. $p$ 在 $L$ 中从 $\varnothing$ 的证明 $p_1, \cdots, p_n$ 简称为 $p$ 在 $L$ 中的证明.
+                \item 在一个证明中, 当 $p_j=p_i\to p_k\ (i,j<k)$ 时, 就说 $p_k$ 由 $p_i, p_i\to p_k$ 使用假言推理 (Modus Ponens) 这条推理规则而得, 或简单地说 ``使用 MP 而得''.
+            \end{enumerate}
+        \end{definition}
+        \begin{quality}
+            \begin{enumerate}[label = $\arabic*^\circ$]
+                \item 若 $p$ 是 $L$ 的公理, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
+                \item 若 $\vdash p$, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
+                \item 若 $p\in\Gamma$, 则$\Gamma\vdash p$.
+                \item $\{p,p\to q\}\vdash q$.
+                \item 若 $\Gamma\vdash p_n$, 且已知 $p_1,\cdots, p_n$ 是 $p_n$ 从 $\Gamma$ 的证明, 则当 $1\leq k\leq n$ 时, 有 $\Gamma \vdash p_k$, 且 $p_1, \cdots, p_k$ 是 $p_k$ 从 $\Gamma$ 的证明.
+                \item 若 $\Gamma$ 是无限集, 且 $\Gamma\vdash p$, 则存在 $\Gamma$ 的有限子集 $\Delta$ 使 $\Delta\vdash p$.
+            \end{enumerate}
+        \end{quality}
+        \begin{proposition}[同一律] 
+            $\vdash p\to p$
+        \end{proposition}
+        \begin{proposition}[否定前件律] 
+            $\vdash\lnot q\to(q\to p)$
+        \end{proposition}
+        \begin{definition}[无矛盾公式集]
+            如果对任何公式 $q$, $\Gamma\vdash q$ 和 $\Gamma\vdash\lnot q$二者都不同时成立, 就称公式集 $\Gamma$ 是无矛盾公式集, 否则称 $\Gamma$ 为有矛盾公式集.
+        \end{definition}
+        \begin{proposition}
+            若 $\Gamma$ 是有矛盾公式集, 则对 $L$ 的任一公式 $p$, 都有 $\Gamma\vdash p$.
+        \end{proposition}
+        \subsection{演绎定理}
+        \begin{theorem}[演绎定理]
+            $\Gamma \cup \{p\}\vdash q\quad\Leftrightarrow\quad \Gamma\vdash p\to q$
+        \end{theorem}
+        \begin{lemma}[假设三段论]
+            $\{p\to q,q\to r\}\vdash p\to r$
+        \end{lemma}
+        假设三段论 (Hypothetical Syllogism) 简称 HS.
+
+        \begin{proposition}[否定肯定律]
+            $\vdash (\lnot p\to p)\to p$
+        \end{proposition}
+        \subsection{反证律与归谬律}
+        \begin{theorem}[反证律]
+            $$
+            \left.
+            \begin{matrix}
+                \Gamma\cup\{\lnot p\}\vdash q\\
+                \Gamma\cup\{\lnot p\}\vdash\lnot q
+            \end{matrix}
+            \right\}\Rightarrow \Gamma\vdash p
+            $$
+        \end{theorem}
+        \begin{theorem}[归谬律]
+            $$
+            \left.
+            \begin{matrix}
+                \Gamma\cup\{p\}\vdash p\\
+                \Gamma\cup\{p\}\vdash\lnot p
+            \end{matrix}
+            \right\}\Rightarrow \Gamma\vdash p
+            $$
+        \end{theorem}
+        \begin{lemma}[第二双重否定律]
+            \begin{enumerate}[label=$\arabic*^\circ$]
+                \item $\{p\}\vdash\lnot\lnot p$
+                \item $\vdash p\to \lnot\lnot p$
+            \end{enumerate}
+        \end{lemma}
+        \subsection{析取, 合取与等值}
+        在 $\{\lnot,\to\}$ 型代数 $L(X)$ 中, 还可以定义三个新的二元运算 $\lor$ (析取), $\land$ (合取) 及 $\leftrightarrow$ (等值) 如下:
+        \begin{align*}
+            &p\lor q=\lnot p\to q\\
+            &p\land q=\lnot( p\to \lnot q)\\
+            &p\leftrightarrow q=(p\to q)\land (q\to p)
+        \end{align*}
+        \begin{proposition}[析取相关]
+            \begin{enumerate}[label=$\arabic*^\circ$]
+                \item $\vdash p\to (p\lor q)$
+                \item $\vdash q\to (p\lor q)$
+                \item $\vdash (p\lor q)\to (q\lor p)$
+                \item $\vdash (p\lor p)\to p$
+                \item $\vdash \lnot p\lor p$ (排中律)
+            \end{enumerate}
+        \end{proposition}
+        \begin{proposition}[合取相关]
+            \begin{enumerate}[label=$\arabic*^\circ$]
+                \item $\vdash (p\land q)\to p$
+                \item $\vdash (p\land q)\to q$
+                \item $\vdash (p\land q)\to (q\land p)$
+                \item $\vdash p\to (p\land p)$
+                \item $\vdash p\to (q\to (p\land q))$
+                \item $\vdash \lnot (p\land \lnot p)$ (矛盾律)
+            \end{enumerate}
+        \end{proposition}
+        \begin{proposition}[等值相关]
+            \begin{enumerate}[label=$\arabic*^\circ$]
+                \item $\vdash (p\leftrightarrow q)\to (p\to q)$
+                \item $\vdash (p\leftrightarrow q)\to (q\to p)$
+                \item $\vdash (p\leftrightarrow q)\leftrightarrow (q \leftrightarrow p)$
+                \item $\vdash (p\leftrightarrow q)\leftrightarrow (\lnot p\leftrightarrow\lnot q)$
+                \item $\vdash (p\to q)\to ((q\to p)\to (p\leftrightarrow q))$
+            \end{enumerate}
+        \end{proposition}
+        \begin{proposition}[De. Morgan 律]
+            \begin{enumerate}[label=$\arabic*^\circ$]
+                \item $\vdash (p\land q)\leftrightarrow (\lnot p\lor \lnot q)$
+                \item $\vdash (p\lor q)\leftrightarrow (\lnot p\land \lnot q)$
+            \end{enumerate}
+        \end{proposition}
 \end{document}
