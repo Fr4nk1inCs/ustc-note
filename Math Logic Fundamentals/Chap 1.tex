@@ -21,316 +21,421 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{cleveref}
+\usepackage{multicol}
 \newtheorem{axiom}{公理}[section]
 \newtheorem{quality}{性质}[section]
+\newtheorem{deduction}{推论}[section]
 
 \begin{document}
-    \maketitle
-    \section{命题联结词与真值表}
-        \subsection{命题}
-            \begin{itemize}
-                \item 命题: 判断结果惟一的陈述句.
-                \item 命题的真值: 判断的结果.
+\maketitle
+\section{命题联结词与真值表}
+\subsection{命题}
+\begin{itemize}
+    \item 命题: 判断结果惟一的陈述句.
+    \item 命题的真值: 判断的结果.
 
-                约定: 一命题若为真, 则它的真值为 1; 若为假, 则它的真值为 0.
-            \end{itemize}
-            本章使用字母 $p,q,r$ 等用来表示命题.
-        \subsection{命题联结词}
-            \subsubsection{否定词}
-                \begin{description}
-                    \item[符号] ``$\lnot$'', 给定命题 $p$, $\lnot p$ 表示 $p$ 的否定.
-                    \item[关系] $\lnot p\text{ 为真}\Leftrightarrow p\text{ 为假}$.
-                    \item[真值表] 
-                        \begin{tabular}{c|c}
-                            $p$ & $\lnot p$ \\
-                            \hline
-                            1 & 0\\
-                            0 & 1
-                        \end{tabular}
-                \end{description}
-            \subsubsection{合取词}
-                \begin{description}
-                    \item[符号] ``$\land$'', 由命题 $p,q$ 用 $\land$ 连接得到新命题 $p\land q$.
-                    \item[含义] 相当于中文的 ``与'' 或 ``且''.
-                    \item[关系] $p\land q\text{ 为真}\Leftrightarrow p\text{ 与}\ q\text{ 皆为真}$.
-                    \item[真值表]
-                    \begin{tabular}{c|c|c}
-                        $p$ & $q$ & $p\land q$\\
-                        \hline
-                        1 & 1 & 1\\
-                        1 & 0 & 0\\
-                        0 & 1 & 0\\
-                        0 & 0 & 0
-                    \end{tabular}    
-                \end{description}
-            \subsubsection{析取词}
-                \begin{description}
-                    \item[符号] ``$\lor$'', 由命题 $p,q$ 用 $\lor$ 连接得到新命题 $p\lor q$.
-                    \item[含义] 相当于中文的 ``或''.
-                    \item[关系] $p\lor q\text{ 为真}\Leftrightarrow p\text{ 或}\ q\text{ 皆为真}$.
-                    \item[真值表]
-                    \begin{tabular}{c|c|c}
-                        $p$ & $q$ & $p\lor q$\\
-                        \hline
-                        1 & 1 & 1\\
-                        1 & 0 & 1\\
-                        0 & 1 & 1\\
-                        0 & 0 & 0
-                    \end{tabular}    
-                \end{description}
-            \subsubsection{蕴含词}
-                \begin{description}
-                    \item[符号] ``$\to$'', 由命题 $p,q$ 用 $\to$ 连接得到新命题 $p\to q$, $p$ 叫做该式的 ``前件'', $q$ 叫做该式的 ``后件''.
-                    \item[含义] 相当于中文的 ``如果 ... 那么 ...'', 但是有所差别, 两个命题之间可以没有因果关系.
-                    \item[关系] $p\to q\text{ 为假}\Leftrightarrow p\text{ 为真且}\ q\text{ 为假}$.  
-                    \item[真值表]
-                    \begin{tabular}{c|c|c}
-                        $p$ & $q$ & $p\to q$\\
-                        \hline
-                        1 & 1 & 1\\
-                        1 & 0 & 0\\
-                        0 & 1 & 1\\
-                        0 & 0 & 1
-                    \end{tabular} 
-                \end{description}
-            \subsubsection{等价词 (或等值词)}
-                \begin{description}
-                    \item[符号] ``$\leftrightarrow$'', 由命题 $p,q$ 用 $\leftrightarrow$ 连接得到新命题 $p\leftrightarrow q$.
-                    \item[含义] 相当于中文的 ``当且仅当''.
-                    \item[关系] $p\leftrightarrow q\text{ 为真}\Leftrightarrow p\text{ 与}\ q\text{ 同为真或同为假}$.   
-                    \item[真值表]
-                    \begin{tabular}{c|c|c}
-                        $p$ & $q$ & $p\leftrightarrow q$\\
-                        \hline
-                        1 & 1 & 1\\
-                        1 & 0 & 0\\
-                        0 & 1 & 0\\
-                        0 & 0 & 1
-                    \end{tabular}  
-                \end{description}
-        \subsection{复合命题的真值表}
-        复合命题的真假如何由构成它的支命题的真假来确定?
-        \begin{example}\label{ex:1.1}
-            $(\lnot p)\land q$ 的真值表
-            \begin{table}[!htbp]
-                \centering
-                \begin{tabular}{cc|c|c}
-                    $(\lnot$ & $p)$ & $\land$ & $p$\\
-                    \hline
-                    0 & 1 & 0 & 1\\
-                    0 & 1 & 0 & 0\\
-                    1 & 0 & 1 & 1\\
-                    1 & 0 & 0 & 0
-                \end{tabular}
-            \end{table}
-        \end{example}
-        列表过程为
-        \begin{enumerate}
-            \item 将支命题所有可能的真值组合分别在对应的支命题下方一一写出. 在例 \ref{ex:1.1} 中共有四种 $(1, 1; 1, 0; 0, 1; 0, 0)$.
-            \item 按命题中联结词的作用顺序将每次作用所得的真值写在该联结词下方.
-            \item 最后得到的一列结果写在最后一个联结词 (例 \ref{ex:1.1} 为 $\land$) 下, 并用竖线标出.
-        \end{enumerate}
-        在例 \ref{ex:1.1} 中, 只有当 $(p, q)$ 取真值 $(0,1)$ 时命题才为真. 所以我们称 $(0,1)$ 是 $(\lnot p)\land q$ 的 ``成真指派'', 其他三种指派均为 ``成假指派''.
+          约定: 一命题若为真, 则它的真值为 1; 若为假, 则它的真值为 0.
+\end{itemize}
+本章使用字母 $p,q,r$ 等用来表示命题.
+\subsection{命题联结词}
+\subsubsection{否定词}
+\begin{description}
+    \item[符号] ``$\lnot$'', 给定命题 $p$, $\lnot p$ 表示 $p$ 的否定.
+    \item[关系] $\lnot p\text{ 为真}\Leftrightarrow p\text{ 为假}$.
+    \item[真值表]
+        \begin{tabular}{c|c}
+            $p$ & $\lnot p$ \\
+            \hline
+            1   & 0         \\
+            0   & 1
+        \end{tabular}
+\end{description}
+\subsubsection{合取词}
+\begin{description}
+    \item[符号] ``$\land$'', 由命题 $p,q$ 用 $\land$ 连接得到新命题 $p\land q$.
+    \item[含义] 相当于中文的 ``与'' 或 ``且''.
+    \item[关系] $p\land q\text{ 为真}\Leftrightarrow p\text{ 与}\ q\text{ 皆为真}$.
+    \item[真值表]
+        \begin{tabular}{c|c|c}
+            $p$ & $q$ & $p\land q$ \\
+            \hline
+            1   & 1   & 1          \\
+            1   & 0   & 0          \\
+            0   & 1   & 0          \\
+            0   & 0   & 0
+        \end{tabular}
+\end{description}
+\subsubsection{析取词}
+\begin{description}
+    \item[符号] ``$\lor$'', 由命题 $p,q$ 用 $\lor$ 连接得到新命题 $p\lor q$.
+    \item[含义] 相当于中文的 ``或''.
+    \item[关系] $p\lor q\text{ 为真}\Leftrightarrow p\text{ 或}\ q\text{ 皆为真}$.
+    \item[真值表]
+        \begin{tabular}{c|c|c}
+            $p$ & $q$ & $p\lor q$ \\
+            \hline
+            1   & 1   & 1         \\
+            1   & 0   & 1         \\
+            0   & 1   & 1         \\
+            0   & 0   & 0
+        \end{tabular}
+\end{description}
+\subsubsection{蕴含词}
+\begin{description}
+    \item[符号] ``$\to$'', 由命题 $p,q$ 用 $\to$ 连接得到新命题 $p\to q$, $p$ 叫做该式的 ``前件'', $q$ 叫做该式的 ``后件''.
+    \item[含义] 相当于中文的 ``如果 ... 那么 ...'', 但是有所差别, 两个命题之间可以没有因果关系.
+    \item[关系] $p\to q\text{ 为假}\Leftrightarrow p\text{ 为真且}\ q\text{ 为假}$.
+    \item[真值表]
+        \begin{tabular}{c|c|c}
+            $p$ & $q$ & $p\to q$ \\
+            \hline
+            1   & 1   & 1        \\
+            1   & 0   & 0        \\
+            0   & 1   & 1        \\
+            0   & 0   & 1
+        \end{tabular}
+\end{description}
+\subsubsection{等价词 (或等值词)}
+\begin{description}
+    \item[符号] ``$\leftrightarrow$'', 由命题 $p,q$ 用 $\leftrightarrow$ 连接得到新命题 $p\leftrightarrow q$.
+    \item[含义] 相当于中文的 ``当且仅当''.
+    \item[关系] $p\leftrightarrow q\text{ 为真}\Leftrightarrow p\text{ 与}\ q\text{ 同为真或同为假}$.
+    \item[真值表]
+        \begin{tabular}{c|c|c}
+            $p$ & $q$ & $p\leftrightarrow q$ \\
+            \hline
+            1   & 1   & 1                    \\
+            1   & 0   & 0                    \\
+            0   & 1   & 0                    \\
+            0   & 0   & 1
+        \end{tabular}
+\end{description}
+\subsection{复合命题的真值表}
+复合命题的真假如何由构成它的支命题的真假来确定?
+\begin{example}\label{ex:1.1}
+    $(\lnot p)\land q$ 的真值表
+    \begin{table}[!htbp]
+        \centering
+        \begin{tabular}{cc|c|c}
+            $(\lnot$ & $p)$ & $\land$ & $p$ \\
+            \hline
+            0        & 1    & 0       & 1   \\
+            0        & 1    & 0       & 0   \\
+            1        & 0    & 1       & 1   \\
+            1        & 0    & 0       & 0
+        \end{tabular}
+    \end{table}
+\end{example}
+列表过程为
+\begin{enumerate}
+    \item 将支命题所有可能的真值组合分别在对应的支命题下方一一写出. 在例 \ref{ex:1.1} 中共有四种 $(1, 1; 1, 0; 0, 1; 0, 0)$.
+    \item 按命题中联结词的作用顺序将每次作用所得的真值写在该联结词下方.
+    \item 最后得到的一列结果写在最后一个联结词 (例 \ref{ex:1.1} 为 $\land$) 下, 并用竖线标出.
+\end{enumerate}
+在例 \ref{ex:1.1} 中, 只有当 $(p, q)$ 取真值 $(0,1)$ 时命题才为真. 所以我们称 $(0,1)$ 是 $(\lnot p)\land q$ 的 ``成真指派'', 其他三种指派均为 ``成假指派''.
 
-        \subsection{联结词之间的关系}
-        \begin{example}\label{ex:1.2}
-            复合命题 $(p \lor q)\leftrightarrow ((\lnot p)\to q)$ 的真值表是
-            \begin{table}[!htbp]
-                \centering
-                \begin{tabular}{ccc|c|cccc}
-                    $(p$ & $\lor$ & $q)$ & $\leftrightarrow$ & $((\lnot$ & $p)$ & $\to$ & $q)$\\
-                    \hline
-                    1 & 1 & 1 & 1 & 0 & 1 & 1 & 1 \\
-                    1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 \\
-                    0 & 1 & 1 & 1 & 1 & 0 & 1 & 1 \\
-                    0 & 0 & 0 & 1 & 1 & 0 & 0 & 0
-                \end{tabular}
-            \end{table}
-            不论 $(p, q)$ 取哪个真值, 命题都为真, 这样的命题是永真式.
-        \end{example}
-        包括例 \ref{ex:1.2} 中的永真式, 我们还有下面的三个永真式.
-        \begin{enumerate}
-            \item $(p \lor q)\leftrightarrow ((\lnot p)\to q)$
-            \item $(p \land q)\leftrightarrow \lnot(p\to (\lnot q))$
-            \item $(p\leftrightarrow q)\leftrightarrow ((p\to q)\land (q\to p))$
-        \end{enumerate}
-        这说明五个联结词是相互关联的. 联结词 $\land$, $\lor$, $\leftrightarrow$ 可用 $\lnot$ 和 $\to$ 取代.
+\subsection{联结词之间的关系}
+\begin{example}\label{ex:1.2}
+    复合命题 $(p \lor q)\leftrightarrow ((\lnot p)\to q)$ 的真值表是
+    \begin{table}[!htbp]
+        \centering
+        \begin{tabular}{ccc|c|cccc}
+            $(p$ & $\lor$ & $q)$ & $\leftrightarrow$ & $((\lnot$ & $p)$ & $\to$ & $q)$ \\
+            \hline
+            1    & 1      & 1    & 1                 & 0         & 1    & 1     & 1    \\
+            1    & 1      & 0    & 1                 & 0         & 1    & 1     & 0    \\
+            0    & 1      & 1    & 1                 & 1         & 0    & 1     & 1    \\
+            0    & 0      & 0    & 1                 & 1         & 0    & 0     & 0
+        \end{tabular}
+    \end{table}
+    不论 $(p, q)$ 取哪个真值, 命题都为真, 这样的命题是永真式.
+\end{example}
+包括例 \ref{ex:1.2} 中的永真式, 我们还有下面的三个永真式.
+\begin{enumerate}
+    \item $(p \lor q)\leftrightarrow ((\lnot p)\to q)$
+    \item $(p \land q)\leftrightarrow \lnot(p\to (\lnot q))$
+    \item $(p\leftrightarrow q)\leftrightarrow ((p\to q)\land (q\to p))$
+\end{enumerate}
+这说明五个联结词是相互关联的. 联结词 $\land$, $\lor$, $\leftrightarrow$ 可用 $\lnot$ 和 $\to$ 取代.
 
-    \section{命题演算的建立}
-    命题演算的形式化, 公理化.
-        \subsection{命题演算公式集}
-        \begin{definition}[命题演算公式]
-            我们采用的字母表由下面两类符号组成.
-            \begin{enumerate}[(1)]
-                \item 两个运算符: $\lnot$ 和 $\to$.
-                前者为一元运算符, 后者为二元运算符.
-                \item 命题变元的可数序列:
-                $$
-                x_1, x_2, \cdots, x_n, \cdots
-                $$
-            \end{enumerate}
-            公式的形成规则如下: (归纳定义)
-            \begin{enumerate}[(i)]
-                \item 命题变元 $x_1, x_2, \cdots, x_n, \cdots$ 中的每一个都是公式.
-                \item 若 $p, q$ 是公式, 则 $\lnot p$, $p\to q$ 都是公式.
-                \item 任一公式皆由规则 (i), (ii) 的有限次使用形成.
-            \end{enumerate}
-        \end{definition}
-        \begin{definition}[公式集的分层]
-            记 $X=\{x_1, x_2, \cdots, x_n, \cdots\}$. 用 $L(X)$ 表示所有公式构成的集.
+\section{命题演算的建立}
+命题演算的形式化, 公理化.
+\subsection{命题演算公式集}
+\begin{definition}[命题演算公式]
+    我们采用的字母表由下面两类符号组成.
+    \begin{enumerate}[(1)]
+        \item 两个运算符: $\lnot$ 和 $\to$.
+              前者为一元运算符, 后者为二元运算符.
+        \item 命题变元的可数序列:
+              $$
+                  x_1, x_2, \cdots, x_n, \cdots
+              $$
+    \end{enumerate}
+    公式的形成规则如下: (归纳定义)
+    \begin{enumerate}[(i)]
+        \item 命题变元 $x_1, x_2, \cdots, x_n, \cdots$ 中的每一个都是公式.
+        \item 若 $p, q$ 是公式, 则 $\lnot p$, $p\to q$ 都是公式.
+        \item 任一公式皆由规则 (i), (ii) 的有限次使用形成.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[公式集的分层]
+    记 $X=\{x_1, x_2, \cdots, x_n, \cdots\}$. 用 $L(X)$ 表示所有公式构成的集.
 
-            公式集 $L(X)$ 可进行如下分层:
-            $$
-            L(X)=L_0\cup L_1\cup \cdots\cup L_n \cup\cdots
-            $$
-            其中
-            \begin{align*}
-                L_0=&\ X=\{x_1, x_2, \cdots, x_n, \cdots\},\\
-                L_1=&\ \{\lnot x_1, \lnot x_2,\cdots,\lnot x_n,\cdots,\\
-                    &\ x_1\to x_1, x_1\to x_2, x_2\to x_1,\cdots,x_i\to x_j,\cdots\},\\
-                L_2=&\ \{\lnot (\lnot x_1), \lnot (\lnot x_2),\cdots,\lnot (\lnot x_n),\cdots,\\
-                    &\ x_1\to (\lnot x_1), (\lnot x_1)\to x_1, \cdots,\\
-                    &\ x_1\to (x_1\to x_1), (x_1\to x_1)\to x_1, \cdots\}\\
-                \cdots&\cdots
-            \end{align*}
-        \end{definition}
-        有如下性质
-        \begin{enumerate}[(1)]
-            \item $i$ 层 $L_i$ 中公式由命题变元经过 $i$ 次运算得来.
-            \item (分层性) 不同层次之间没有公共元素.
-            \item 从层 $L_2$ 开始出现了括号.
-            \item $L_i(X)$ 是可数集, $L(X)$ 是可数集.
-        \end{enumerate}
-        \subsection{命题演算 $L$}
-        \begin{definition}[命题演算 $L$]
-            \label{def:2.3}
-            命题变元集 $X=\{x_1, x_2,\cdots\}$ 上的命题演算 $L$ 是指带有下面规定的 ``公理'' 和 ``证明'' 的命题代数 $L(X)$:
-            \begin{enumerate}[(1)]
-                \item ``公理''\\
-                取 $L(X)$ 的具有以下形状的公式作为 ``公理'':
-                \begin{enumerate}[label=(L\arabic*)]
-                    \item (肯定后件律) $p\to (q\to p)$
-                    \item (蕴含词分配律) $(p\to (q\to r))\to ((p\to q)\to (q\to r))$
-                    \item (换位律) $(\lnot p\to \lnot q)\to (q\to p)$
-                \end{enumerate}
-                其中 $p,q,r\in L(X)$
-                \item ``证明''\\
-                设 $\Gamma\subseteq L(X)$, $p\in L(X)$. 当我们说 ``公式 $p$ 是从公式集 $\Gamma$ 可证的'', 是指存在着 $L(X)$ 的公式的有序序列 $p_1, \cdots, p_n$, 其中尾项 $p_n=p$, 且每个 $p_k(k=1,\cdots, n)$ 满足:
-                \begin{enumerate}[(i)]
-                    \item $p_k\in\Gamma$, 或
-                    \item $p_k$ 是 ``公理'', 或
-                    \item 存在 $i,j < k$ 使 $p_j=p_i\to p_k$
-                \end{enumerate}
-                具有上述性质的有限序列 $p_1, \cdots, p_n$ 叫做 $p$ 从 $\Gamma$ 的 ``证明''.
-            \end{enumerate}
-        \end{definition}
-        \begin{definition}[语法推论]
-            \begin{enumerate}[(1)]
-                \item 如果公式 $p$ 从公式集 $\Gamma$ 可证, 那么我们写 $\Gamma\vdash p$, 必要时也可写成 $\Gamma\vdash_L p$, 这时 $\Gamma$ 中的公式叫做 ``假定'', $p$ 叫做假定集 $\Gamma$ 的语法推论.
-                \item 若 $\varnothing\vdash p$, 则称 $p$ 是 $L$ 的 ``定理'', 记为 $\vdash p$. $p$ 在 $L$ 中从 $\varnothing$ 的证明 $p_1, \cdots, p_n$ 简称为 $p$ 在 $L$ 中的证明.
-                \item 在一个证明中, 当 $p_j=p_i\to p_k\ (i,j<k)$ 时, 就说 $p_k$ 由 $p_i, p_i\to p_k$ 使用假言推理 (Modus Ponens) 这条推理规则而得, 或简单地说 ``使用 MP 而得''.
-            \end{enumerate}
-        \end{definition}
-        \begin{quality}
-            \begin{enumerate}[label = $\arabic*^\circ$]
-                \item 若 $p$ 是 $L$ 的公理, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
-                \item 若 $\vdash p$, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
-                \item 若 $p\in\Gamma$, 则$\Gamma\vdash p$.
-                \item $\{p,p\to q\}\vdash q$.
-                \item 若 $\Gamma\vdash p_n$, 且已知 $p_1,\cdots, p_n$ 是 $p_n$ 从 $\Gamma$ 的证明, 则当 $1\leq k\leq n$ 时, 有 $\Gamma \vdash p_k$, 且 $p_1, \cdots, p_k$ 是 $p_k$ 从 $\Gamma$ 的证明.
-                \item 若 $\Gamma$ 是无限集, 且 $\Gamma\vdash p$, 则存在 $\Gamma$ 的有限子集 $\Delta$ 使 $\Delta\vdash p$.
-            \end{enumerate}
-        \end{quality}
-        \begin{proposition}[同一律] 
-            $\vdash p\to p$
-        \end{proposition}
-        \begin{proposition}[否定前件律] 
-            $\vdash\lnot q\to(q\to p)$
-        \end{proposition}
-        \begin{definition}[无矛盾公式集]
-            如果对任何公式 $q$, $\Gamma\vdash q$ 和 $\Gamma\vdash\lnot q$二者都不同时成立, 就称公式集 $\Gamma$ 是无矛盾公式集, 否则称 $\Gamma$ 为有矛盾公式集.
-        \end{definition}
-        \begin{proposition}
-            若 $\Gamma$ 是有矛盾公式集, 则对 $L$ 的任一公式 $p$, 都有 $\Gamma\vdash p$.
-        \end{proposition}
-        \subsection{演绎定理}
-        \begin{theorem}[演绎定理]
-            $\Gamma \cup \{p\}\vdash q\quad\Leftrightarrow\quad \Gamma\vdash p\to q$
-        \end{theorem}
-        \begin{lemma}[假设三段论]
-            $\{p\to q,q\to r\}\vdash p\to r$
-        \end{lemma}
-        假设三段论 (Hypothetical Syllogism) 简称 HS.
+    公式集 $L(X)$ 可进行如下分层:
+    $$
+        L(X)=L_0\cup L_1\cup \cdots\cup L_n \cup\cdots
+    $$
+    其中
+    \begin{align*}
+        L_0=   & \ X=\{x_1, x_2, \cdots, x_n, \cdots\},                                    \\
+        L_1=   & \ \{\lnot x_1, \lnot x_2,\cdots,\lnot x_n,\cdots,                         \\
+               & \ x_1\to x_1, x_1\to x_2, x_2\to x_1,\cdots,x_i\to x_j,\cdots\},          \\
+        L_2=   & \ \{\lnot (\lnot x_1), \lnot (\lnot x_2),\cdots,\lnot (\lnot x_n),\cdots, \\
+               & \ x_1\to (\lnot x_1), (\lnot x_1)\to x_1, \cdots,                         \\
+               & \ x_1\to (x_1\to x_1), (x_1\to x_1)\to x_1, \cdots\}                      \\
+        \cdots & \cdots
+    \end{align*}
+\end{definition}
+有如下性质
+\begin{enumerate}[(1)]
+    \item $i$ 层 $L_i$ 中公式由命题变元经过 $i$ 次运算得来.
+    \item (分层性) 不同层次之间没有公共元素.
+    \item 从层 $L_2$ 开始出现了括号.
+    \item $L_i(X)$ 是可数集, $L(X)$ 是可数集.
+\end{enumerate}
+\subsection{命题演算 $L$}
+\begin{definition}[命题演算 $L$]
+    \label{def:2.3}
+    命题变元集 $X=\{x_1, x_2,\cdots\}$ 上的命题演算 $L$ 是指带有下面规定的 ``公理'' 和 ``证明'' 的命题代数 $L(X)$:
+    \begin{enumerate}[(1)]
+        \item ``公理''\\
+              取 $L(X)$ 的具有以下形状的公式作为 ``公理'':
+              \begin{enumerate}[label=(L\arabic*)]
+                  \item $p\to (q\to p)$ \hfill (肯定后件律)
+                  \item $(p\to (q\to r))\to ((p\to q)\to (q\to r))$ \hfill (蕴含词分配律)
+                  \item $(\lnot p\to \lnot q)\to (q\to p)$ \hfill (换位律)
+              \end{enumerate}
+              其中 $p,q,r\in L(X)$
+        \item ``证明''\\
+              设 $\Gamma\subseteq L(X)$, $p\in L(X)$. 当我们说 ``公式 $p$ 是从公式集 $\Gamma$ 可证的'', 是指存在着 $L(X)$ 的公式的有序序列 $p_1, \cdots, p_n$, 其中尾项 $p_n=p$, 且每个 $p_k(k=1,\cdots, n)$ 满足:
+              \begin{enumerate}[(i)]
+                  \item $p_k\in\Gamma$, 或
+                  \item $p_k$ 是 ``公理'', 或
+                  \item 存在 $i,j < k$ 使 $p_j=p_i\to p_k$
+              \end{enumerate}
+              具有上述性质的有限序列 $p_1, \cdots, p_n$ 叫做 $p$ 从 $\Gamma$ 的 ``证明''.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[语法推论]
+    \begin{enumerate}[(1)]
+        \item 如果公式 $p$ 从公式集 $\Gamma$ 可证, 那么我们写 $\Gamma\vdash p$, 必要时也可写成 $\Gamma\vdash_L p$, 这时 $\Gamma$ 中的公式叫做 ``假定'', $p$ 叫做假定集 $\Gamma$ 的语法推论.
+        \item 若 $\varnothing\vdash p$, 则称 $p$ 是 $L$ 的 ``定理'', 记为 $\vdash p$. $p$ 在 $L$ 中从 $\varnothing$ 的证明 $p_1, \cdots, p_n$ 简称为 $p$ 在 $L$ 中的证明.
+        \item 在一个证明中, 当 $p_j=p_i\to p_k\ (i,j<k)$ 时, 就说 $p_k$ 由 $p_i, p_i\to p_k$ 使用假言推理 (Modus Ponens) 这条推理规则而得, 或简单地说 ``使用 MP 而得''.
+    \end{enumerate}
+\end{definition}
+\begin{quality}
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 若 $p$ 是 $L$ 的公理, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
+        \item 若 $\vdash p$, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
+        \item 若 $p\in\Gamma$, 则$\Gamma\vdash p$.
+        \item $\{p,p\to q\}\vdash q$.
+        \item 若 $\Gamma\vdash p_n$, 且已知 $p_1,\cdots, p_n$ 是 $p_n$ 从 $\Gamma$ 的证明, 则当 $1\leq k\leq n$ 时, 有 $\Gamma \vdash p_k$, 且 $p_1, \cdots, p_k$ 是 $p_k$ 从 $\Gamma$ 的证明.
+        \item 若 $\Gamma$ 是无限集, 且 $\Gamma\vdash p$, 则存在 $\Gamma$ 的有限子集 $\Delta$ 使 $\Delta\vdash p$.
+    \end{enumerate}
+\end{quality}
+\begin{proposition}[同一律]
+    $\vdash p\to p$
+\end{proposition}
+\begin{proposition}[否定前件律]
+    $\vdash\lnot q\to(q\to p)$
+\end{proposition}
+\begin{definition}[无矛盾公式集]
+    如果对任何公式 $q$, $\Gamma\vdash q$ 和 $\Gamma\vdash\lnot q$二者都不同时成立, 就称公式集 $\Gamma$ 是无矛盾公式集, 否则称 $\Gamma$ 为有矛盾公式集.
+\end{definition}
+\begin{proposition}
+    若 $\Gamma$ 是有矛盾公式集, 则对 $L$ 的任一公式 $p$, 都有 $\Gamma\vdash p$.
+\end{proposition}
+\subsection{演绎定理}
+\begin{theorem}[演绎定理]
+    $\Gamma \cup \{p\}\vdash q\quad\Leftrightarrow\quad \Gamma\vdash p\to q$
+\end{theorem}
+\begin{lemma}[假设三段论]
+    $\{p\to q,q\to r\}\vdash p\to r$
+\end{lemma}
+假设三段论 (Hypothetical Syllogism) 简称 HS.
 
-        \begin{proposition}[否定肯定律]
-            $\vdash (\lnot p\to p)\to p$
-        \end{proposition}
-        \subsection{反证律与归谬律}
-        \begin{theorem}[反证律]
-            $$
-            \left.
-            \begin{matrix}
-                \Gamma\cup\{\lnot p\}\vdash q\\
-                \Gamma\cup\{\lnot p\}\vdash\lnot q
-            \end{matrix}
-            \right\}\Rightarrow \Gamma\vdash p
-            $$
-        \end{theorem}
-        \begin{theorem}[归谬律]
-            $$
-            \left.
-            \begin{matrix}
-                \Gamma\cup\{p\}\vdash p\\
-                \Gamma\cup\{p\}\vdash\lnot p
-            \end{matrix}
-            \right\}\Rightarrow \Gamma\vdash p
-            $$
-        \end{theorem}
-        \begin{lemma}[第二双重否定律]
-            \begin{enumerate}[label=$\arabic*^\circ$]
-                \item $\{p\}\vdash\lnot\lnot p$
-                \item $\vdash p\to \lnot\lnot p$
-            \end{enumerate}
-        \end{lemma}
-        \subsection{析取, 合取与等值}
-        在 $\{\lnot,\to\}$ 型代数 $L(X)$ 中, 还可以定义三个新的二元运算 $\lor$ (析取), $\land$ (合取) 及 $\leftrightarrow$ (等值) 如下:
-        \begin{align*}
-            &p\lor q=\lnot p\to q\\
-            &p\land q=\lnot( p\to \lnot q)\\
-            &p\leftrightarrow q=(p\to q)\land (q\to p)
-        \end{align*}
-        \begin{proposition}[析取相关]
-            \begin{enumerate}[label=$\arabic*^\circ$]
-                \item $\vdash p\to (p\lor q)$
-                \item $\vdash q\to (p\lor q)$
-                \item $\vdash (p\lor q)\to (q\lor p)$
-                \item $\vdash (p\lor p)\to p$
-                \item $\vdash \lnot p\lor p$ (排中律)
-            \end{enumerate}
-        \end{proposition}
-        \begin{proposition}[合取相关]
-            \begin{enumerate}[label=$\arabic*^\circ$]
-                \item $\vdash (p\land q)\to p$
-                \item $\vdash (p\land q)\to q$
-                \item $\vdash (p\land q)\to (q\land p)$
-                \item $\vdash p\to (p\land p)$
-                \item $\vdash p\to (q\to (p\land q))$
-                \item $\vdash \lnot (p\land \lnot p)$ (矛盾律)
-            \end{enumerate}
-        \end{proposition}
-        \begin{proposition}[等值相关]
-            \begin{enumerate}[label=$\arabic*^\circ$]
-                \item $\vdash (p\leftrightarrow q)\to (p\to q)$
-                \item $\vdash (p\leftrightarrow q)\to (q\to p)$
-                \item $\vdash (p\leftrightarrow q)\leftrightarrow (q \leftrightarrow p)$
-                \item $\vdash (p\leftrightarrow q)\leftrightarrow (\lnot p\leftrightarrow\lnot q)$
-                \item $\vdash (p\to q)\to ((q\to p)\to (p\leftrightarrow q))$
-            \end{enumerate}
-        \end{proposition}
-        \begin{proposition}[De. Morgan 律]
-            \begin{enumerate}[label=$\arabic*^\circ$]
-                \item $\vdash (p\land q)\leftrightarrow (\lnot p\lor \lnot q)$
-                \item $\vdash (p\lor q)\leftrightarrow (\lnot p\land \lnot q)$
-            \end{enumerate}
-        \end{proposition}
+\begin{proposition}[否定肯定律]
+    $\vdash (\lnot p\to p)\to p$
+\end{proposition}
+\subsection{反证律与归谬律}
+\begin{theorem}[反证律]
+    $$
+        \left.
+        \begin{matrix}
+            \Gamma\cup\{\lnot p\}\vdash q \\
+            \Gamma\cup\{\lnot p\}\vdash\lnot q
+        \end{matrix}
+        \right\}\Rightarrow \Gamma\vdash p
+    $$
+\end{theorem}
+\begin{theorem}[归谬律]
+    $$
+        \left.
+        \begin{matrix}
+            \Gamma\cup\{p\}\vdash p \\
+            \Gamma\cup\{p\}\vdash\lnot p
+        \end{matrix}
+        \right\}\Rightarrow \Gamma\vdash p
+    $$
+\end{theorem}
+\begin{deduction}[第二双重否定律]
+    \begin{enumerate}[label=$\arabic*^\circ$]
+        \item $\{p\}\vdash\lnot\lnot p$
+        \item $\vdash p\to \lnot\lnot p$
+    \end{enumerate}
+\end{deduction}
+
+% ************************************************************************
+\subsection{常用重要结论}
+\noindent$\vdash p\to p$\hfill (同一律)\\
+$\vdash \lnot q\to(q\to p)$\hfill (否定前件律)\\
+$\vdash (\lnot p\to p)\to p$\hfill (否定肯定律)\\
+$\vdash (p\to q)\to((q\to r)\to (p\to r))$\hfill (HS, 假设三段论)\\
+$\vdash \lnot\lnot p\to p$\hfill (双重否定律)\\
+$\vdash p\to \lnot \lnot p$\hfill (第二双重否定律)\\
+$\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
+% ************************************************************************
+
+\subsection{析取, 合取与等值}
+在 $\{\lnot,\to\}$ 型代数 $L(X)$ 中, 还可以定义三个新的二元运算 $\lor$ (析取), $\land$ (合取) 及 $\leftrightarrow$ (等值) 如下:
+\begin{align*}
+     & p\lor q=\lnot p\to q                      \\
+     & p\land q=\lnot( p\to \lnot q)             \\
+     & p\leftrightarrow q=(p\to q)\land (q\to p)
+\end{align*}
+\begin{proposition}[析取相关]
+    \begin{enumerate}[label=$\arabic*^\circ$]
+        \item $\vdash p\to (p\lor q)$
+        \item $\vdash q\to (p\lor q)$
+        \item $\vdash (p\lor q)\to (q\lor p)$
+        \item $\vdash (p\lor p)\to p$
+        \item $\vdash \lnot p\lor p$ (排中律)
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}[合取相关]
+    \begin{enumerate}[label=$\arabic*^\circ$]
+        \item $\vdash (p\land q)\to p$
+        \item $\vdash (p\land q)\to q$
+        \item $\vdash (p\land q)\to (q\land p)$
+        \item $\vdash p\to (p\land p)$
+        \item $\vdash p\to (q\to (p\land q))$
+        \item $\vdash \lnot (p\land \lnot p)$ (矛盾律)
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}[等值相关]
+    \begin{enumerate}[label=$\arabic*^\circ$]
+        \item $\vdash (p\leftrightarrow q)\to (p\to q)$
+        \item $\vdash (p\leftrightarrow q)\to (q\to p)$
+        \item $\vdash (p\leftrightarrow q)\leftrightarrow (q \leftrightarrow p)$
+        \item $\vdash (p\leftrightarrow q)\leftrightarrow (\lnot p\leftrightarrow\lnot q)$
+        \item $\vdash (p\to q)\to ((q\to p)\to (p\leftrightarrow q))$
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}[De. Morgan 律]
+    \begin{enumerate}[label=$\arabic*^\circ$]
+        \item $\vdash (p\land q)\leftrightarrow (\lnot p\lor \lnot q)$
+        \item $\vdash (p\lor q)\leftrightarrow (\lnot p\land \lnot q)$
+    \end{enumerate}
+\end{proposition}
+\section{命题演算的语义}
+\subsection{真值函数}
+记 $\mathbb{Z}_2=\{0,1\}$.
+\begin{definition}[真值函数]
+    函数 $f\ :\ \mathbb{Z}_2^n\to\mathbb{Z}_2$ (即 $\mathbb{Z}_2$ 上的 $n$ 元运算) 叫做 $n$ 元真值函数.
+\end{definition}
+\begin{example}[一元真值函数]
+    一元真值函数共有 4 个, 分别用 $f_1$, $f_2$, $f_3$, $f_4$ 表示:
+    \begin{center}
+        \begin{tabular}{c|cccc}
+            $v\in\mathbb{Z}_2$ & $f_1(v)$ & $f_2(v)$ & $f_3(v)$ & $f_4(v)$ \\
+            \hline
+            1                  & 1        & 1        & 0        & 0        \\
+            0                  & 1        & 0        & 1        & 0
+        \end{tabular}
+    \end{center}
+    $f_1$ 和 $f_4$ 是常值函数.
+    $f_2$ 是恒等函数, $f_2(v)=v$.
+    $f_3$ 叫做 ``非'' 运算或 ``否定'' 运算, 也用 $\lnot$ 表示: $\lnot v=f_3(v)=1-v$.
+\end{example}
+\begin{example}[二元真值函数]
+    二元真值函数一共有 16 个, 可将它们的函数值列成下表:
+    \begin{center}
+        \begin{tabular}{cc|cccccccccccccccc}
+            $v_1$ & $v_2$ & $f_1$ & $f_2$ & $f_3$ & $f_4$ & $f_5$ & $f_6$ & $f_7$ & $f_8$ & $f_9$ & $f_{10}$ & $f_{11}$ & $f_{12}$ & $f_{13}$ & $f_{14}$ & $f_{15}$ & $f_{16}$ \\
+            \hline
+            1     & 1     & 1     & 1     & 1     & 1     & 1     & 1     & 1     & 1     & 0     & 0        & 0        & 0        & 0        & 0        & 0        & 0        \\
+            1     & 0     & 1     & 1     & 1     & 1     & 0     & 0     & 0     & 0     & 1     & 1        & 1        & 1        & 0        & 0        & 0        & 0        \\
+            0     & 1     & 1     & 1     & 0     & 0     & 1     & 1     & 0     & 0     & 1     & 1        & 0        & 0        & 1        & 1        & 0        & 0        \\
+            0     & 0     & 1     & 0     & 1     & 0     & 1     & 0     & 1     & 0     & 1     & 0        & 1        & 0        & 1        & 0        & 1        & 0
+        \end{tabular}
+    \end{center}
+    $f_4$ 和 $f_6$ 是坐标函数, $f_4(v_1,v_2)=v_1,f_6(v_1,v_2)=v_2$.
+    $f_5$ 叫做 ``蕴含'' 运算, 也用符号 $\to$ 表示. 它的计算公式为:
+    $$
+        v_1\to v_2=f_5(v_1,v_2)=1-v_1+v_1v_2
+    $$
+\end{example}
+可以看出, $\mathbb{Z}_2$ 也是一种 $\{\lnot, \to\}$ 型代数, 是与 $L(X)$ 不同的另一种命题代数.
+
+由上面的表很容易验证以下公式成立:
+\begin{enumerate}[label = \textbf{公式 \arabic*}]
+    \item $\lnot\lnot v = v$
+    \item $1\to v = v$
+    \item $v\to 1 = 1$
+    \item $v\to 0 = \lnot v$
+    \item $0\to v = 1$
+\end{enumerate}
+
+现将 16 个二元真值函数中的 $f_2$, $f_8$ 及 $f_7$ 分别用 $\lor$, $\land$ 和 $\leftrightarrow$ 表示, 容易验证:
+\begin{enumerate}[label = \textbf{公式 \arabic*}]
+    \setcounter{enumi}{5}
+    \item $v_1\lor v_2 = \lnot v_1 \to v_2$
+    \item $v_1\land v_2 = \lnot (v_1 \to \lnot v_2)$ 
+    \item $v_1\leftrightarrow v_2 = (v_1\to v_2)\land(v_2\to v_1)$
+\end{enumerate}
+
+\begin{proposition}
+    任一真值函数都可用一元运算 $\lnot$ 和二元运算 $\to$ 表示出来.
+\end{proposition}
+
+\subsection{赋值与语义推论}
+现在要在 $L(X)$ 和 $\mathbb{Z}_2=\{0,1\}$ 这两种命题代数之间建立起适当的联系. 注意 $L(X)$ 与 $\mathbb{Z}_2$ 之间的差异, 比如在 $L(X)$ 中 $\lnot \lnot x \neq x$, 但在 $\mathbb{Z}_2$ 中 $\lnot \lnot v = v$.
+
+\begin{definition}[赋值]
+    具有 ``保运算性'' 的映射 $v:L(X)\to\mathbb{Z}_2$ 叫做 $\mathbb{Z}_2$ 的赋值. 映射 $v$ 具有保运算性, 是指对任意 $p,q\in L(X)$, $v$ 满足条件:
+    \begin{enumerate}[(1)]
+        \item $v(\lnot p)=\lnot v(p)$
+        \item $v(p\to q)= v(p)\lnot v(q)$
+    \end{enumerate}
+    对任意公式 $p\in L(X)$, $v(p)$ 叫做 $p$ 的真值. 同样, 具有保运算性的映射 $v:L(X_n)\to \mathbb{Z}_2$ 叫做 $L(X_n)$ 的赋值. ($X_n=\{x_1,\cdots x_n\}$).
+\end{definition}
+\begin{proposition}
+    设 $v:L(X)\to\mathbb{Z}_2$ 是一个赋值, 则 $v$ 对 $\lor$, $\land$, $\leftrightarrow$ 也具有保运算性, 即对任意 $p,q\in L(X)$, 有
+    $$
+    v(p\lor q)=v(p)\lor v(q),\ v(p\land q)=v(p)\land v(q),\ v(p\leftrightarrow q)=v(p)\leftrightarrow v(q)
+    $$
+\end{proposition}
+\begin{definition}[真值指派]
+    映射 $v_0: X\to\mathbb{Z}_2$ 叫做命题变元的真值指派. 若把其中的 $X$ 换成 $X_n=\{x_1, \cdots, x_n\}$, 则 $v_0$ 叫做 $x_1, \cdots, x_n$ 的真值指派.
+\end{definition}
+\begin{theorem}
+    命题变元的任一真值指派, 必可唯一地扩张成 $L(X)$ 的赋值; $x_1, \cdots, x_n$ 的任一真值指派, 必可唯一地扩张成 $L(X_n)$ 的赋值.
+\end{theorem}
+\begin{proposition}
+    设 $m\geq n$, $v$ 是 $L(X_m)$ 或 $L(X)$ 的赋值. 若 $v$ 满足 $v(x_1)=v_1, \cdots, v(x_n)=v_n$, 则 $L(X_n)$ 的任一公式 $p(x_1, \cdots, x_n)$ 的真值是
+    $$
+    v(p(x_1, \cdots, x_n))=p(v_1, \cdots, v_n)
+    $$
+    其中 $p(x_1,\cdots,x_n)$ 是用 $v_1, \cdots, v_n$ 分别代换 $p(x_1, \cdots, x_n)$ 中的 $x_1, \cdots, x_n$ 所得的结果.
+\end{proposition}
 \end{document}
