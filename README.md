@@ -13,7 +13,6 @@ The repository stores my LaTeX notes in USTC and other online classes since **Sp
 | Year | Semester | Course                                   | Class       |
 | ---- | -------- | ---------------------------------------- | ----------- |
 | 2022 | Spring   | Mathematical Logic Fundamentals          | CS2002.02   |
-| 2022 | Spring   | Quantum Mechanics                        | PHYS1010.05 |
 
 # How was them done?
 
