@@ -438,4 +438,81 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
     $$
     其中 $p(x_1,\cdots,x_n)$ 是用 $v_1, \cdots, v_n$ 分别代换 $p(x_1, \cdots, x_n)$ 中的 $x_1, \cdots, x_n$ 所得的结果.
 \end{proposition}
+\begin{itemize}
+    \item $L(X_n)$ 的公式 $p(x_1,\cdots,x_n)$ 作为 $L(X)$ 的成员或 $L(X_m)$ 的成员 ($m>n$), 其真值只与其所含命题变元的真值指派有关, 而与其他变元的真值指派无关. 这是用真值表研究公式真值的基础.
+    \item 命题变元表示简单命题, 其他层次的公式表示复合命题. (只有) 命题变元的真值可随意指定, 且在命题变元真值指定之后, 涉及这些命题变元的所有公式的真值也随之唯一确定.
+    \item 设 $p\in L(X_n)$. 任取 $v_1, \cdots, v_n \in\mathbb{Z}_2$, 将 $v_1, \cdots, v_n$ 分别指派给 $x_1, \cdots, x_n$, 这时 $p$ 就有了唯一确定的真值 $v(p(x_1,\cdots,x_n))=p(v_1,\cdots,v_n)\in\mathbb{Z}_2$. 将此值对应于 $v_1, \cdots, v_n$ 的函数值, 就得到一个由公式 $p$ 所确定的真值函数, 简称 $p$ 的真值函数. 
+    \item 公式的真值表就是该公式的真值函数的函数值表.
+\end{itemize}
+\begin{definition}[永真式]
+    若公式 $p$ 的真值指派取常数 1, 则 $p$ 叫做命题演算 $L$ 的永真式或重言式 (Tautology), 记作 $\vDash p$. 
+\end{definition}
+\begin{theorem}[代换定理]
+    设 $p(x_1, \cdots, x_n)\in L(X_n)$, 而 $p_1, \cdots, p_n\in L(X_n)$. $p(p_1, \cdots, p_n)$ 是用 $p_1,\cdots,p_n$ 分别全部替换 $p(x_1,\cdots,x_n)$ 中的 $x_1, \cdots, x_n$ 所得结果. 则有
+    $$
+    \vDash p(x_1, \cdots, x_n)\quad\Rightarrow\quad \vDash p(p_1,\cdots,p_n)
+    $$
+\end{theorem}
+\begin{proposition}
+    $L$ 的所有公理都是永真式, 即对任意的 $p,q,r\in L(X)$,
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vDash p\to(q\to p)$
+        \item $\vDash (p\to (q\to r))\to ((p\to q)\to (p\to r))$
+        \item $\vDash (\lnot p\to \lnot q)\to (q\to p)$
+    \end{enumerate}
+\end{proposition}
+以下是常用的永真式.\\
+$\vDash p\to p$\hfill(同一律)\\
+$\vDash \lnot p\lor p$\hfill(排中律)\\
+$\vDash \lnot(\lnot p\land p)$\hfill(矛盾律)\\
+$\vDash ((p\lor q)\lor r)\leftrightarrow(p\lor(q\lor r))$\hfill(析取结合律)\\
+$\vDash (p\lor q)\leftrightarrow(q\lor p)$\hfill(析取交换律)\\
+$\vDash ((p\land q)\land r)\leftrightarrow(p\land(q\land r))$\hfill(合取结合律)\\
+$\vDash (p\land q)\leftrightarrow(q\land p)$\hfill(合取交换律)\\
+$\vDash (p\land(q\lor r))\leftrightarrow((p\land q)\lor(p\land r))$\hfill(分配律)\\
+$\vDash (p\lor (q\land r))\leftrightarrow((p\lor q)\land (p\lor r))$\hfill(分配律)\\
+$\vDash \lnot(p\lor q)\leftrightarrow(\lnot p\land\lnot q)$\hfill(De. Morgan 律)\\
+$\vDash \lnot(p\land q)\leftrightarrow(\lnot p\lor\lnot q)$\hfill(De. Morgan 律)\\
+\begin{definition}[永假式与可满足公式]
+    若 $\lnot p$ 是永真式, 则 $p$ 叫做永假式. 非永假式叫做可满足公式.
+\end{definition}
+\begin{definition}[语义推论]
+    设 $\Gamma \subseteq L(X)$, $p\in L(X)$. 如果 $\Gamma$ 中所有公式的任何公共成真指派都一定是公式 $p$ 的成真指派, 则说 $p$ 是公式集 $\Gamma$ 的语义推论, 记作 $\Gamma\vDash p$.
+\end{definition}
+立即有以下结论
+\begin{enumerate}[label = $\arabic*^\circ$]
+    \item $\varnothing\vDash p\Leftrightarrow L(X)\ \text{的任一赋值}\ v\ \text{都使}\ v(p)=1\Leftrightarrow\vDash p$
+    \item $p\in\Gamma\Rightarrow\Gamma\vDash p$
+    \item $\vDash p\Rightarrow\Gamma\vDash p$
+\end{enumerate}
+\begin{proposition}
+    $\{\lnot p\}\vDash p\to q$; $\{q\}\vDash p\to q$
+\end{proposition}
+\begin{proposition}
+    $\Gamma\vDash p\ \text{且}\ \Gamma\vDash p\to q\quad\Rightarrow\quad\Gamma\vDash q$
+\end{proposition}
+\begin{proposition}[语义演绎定理]
+    $\Gamma\cup\{p\}\vDash q\quad\Leftrightarrow\quad\Gamma\vDash p\to q$
+\end{proposition}
+更一般地, 有
+$$
+\{p_1,\cdots,p_n\}\vDash p\quad\Leftrightarrow\quad \vDash(p_1\land\cdots\land p_n)\to p
+$$
+\section{命题演算 \textit{L} 的可靠性与完全性}
+开始证明命题演算 $L$ 的语法推论和语义推论的一致性: $\Gamma\vdash p\Leftrightarrow\Gamma\vDash p$
+\begin{theorem}[$L$ 的可靠性]
+    $\Gamma\vdash p\Rightarrow\Gamma\vDash p$
+\end{theorem}
+\begin{deduction}[$L$ 的无矛盾性]
+    命题演算 $L$ 是无矛盾的, 即不存在公式 $p$ 同时使 $\vdash p$ 和 $\vdash \lnot p$ 成立.
+\end{deduction}
+\begin{definition}[公式集的完备性]
+    设 $\Gamma\subseteq L(X)$. $\Gamma$ 是完备的, 意指对任一公式 $p$, $\Gamma\vdash p$ 与 $\Gamma\vdash\lnot p$ 必有一个成立.
+\end{definition}
+\begin{theorem}[$L$ 的完全性]
+    $\Gamma\vDash p\Rightarrow \Gamma\vdash p$
+\end{theorem}
+\begin{proposition}
+    无矛盾公式集必有无矛盾的完备扩张.
+\end{proposition}
 \end{document}
