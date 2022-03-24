@@ -400,7 +400,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 \begin{enumerate}[label = \textbf{公式 \arabic*}]
     \setcounter{enumi}{5}
     \item $v_1\lor v_2 = \lnot v_1 \to v_2$
-    \item $v_1\land v_2 = \lnot (v_1 \to \lnot v_2)$ 
+    \item $v_1\land v_2 = \lnot (v_1 \to \lnot v_2)$
     \item $v_1\leftrightarrow v_2 = (v_1\to v_2)\land(v_2\to v_1)$
 \end{enumerate}
 
@@ -422,7 +422,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 \begin{proposition}
     设 $v:L(X)\to\mathbb{Z}_2$ 是一个赋值, 则 $v$ 对 $\lor$, $\land$, $\leftrightarrow$ 也具有保运算性, 即对任意 $p,q\in L(X)$, 有
     $$
-    v(p\lor q)=v(p)\lor v(q),\ v(p\land q)=v(p)\land v(q),\ v(p\leftrightarrow q)=v(p)\leftrightarrow v(q)
+        v(p\lor q)=v(p)\lor v(q),\ v(p\land q)=v(p)\land v(q),\ v(p\leftrightarrow q)=v(p)\leftrightarrow v(q)
     $$
 \end{proposition}
 \begin{definition}[真值指派]
@@ -434,23 +434,23 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 \begin{proposition}
     设 $m\geq n$, $v$ 是 $L(X_m)$ 或 $L(X)$ 的赋值. 若 $v$ 满足 $v(x_1)=v_1, \cdots, v(x_n)=v_n$, 则 $L(X_n)$ 的任一公式 $p(x_1, \cdots, x_n)$ 的真值是
     $$
-    v(p(x_1, \cdots, x_n))=p(v_1, \cdots, v_n)
+        v(p(x_1, \cdots, x_n))=p(v_1, \cdots, v_n)
     $$
     其中 $p(x_1,\cdots,x_n)$ 是用 $v_1, \cdots, v_n$ 分别代换 $p(x_1, \cdots, x_n)$ 中的 $x_1, \cdots, x_n$ 所得的结果.
 \end{proposition}
 \begin{itemize}
     \item $L(X_n)$ 的公式 $p(x_1,\cdots,x_n)$ 作为 $L(X)$ 的成员或 $L(X_m)$ 的成员 ($m>n$), 其真值只与其所含命题变元的真值指派有关, 而与其他变元的真值指派无关. 这是用真值表研究公式真值的基础.
     \item 命题变元表示简单命题, 其他层次的公式表示复合命题. (只有) 命题变元的真值可随意指定, 且在命题变元真值指定之后, 涉及这些命题变元的所有公式的真值也随之唯一确定.
-    \item 设 $p\in L(X_n)$. 任取 $v_1, \cdots, v_n \in\mathbb{Z}_2$, 将 $v_1, \cdots, v_n$ 分别指派给 $x_1, \cdots, x_n$, 这时 $p$ 就有了唯一确定的真值 $v(p(x_1,\cdots,x_n))=p(v_1,\cdots,v_n)\in\mathbb{Z}_2$. 将此值对应于 $v_1, \cdots, v_n$ 的函数值, 就得到一个由公式 $p$ 所确定的真值函数, 简称 $p$ 的真值函数. 
+    \item 设 $p\in L(X_n)$. 任取 $v_1, \cdots, v_n \in\mathbb{Z}_2$, 将 $v_1, \cdots, v_n$ 分别指派给 $x_1, \cdots, x_n$, 这时 $p$ 就有了唯一确定的真值 $v(p(x_1,\cdots,x_n))=p(v_1,\cdots,v_n)\in\mathbb{Z}_2$. 将此值对应于 $v_1, \cdots, v_n$ 的函数值, 就得到一个由公式 $p$ 所确定的真值函数, 简称 $p$ 的真值函数.
     \item 公式的真值表就是该公式的真值函数的函数值表.
 \end{itemize}
 \begin{definition}[永真式]
-    若公式 $p$ 的真值指派取常数 1, 则 $p$ 叫做命题演算 $L$ 的永真式或重言式 (Tautology), 记作 $\vDash p$. 
+    若公式 $p$ 的真值指派取常数 1, 则 $p$ 叫做命题演算 $L$ 的永真式或重言式 (Tautology), 记作 $\vDash p$.
 \end{definition}
 \begin{theorem}[代换定理]
     设 $p(x_1, \cdots, x_n)\in L(X_n)$, 而 $p_1, \cdots, p_n\in L(X_n)$. $p(p_1, \cdots, p_n)$ 是用 $p_1,\cdots,p_n$ 分别全部替换 $p(x_1,\cdots,x_n)$ 中的 $x_1, \cdots, x_n$ 所得结果. 则有
     $$
-    \vDash p(x_1, \cdots, x_n)\quad\Rightarrow\quad \vDash p(p_1,\cdots,p_n)
+        \vDash p(x_1, \cdots, x_n)\quad\Rightarrow\quad \vDash p(p_1,\cdots,p_n)
     $$
 \end{theorem}
 \begin{proposition}
@@ -496,7 +496,7 @@ $\vDash \lnot(p\land q)\leftrightarrow(\lnot p\lor\lnot q)$\hfill(De. Morgan 律
 \end{proposition}
 更一般地, 有
 $$
-\{p_1,\cdots,p_n\}\vDash p\quad\Leftrightarrow\quad \vDash(p_1\land\cdots\land p_n)\to p
+    \{p_1,\cdots,p_n\}\vDash p\quad\Leftrightarrow\quad \vDash(p_1\land\cdots\land p_n)\to p
 $$
 \section{命题演算 \textit{L} 的可靠性与完全性}
 开始证明命题演算 $L$ 的语法推论和语义推论的一致性: $\Gamma\vdash p\Leftrightarrow\Gamma\vDash p$
