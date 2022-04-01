@@ -127,7 +127,7 @@
     \end{table}
 \end{example}
 列表过程为
-\begin{enumerate}
+\begin{enumerate}[topsep = -1em]
     \item 将支命题所有可能的真值组合分别在对应的支命题下方一一写出. 在例 \ref{ex:1.1} 中共有四种 $(1, 1; 1, 0; 0, 1; 0, 0)$.
     \item 按命题中联结词的作用顺序将每次作用所得的真值写在该联结词下方.
     \item 最后得到的一列结果写在最后一个联结词 (例 \ref{ex:1.1} 为 $\land$) 下, 并用竖线标出.
@@ -151,7 +151,7 @@
     不论 $(p, q)$ 取哪个真值, 命题都为真, 这样的命题是永真式.
 \end{example}
 包括例 \ref{ex:1.2} 中的永真式, 我们还有下面的三个永真式.
-\begin{enumerate}
+\begin{enumerate}[topsep = -1em]
     \item $(p \lor q)\leftrightarrow ((\lnot p)\to q)$
     \item $(p \land q)\leftrightarrow \lnot(p\to (\lnot q))$
     \item $(p\leftrightarrow q)\leftrightarrow ((p\to q)\land (q\to p))$
@@ -163,7 +163,7 @@
 \subsection{命题演算公式集}
 \begin{definition}[命题演算公式]
     我们采用的字母表由下面两类符号组成.
-    \begin{enumerate}[(1)]
+    \begin{enumerate}[(1), topsep = -1em]
         \item 两个运算符: $\lnot$ 和 $\to$.
               前者为一元运算符, 后者为二元运算符.
         \item 命题变元的可数序列:
@@ -172,7 +172,7 @@
               $$
     \end{enumerate}
     公式的形成规则如下: (归纳定义)
-    \begin{enumerate}[(i)]
+    \begin{enumerate}[(i), topsep = -1em]
         \item 命题变元 $x_1, x_2, \cdots, x_n, \cdots$ 中的每一个都是公式.
         \item 若 $p, q$ 是公式, 则 $\lnot p$, $p\to q$ 都是公式.
         \item 任一公式皆由规则 (i), (ii) 的有限次使用形成.
@@ -197,20 +197,20 @@
     \end{align*}
 \end{definition}
 有如下性质
-\begin{enumerate}[(1)]
+\begin{enumerate}[(1), topsep = -1em]
     \item $i$ 层 $L_i$ 中公式由命题变元经过 $i$ 次运算得来.
     \item (分层性) 不同层次之间没有公共元素.
     \item 从层 $L_2$ 开始出现了括号.
     \item $L_i(X)$ 是可数集, $L(X)$ 是可数集.
 \end{enumerate}
-\subsection{命题演算 $L$}
+\subsection{命题演算 \texorpdfstring{$L$}{L}}
 \begin{definition}[命题演算 $L$]
     \label{def:2.3}
     命题变元集 $X=\{x_1, x_2,\cdots\}$ 上的命题演算 $L$ 是指带有下面规定的 ``公理'' 和 ``证明'' 的命题代数 $L(X)$:
     \begin{enumerate}[(1)]
         \item ``公理''\\
               取 $L(X)$ 的具有以下形状的公式作为 ``公理'':
-              \begin{enumerate}[label=(L\arabic*)]
+              \begin{enumerate}[label=(L\arabic*), topsep = -1em]
                   \item $p\to (q\to p)$ \hfill (肯定后件律)
                   \item $(p\to (q\to r))\to ((p\to q)\to (q\to r))$ \hfill (蕴含词分配律)
                   \item $(\lnot p\to \lnot q)\to (q\to p)$ \hfill (换位律)
@@ -218,7 +218,7 @@
               其中 $p,q,r\in L(X)$
         \item ``证明''\\
               设 $\Gamma\subseteq L(X)$, $p\in L(X)$. 当我们说 ``公式 $p$ 是从公式集 $\Gamma$ 可证的'', 是指存在着 $L(X)$ 的公式的有序序列 $p_1, \cdots, p_n$, 其中尾项 $p_n=p$, 且每个 $p_k(k=1,\cdots, n)$ 满足:
-              \begin{enumerate}[(i)]
+              \begin{enumerate}[(i), topsep = -1em]
                   \item $p_k\in\Gamma$, 或
                   \item $p_k$ 是 ``公理'', 或
                   \item 存在 $i,j < k$ 使 $p_j=p_i\to p_k$
@@ -227,14 +227,14 @@
     \end{enumerate}
 \end{definition}
 \begin{definition}[语法推论]
-    \begin{enumerate}[(1)]
+    \begin{enumerate}[(1), topsep = -1em]
         \item 如果公式 $p$ 从公式集 $\Gamma$ 可证, 那么我们写 $\Gamma\vdash p$, 必要时也可写成 $\Gamma\vdash_L p$, 这时 $\Gamma$ 中的公式叫做 ``假定'', $p$ 叫做假定集 $\Gamma$ 的语法推论.
         \item 若 $\varnothing\vdash p$, 则称 $p$ 是 $L$ 的 ``定理'', 记为 $\vdash p$. $p$ 在 $L$ 中从 $\varnothing$ 的证明 $p_1, \cdots, p_n$ 简称为 $p$ 在 $L$ 中的证明.
         \item 在一个证明中, 当 $p_j=p_i\to p_k\ (i,j<k)$ 时, 就说 $p_k$ 由 $p_i, p_i\to p_k$ 使用假言推理 (Modus Ponens) 这条推理规则而得, 或简单地说 ``使用 MP 而得''.
     \end{enumerate}
 \end{definition}
 \begin{quality}
-    \begin{enumerate}[label = $\arabic*^\circ$]
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
         \item 若 $p$ 是 $L$ 的公理, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
         \item 若 $\vdash p$, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
         \item 若 $p\in\Gamma$, 则$\Gamma\vdash p$.
@@ -289,7 +289,7 @@
     $$
 \end{theorem}
 \begin{deduction}[第二双重否定律]
-    \begin{enumerate}[label=$\arabic*^\circ$]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
         \item $\{p\}\vdash\lnot\lnot p$
         \item $\vdash p\to \lnot\lnot p$
     \end{enumerate}
@@ -314,7 +314,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
      & p\leftrightarrow q=(p\to q)\land (q\to p)
 \end{align*}
 \begin{proposition}[析取相关]
-    \begin{enumerate}[label=$\arabic*^\circ$]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
         \item $\vdash p\to (p\lor q)$
         \item $\vdash q\to (p\lor q)$
         \item $\vdash (p\lor q)\to (q\lor p)$
@@ -323,7 +323,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
     \end{enumerate}
 \end{proposition}
 \begin{proposition}[合取相关]
-    \begin{enumerate}[label=$\arabic*^\circ$]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
         \item $\vdash (p\land q)\to p$
         \item $\vdash (p\land q)\to q$
         \item $\vdash (p\land q)\to (q\land p)$
@@ -333,7 +333,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
     \end{enumerate}
 \end{proposition}
 \begin{proposition}[等值相关]
-    \begin{enumerate}[label=$\arabic*^\circ$]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
         \item $\vdash (p\leftrightarrow q)\to (p\to q)$
         \item $\vdash (p\leftrightarrow q)\to (q\to p)$
         \item $\vdash (p\leftrightarrow q)\leftrightarrow (q \leftrightarrow p)$
@@ -342,7 +342,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
     \end{enumerate}
 \end{proposition}
 \begin{proposition}[De. Morgan 律]
-    \begin{enumerate}[label=$\arabic*^\circ$]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
         \item $\vdash (p\land q)\leftrightarrow (\lnot p\lor \lnot q)$
         \item $\vdash (p\lor q)\leftrightarrow (\lnot p\land \lnot q)$
     \end{enumerate}
@@ -388,7 +388,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 可以看出, $\mathbb{Z}_2$ 也是一种 $\{\lnot, \to\}$ 型代数, 是与 $L(X)$ 不同的另一种命题代数.
 
 由上面的表很容易验证以下公式成立:
-\begin{enumerate}[label = \textbf{公式 \arabic*}]
+\begin{enumerate}[label = \textbf{公式 \arabic*}, topsep = -1em]
     \item $\lnot\lnot v = v$
     \item $1\to v = v$
     \item $v\to 1 = 1$
@@ -397,7 +397,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 \end{enumerate}
 
 现将 16 个二元真值函数中的 $f_2$, $f_8$ 及 $f_7$ 分别用 $\lor$, $\land$ 和 $\leftrightarrow$ 表示, 容易验证:
-\begin{enumerate}[label = \textbf{公式 \arabic*}]
+\begin{enumerate}[label = \textbf{公式 \arabic*}, topsep = -1em]
     \setcounter{enumi}{5}
     \item $v_1\lor v_2 = \lnot v_1 \to v_2$
     \item $v_1\land v_2 = \lnot (v_1 \to \lnot v_2)$
@@ -413,7 +413,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 
 \begin{definition}[赋值]
     具有 ``保运算性'' 的映射 $v:L(X)\to\mathbb{Z}_2$ 叫做 $\mathbb{Z}_2$ 的赋值. 映射 $v$ 具有保运算性, 是指对任意 $p,q\in L(X)$, $v$ 满足条件:
-    \begin{enumerate}[(1)]
+    \begin{enumerate}[(1), topsep = -1em]
         \item $v(\lnot p)=\lnot v(p)$
         \item $v(p\to q)= v(p)\lnot v(q)$
     \end{enumerate}
@@ -455,24 +455,37 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 \end{theorem}
 \begin{proposition}
     $L$ 的所有公理都是永真式, 即对任意的 $p,q,r\in L(X)$,
-    \begin{enumerate}[label = $\arabic*^\circ$]
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
         \item $\vDash p\to(q\to p)$
         \item $\vDash (p\to (q\to r))\to ((p\to q)\to (p\to r))$
         \item $\vDash (\lnot p\to \lnot q)\to (q\to p)$
     \end{enumerate}
 \end{proposition}
-以下是常用的永真式.\\
-$\vDash p\to p$\hfill(同一律)\\
-$\vDash \lnot p\lor p$\hfill(排中律)\\
-$\vDash \lnot(\lnot p\land p)$\hfill(矛盾律)\\
-$\vDash ((p\lor q)\lor r)\leftrightarrow(p\lor(q\lor r))$\hfill(析取结合律)\\
-$\vDash (p\lor q)\leftrightarrow(q\lor p)$\hfill(析取交换律)\\
-$\vDash ((p\land q)\land r)\leftrightarrow(p\land(q\land r))$\hfill(合取结合律)\\
-$\vDash (p\land q)\leftrightarrow(q\land p)$\hfill(合取交换律)\\
-$\vDash (p\land(q\lor r))\leftrightarrow((p\land q)\lor(p\land r))$\hfill(分配律)\\
-$\vDash (p\lor (q\land r))\leftrightarrow((p\lor q)\land (p\lor r))$\hfill(分配律)\\
-$\vDash \lnot(p\lor q)\leftrightarrow(\lnot p\land\lnot q)$\hfill(De. Morgan 律)\\
-$\vDash \lnot(p\land q)\leftrightarrow(\lnot p\lor\lnot q)$\hfill(De. Morgan 律)\\
+
+以下是常用的永真式.
+
+$\vDash p\to p$\hfill(同一律)
+
+$\vDash \lnot p\lor p$\hfill(排中律)
+
+$\vDash \lnot(\lnot p\land p)$\hfill(矛盾律)
+
+$\vDash ((p\lor q)\lor r)\leftrightarrow(p\lor(q\lor r))$\hfill(析取结合律)
+
+$\vDash (p\lor q)\leftrightarrow(q\lor p)$\hfill(析取交换律)
+
+$\vDash ((p\land q)\land r)\leftrightarrow(p\land(q\land r))$\hfill(合取结合律)
+
+$\vDash (p\land q)\leftrightarrow(q\land p)$\hfill(合取交换律)
+
+$\vDash (p\land(q\lor r))\leftrightarrow((p\land q)\lor(p\land r))$\hfill(分配律)
+
+$\vDash (p\lor (q\land r))\leftrightarrow((p\lor q)\land (p\lor r))$\hfill(分配律)
+
+$\vDash \lnot(p\lor q)\leftrightarrow(\lnot p\land\lnot q)$\hfill(De. Morgan 律)
+
+$\vDash \lnot(p\land q)\leftrightarrow(\lnot p\lor\lnot q)$\hfill(De. Morgan 律)
+
 \begin{definition}[永假式与可满足公式]
     若 $\lnot p$ 是永真式, 则 $p$ 叫做永假式. 非永假式叫做可满足公式.
 \end{definition}
@@ -480,7 +493,7 @@ $\vDash \lnot(p\land q)\leftrightarrow(\lnot p\lor\lnot q)$\hfill(De. Morgan 律
     设 $\Gamma \subseteq L(X)$, $p\in L(X)$. 如果 $\Gamma$ 中所有公式的任何公共成真指派都一定是公式 $p$ 的成真指派, 则说 $p$ 是公式集 $\Gamma$ 的语义推论, 记作 $\Gamma\vDash p$.
 \end{definition}
 立即有以下结论
-\begin{enumerate}[label = $\arabic*^\circ$]
+\begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
     \item $\varnothing\vDash p\Leftrightarrow L(X)\ \text{的任一赋值}\ v\ \text{都使}\ v(p)=1\Leftrightarrow\vDash p$
     \item $p\in\Gamma\Rightarrow\Gamma\vDash p$
     \item $\vDash p\Rightarrow\Gamma\vDash p$
@@ -515,4 +528,148 @@ $$
 \begin{proposition}
     无矛盾公式集必有无矛盾的完备扩张.
 \end{proposition}
+下面来讨论命题演算 $L$ 的可判定性.
+
+\begin{enumerate}[label = $\arabic*^\circ$, listparindent = 2em, topsep = -1em]
+    \item $L$ 的语义可判定性
+
+          我们说命题演算 $L$ 是语义可判定的, 意思是说存在算法可用来确定 $L$ 中任给的公式 $p(x_1,\cdots,x_n)$ 是不是永真式.
+
+          这样的算法是存在的: 任给 $L$ 中的公式 $p(x_1,\cdots,x_n)$, 我们来一一计算它的真值函数的函数值 $p(v_1, \cdots, v_n)$, 如果对所有 $v_1, \cdots,v_n\in\mathbb{Z}_2$, 都有 $p(v_1, \cdots, v_n) = 1$, 则 $p$ 是永真式, 否则 $p$ 不是永真式.
+    \item $L$ 的语法可判定性
+
+          我们说命题演算 $L$ 是语法可判定的, 意思是说存在算法可用来确定 $L$ 的任意公式 $p(x_1,\cdots,x_n)$ 是不是 $L$ 的定理.
+
+          这样的算法是存在的: 根据 $L$ 的可靠性和完全性, 看公式 $p$ 是不是定理, 就看它是不是永真式.
+
+          $L$ 的语义可判定导致了 $L$ 的语法可判定.
+\end{enumerate}
+\section{命题演算的其他课题}
+\subsection{等值公式与对偶律}
+\begin{definition}[等值公式]
+    $p$ 与 $q$ 等值, 是指 $p\leftrightarrow q$ 为永真式.
+\end{definition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+        \item $\vDash p \leftrightarrow p$\hfill (等值的反身性)
+        \item $\vDash p \leftrightarrow q \ \Rightarrow\ \vDash q\leftrightarrow p$\hfill (等值的对称性)
+        \item $\vDash p \leftrightarrow q\ \text{及}\ \vDash q \leftrightarrow r\ \Rightarrow\ \vDash p \leftrightarrow r$\hfill (等值的可递性)
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+        \item $\vDash p\leftrightarrow q\ \Rightarrow\ \vDash\lnot p\leftrightarrow \lnot q$
+        \item $\vDash p\leftrightarrow p'\ \text{及}\ \vDash q\leftrightarrow q'\ \Rightarrow\ \vDash(p\to q)\leftrightarrow(p'\to q')$
+    \end{enumerate}
+\end{proposition}
+\begin{theorem}[子公式等值可替换性]
+    设 $q$ 是 $p$ 的子公式: $p=\cdots q\cdots$, 用公式 $q'$ 替换 $p$ 中的子公式 $q$ (一处替换) 所得结果记为 $p'=\cdots q'\cdots$. 那么
+    $$
+        \vDash q\leftrightarrow q'\ \Rightarrow\ \vDash p\leftrightarrow p'
+    $$
+\end{theorem}
+\begin{definition}[公式的对偶]
+    设公式 $p$ 已被写成只含有命题变元和运算 $\lnot$, $\lor$, $\land$ 的形式. 把 $p$ 中的命题变元全部改为各自的否定, 把 $\lor$ 全改为 $\land$, 把 $\lnot$ 全改为 $\lor$, 这样得到的公式 $p^*$ 叫做公式 $p$ 的对偶.
+\end{definition}
+\begin{theorem}[对偶律]
+    $\vDash p^*\leftrightarrow \lnot p$, 其中 $p^*$ 是 $p$ 的对偶.
+\end{theorem}
+\begin{deduction}[推广的 De.Morgan 律]
+    $p_1,\cdots,p_n$ 是任意公式,
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+        \item $\vDash (\lnot p_1\lor\cdots\lor\lnot p_n)\leftrightarrow\lnot (p_1\land\cdots\land p_n)$
+        \item $\vDash (\lnot p_1\land\cdots\land\lnot p_n)\leftrightarrow\lnot (p_1\lor\cdots\lor p_n)$
+    \end{enumerate}
+\end{deduction}
+\subsection{析取范式与合取范式}
+\begin{definition}[基本析取式与基本合取式]
+    形为 $y_1\lor y_2\lor \cdots\lor y_n$ 和形如 $x_1\land x_2\land \cdots\land x_n$ 的公式分别叫做基本析取式和基本合取式, 其中每个 $y_i$ 是命题变元或命题变元的否定.
+\end{definition}
+\begin{definition}[析取范式与合取范式]
+    形为 $\lor_{i=1}^m\left(\land_{j=1}^{n_i} y_{ij}\right)$ 的公式叫做析取范式, 形为 $\land_{i=1}^m\left(\lor_{j=1}^{n_i} x_{ij}\right)$ 的公式叫做合取范式, 其中每个 $y_{ij}$ 是某个命题变元 $x_k$ 或它的否定 $\lnot x_k$.
+\end{definition}
+析取范式就是以若干基本合取式为析取支的析取式; 合取范式就是以若干基本析取式为合取支的合取式.
+
+给出一个公式, 要找出与它等值的析取范式或合取范式, 大致可采取以下步骤:
+\begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em, listparindent = 2em]
+    \item 消去 $\to$ 与 $\leftrightarrow$. 先用 $p\leftrightarrow q = (p\to q)\land (q\to p)$ 消去 $\leftrightarrow$, 再用 $\vDash (p\to q)\leftrightarrow (\lnot p\lor q)$ 消去 $\to$.
+    \item 把否定号 $\lnot$ 等值变换到命题变元之前, 用到以下几个等值式.
+    \begin{gather*}
+        \vDash \lnot (p\lor q) \leftrightarrow \lnot p\land \lnot q\\
+        \vDash \lnot (p\land q) \leftrightarrow \lnot p\lor \lnot q\\
+        \vDash \lnot\lnot p \leftrightarrow p
+    \end{gather*}
+    \item 利用交换律, 结合律及分配律作等值变换, 直到得出所需要的形式为止.
+\end{enumerate}
+\begin{definition}[主析取范式与主合取范式]
+    $L(X)$ 中的主析取范式 (主合取范式) 是这样的析取范式 (合取范式), 在它的每个析取支 (合取支) 中, 每个命题变元 $x_1, \cdots,x_n$ (带否定号或不带否定号) 按下标由小到大的次序都出现且都只出现一次.
+\end{definition}
+\begin{theorem}
+    每个非永假式必有与他等值的主析取范式.
+\end{theorem}
+\begin{theorem}
+    每个非永真式必等值于一主合取范式.
+\end{theorem}
+\subsection{运算的完全组}
+\begin{definition}[运算的完全组]
+    $\mathbb{Z}_2$ 上的一些运算构成完全组, 是指任一真值函数都可用该运算组中的运算表示出来.
+\end{definition}
+显然, $\{\lnot,\to\}$ 是完全组.
+\begin{proposition}
+    $\{\lnot, \lor\}$ 和 $\{\lnot,\land\}$ 都是运算完全组.
+\end{proposition}
+\begin{proposition}
+    $\{\lor,\land,\to,\leftrightarrow\}$ 不是运算完全组.
+\end{proposition}
+\begin{proposition}
+    $\{\lnot,\leftrightarrow\}$ 不是完全组.
+\end{proposition}
+\begin{deduction}
+    独元集 $\{\lnot\}$ 不是完全组.
+\end{deduction}
+\begin{deduction}
+    $\{\lnot,\not\leftrightarrow\}$ 不成完全组, 其中 $v_1\not\leftrightarrow v_2 = \lnot (v_1\leftrightarrow v_2)$
+\end{deduction}
+\begin{definition}[``与非'' 运算和 ``或非'' 运算]
+    与非运算用算符 ``$\vert$'' 表示, 或非运算用算符 ``$\downarrow$'' 表示. 它们的定义式为
+    \begin{gather*}
+        v_1\vert v_2 = \lnot (v_1\land v_2)\\
+        v_1\downarrow v_2 = \lnot (v_1\lor v_2)
+    \end{gather*}
+\end{definition}
+\begin{proposition}
+    独元集 $\{\vert\}$ 和独元集 $\{\downarrow\}$ 都是完全组.
+\end{proposition}
+\begin{proposition}
+    除了 $\vert$, $\downarrow$ 外, 没有其他二元运算单独构成完全组.
+\end{proposition}
+\subsection{应用举例}
+在应用中, $\Gamma\vdash p$ 或 $\Gamma\vDash p$ 中假定集 $\Gamma$ 常常是有限集. 当我们需要从语法上证明 $\{r_1,\cdots,r_n\}\vdash p$ 时, 显而易见可以改为从语法上检查 $(r_1\land\cdots\land r_n)\to p$ 是不是永真式. 为此, 只需要写出真值表就可以了. 但是当命题变元的个数比较多时, 写真值表就可能行不通, 需要灵活采用其他的一些特殊方法.
+\begin{example}
+    检查下面命题的正确性:
+    $$
+    \{\lnot x_1\lor x_2,x_1\to (x_3\land x_4), x_4\to x_2\}\vdash x_2\lor x_3
+    $$
+    要检查它的正确性, 可以从语义上进行, 检查 $\lnot x_1\lor x_2$, $x_1\to (x_3\land x_4)$, $x_4\to x_2$ 这三个公式的所有公共成真指派是否都是 $x_2\lor x_3$ 的成真指派. 为此, 只用检查是否存在使前三个公式为真而使 $x_2\lor x_3$ 为假的指派, 即下面的真值方程组 (1) \textasciitilde \ (4) 是否有解:
+    \begin{enumerate}[label = (\arabic*), listparindent = 2em, topsep = -1em]
+        \item $\lnot v_1\lor v_2 = 1$
+        \item $v_1\to (v_3\land v_4) = 1$
+        \item $v_4\to v_2 = 1$
+        \item $v_2\lor v_3 = 0$\\
+        由 (4) 式可得:
+        \item $v_2 = 0$, 且
+        \item $v_3 = 0$\\
+        由 (3) 式与 (5) 式得
+        \item $v_4 = 0$\\
+        由 (1) 式与 (5) 式得
+        \item $v_1 = 0$\\
+        将 (6), (7), (8) 式代入 (2) 式的左边, 得
+        $$
+        v_1 \to (v_3\land v_4) = 0\to (0\land 0) = 1
+        $$
+    \end{enumerate}
+    即 $(0,0,0,0)$ 是方程组的解, 所以题中的命题不成立.
+\end{example}
 \end{document}
