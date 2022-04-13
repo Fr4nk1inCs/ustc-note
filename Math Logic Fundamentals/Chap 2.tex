@@ -1,0 +1,253 @@
+% Copyright (c) 2022 Fr4nk1in-USTC
+% 
+% This software is released under the MIT License.
+% https://opensource.org/licenses/MIT
+
+\documentclass[
+    mode=hazy,
+    color=blue,
+    device=normal,
+    lang=cn
+]{elegantnote}
+
+% Title Format
+\title{2\hspace{.5cm}谓词演算}
+\author{Fr4nk1in-USTC}
+\institute{中国科学技术大学计算机学院}
+\date{\zhtoday}
+
+% Packages
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amscd}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{cleveref}
+\usepackage{multicol}
+\newtheorem{axiom}{公理}[section]
+\newtheorem{quality}{性质}[section]
+\newtheorem{deduction}{推论}[section]
+
+
+\begin{document}
+    \setlength\abovedisplayskip{.125em}
+    \setlength\belowdisplayskip{.125em}
+    \maketitle
+    \section{谓词演算的建立}
+    \subsection{项与原子公式}
+    我们从四个集出发
+    \begin{itemize}[listparindent = 2em]
+        \item 个体变元集 $X=\{x_1, x_2, \cdots\}$ 是可数集. 个体变元 $x_i$ 可用来表示某个个体对象. 有时为了方便, 我们也用 $x, y, z$ 等来表示个体变元.
+        \item 个体常元集 $C=\{c_1, c_2, \cdots\}$ 是可数集, 也可以是有限集 (包括空集). 个体常元 $c_i$ 可用来表示确定的个体对象.
+        \item 运算集 $F=\{f_1^1, f_2^1, \cdots, f_1^2, f_2^2, \cdots, f_1^3, f_2^3, \cdots\}$ 是可数集, 也可以是有限集 (包括空集).
+        $f_i^n$ 叫做第 $i$ 个 $n$ 元运算符或函数词, 用来表示某个体对象集上的 $n$ 元运算. 注意符号 $f_i^n$ 的上标 $n$ 是该运算符的元数.
+        \item 谓词集 $R=\{R_1^1, R_2^1, \cdots, R_1^2, R_2^2, \cdots, R_1^3, R_2^3, \cdots\}$ 是可数集, 也可以是有限集, 但不能是空集. 
+        $R_i^n$ 叫做第 $i$ 个 $n$ 元谓词, 用来表示某个体对象集上的 $n$ 元关系. 注意符号 $R_i^n$ 的上标 $n$ 是该谓词的元数.
+    \end{itemize}
+    用不同的 $C$, $F$ 和 $R$ 可以构造出不同的谓词演算系统.
+    \begin{definition}[项集 $T$]
+        项的形成规则是:
+        \begin{enumerate}[(i)]
+            \item 个体变元 $x_i (\in X)$ 和个体常元 $c_i (\in C)$ 都是项.
+            \item 若 $t_1, \cdots, t_n$ 是项, 则 $f_i^n(t_1, \cdots, t_n)$ 也是项. ($f_i^n\in F$)
+            \item 任一项皆如此形成, 即皆由规则 (i), (ii) 的有限次使用形成.
+        \end{enumerate}
+        当运算符集 $F=\varnothing$ 时, 规定项集 $T=X\cup C$.
+    \end{definition}
+    当 $F\neq \varnothing$ 时, 项集 $T$ 可如下分层
+    $$
+        T=T_0\cup T_1\cup T_2\cup \cdots\cup T_k\cdots
+    $$
+    其中
+    $$
+        \begin{aligned}
+            T_0 = &X\cup C=\{x_1, x_2, \cdots, c_1, c_2, \cdots\},\\
+            T_1 = &\{f_1^1(x_1), f_1^1(x_2), \cdots, f_1^1(c_1),\cdots\\
+                  &f_2^1(x_1), \cdots, f_2^1(c_1), \cdots\\
+                  &\cdots\cdots\\
+                  &f_1^2(x_1, x_1), \cdots\\
+                  &\cdots\cdots\\
+                  &f_1^3(x_1, x_1, x_1), \cdots\\
+                  &\cdots\cdots\},\\
+            T_2 = &\{f_1^1(f_1^1(x_1)), \cdots, f_1^2(x_1, f_1^1(x_1))\},\\
+                  &\cdots\cdots
+        \end{aligned}
+    $$
+    第 $k$ 层项由第零层项经 $k$ 次运算而来. 项集 $T$ 是由 $X\cup C$ 形成。$F$ 型代数.
+    \begin{definition}[闭项]
+        只含个体常元的项叫做闭项.
+    \end{definition}
+    \begin{definition}[原子公式集]
+        原子公式集是指
+        $$
+            Y=\bigcup_{i,n} \left(\{R_i^n\}\times \underbrace{T\times\cdots\times T}_{n\ \text{个}\ T} \right)
+        $$
+        即
+        $$
+            Y=\{(R_i^n, t_1, \cdots, t_n)\vert R_i^n\in R, t_1, \cdots, t_n \in T\}
+        $$
+        以后常把原子公式 $(R_i^n, t_1, \cdots, t_n)$ 写成 $R_i^n(t_1, \cdots, t_n)$.
+    \end{definition}
+    原子公式是用来表示命题的最小单位, 项是构成原子公式的基础.
+    \subsection{谓词演算公式集}
+        建立谓词演算公式集前, 先列出我们所采用的这种形式语言的字母表如下:
+        \begin{itemize}[listparindent = 2em]
+            \item 个体变元 $x_1, x_2, \cdots$\hfill (可数个)
+            \item 个体常元 $c_1, c_2, \cdots$\hfill (可数个或有限个)
+            \item 运算符 $f_1^1, f_2^1, \cdots, f_1^2, f_2^2, \cdots$\hfill (可数个或有限个)
+            \item 谓词 $R_1^1, R_2^1, \cdots, R_1^2, R_2^2, \cdots$\hfill (可数个或有限个, 至少一个)
+            \item 联结词 $\lnot, \to$
+            \item 全称量词 $\forall$
+            \item 左右括号, 逗号 ``('', ``)'', ``,''
+        \end{itemize}
+        谓词演算公式的形成过程是:
+        \begin{enumerate}[(i)]
+            \item 每个原子公式是公式.
+            \item 若 $p$, $q$ 是公式, 则 $\lnot p$, $p\to q$, $\forall x_i p(i = 1, 2, \cdots)$ 都是公式.
+            \item 任一公式皆如此形成, 即皆由规则 (i), (ii) 的有限次使用形成.
+        \end{enumerate}
+        用 $K(Y)$ 表示谓词演算全体公式的集, 它是一个可数集. $K(Y)$ 也具有分层性, 它的零层由原子公式组成, 第 $k$ 层公式由原子公式经 $k$ 次运算而来.
+
+        还可在 $K(Y)$ 上定义新的运算 $\lor$, $\land$, $\leftrightarrow$ 及 $\exists x_i$ (存在量词运算):
+        \begin{gather*}
+            p\lor q = \lnot p \to q\\
+            p\land q = \lnot (p\to \lnot q)\\
+            p\leftrightarrow q = (p\to q)\land (q\to p)\\
+            \exists x_i p=\lnot \forall x_i \lnot p
+        \end{gather*}
+        注意 $\forall x(p\to q)$ 和 $\forall xp\to q$ 的区别, 前者 $\forall x$ 的作用范围 (简称 ``范围'') 是 $p\to q$, 而后者是 $p$.
+        \begin{definition}[变元的自由出现与约束出现]
+            在一个公式中, 个体变元 $x$ 的出现如果不是在 $\forall x$ 中或 $\forall x$ 的范围中, 则叫做自由出现, 否则叫做约束出现.
+        \end{definition}
+        \begin{definition}
+            公式若不含自由出现的变元, 则叫做闭式.
+        \end{definition}
+        \begin{example}
+            在 $\forall x_1 (R_1^2(x_1, x_2)\to \forall x_2 R_2^1(x_2))$ 中, $x_1$ 约束出现两次, $x_2$ 约束出现两次且自由出现一次. 所以公式不是闭式.
+        \end{example}
+        \begin{definition}[项 $t$ 对公式 $p$ 中变元 $x$ 是自由的]\label{def:1.6}
+            用项 $t$ 去代换公式 $p$ 中自由出现的个体变元 $x$ 时, 若在代换后的新公式里, $t$ 的变元都是自由的, 则说 $t$ 对 $p$ 中 $x$ 是可自由代换的, 简称 $t$ 对 $p$ 中 $x$ 是可代换的, 或简称 $t$ 对 $p$ 中 $x$ 是自由的.
+
+            换句话说, 用项 $t$ 去代换公式 $p$ 中自由出现的个体变元 $x$ 时, 若在代换后的新公式里, 若 $t$ 中有变元在代换后受到约束, 则说 $t$ 对 $p$ 中 $x$ 是 ``不自由的'' (``不可自由代换的'', ``不可代换的'').
+        \end{definition}
+        下面两种情形, $t$ 对 $p$ 中 $x$ 是自由的:
+        \begin{enumerate}[label = $\arabic*^\circ$]
+            \item $t$ 是闭项
+            \item $x$ 在 $p$ 中不自由出现
+        \end{enumerate}
+        在任何公式中, 项 $x_i$ 对 $x_i$ 自己总是自由的.
+
+        定义 \ref{def:1.6} 的另一种说法是: 若对项 $t$ 中所含任一变元 $y$, $p$ 中所有出现的某变元 $x$ 全都不出现在 $p$ 中 $\forall y$ 的范围内, 则说 $t$ 对 $p$ 中 $x$ 是自由的.
+
+        以后用 $p(t)$ 表示用项 $t$ 去代换公式 $p(x)$ 中所有自由出现的变元 $x$ 所得结果. (注意 $p(x)$ 中的 $x$ 是指公式中自由出现的 $x$)
+
+        \subsection{谓词演算 \texorpdfstring{$K$}{K}}
+        \begin{definition}[谓词演算 $K$]
+            谓词演算 $K$ 是指带有如下规定的 ``公理'' 和 ``证明'' 的公式集 $K(Y)$:
+            \begin{enumerate}[label = $\arabic*^\circ$]
+                \item ``公理''\\
+                取 $K(Y)$ 中以下形状的公式作为 ``公理'':
+                \begin{enumerate}[label = (K\arabic*)]
+                    \item $p\to (q\to p)$
+                    \item $(p\to (q\to r))\to ((p\to q)\to (p\to r))$
+                    \item $(\lnot p\to \lnot q)\to (q\to p)$
+                    \item $\forall xp(x)\to p(t)$, 其中项 $t$ 对 $p(x)$ 中的 $x$ 是自由的.
+                    \item $\forall x(p\to q)\to (p\to \forall xq)$, 其中 $x$ 不在 $p$ 中自由出现.
+                \end{enumerate}
+                以上给出的五种公理模式中 $p$, $q$, $r$, $p(x)$ 都是任意的公式.
+                \item ``证明''\\
+                设 $p$ 是某公式, $\Gamma$ 是某公式集. $p$ 从 $\Gamma$ 可证, 记作 $\Gamma\vdash p$, 是指存在着公式的有限序列 $p_1, \cdots, p_n$, 其中 $p_n = p$, 且对每个 $k=1, \cdots, n$ 有
+                \begin{enumerate}[(i)]
+                    \item $p_k\in \Gamma$, 或
+                    \item $p_k$ 为公理, 或
+                    \item 存在 $i, j <k$ 使 $p_j=p_i\to p_k$ (此时说由 $p_i$, $p_i\to p_k$ 使用 MP 得到 $p_k$), 或
+                    \item 存在 $j<k$, 使 $p_k = \forall xp_j$. 此时说由 $p_j$ 使用 ``Gen'' (``推广'') 这条推理规则得到 $p_k$. $x$ 叫做 Gen 变元 (Gen 是 Generalization 的缩写).
+                \end{enumerate}
+                复合上述条件的 $p_1, \cdots, p_n$ 叫做 $p$ 从 $\Gamma$ 的 ``证明''. $\Gamma$ 叫做假定集, $p$ 叫做 $\Gamma$ 的语法推论.
+
+                若 $\varnothing\vdash p$, 则 $p$ 叫做 $K$ 的定理, 记作 $\vdash p$.
+            \end{enumerate}
+        \end{definition}
+        \begin{theorem}\label{thm:1.1}
+            设 $x_1, \cdots, x_n$ 是命题演算 $L$ 的命题变元, $p(x_1, \cdots, x_n)\in L(X_n)$, 我们有
+            $$
+                \vdash_L p(x_1, \cdots, x_n)\ \Rightarrow\ \vdash_K p(p_1, \cdots, p_n)
+            $$
+            其中 $p_1, \cdots, p_n\in K(Y)$, $p(p_1, \cdots, p_n)$ 是用 $p_1, \cdots, p_n$ 分别代换 $p(x_1, \cdots, x_n)$ 中的 $x_1, \cdots, x_n$ 所得结果.
+        \end{theorem}
+        \begin{theorem}[命题演算型永真式, 简称永真式]
+            若 $p(x_1, \cdots, x_n)\in L(X_n)$ 是命题演算 $L$ 中的永真式, 则对任意 $p_1, \cdots, p_n\in K(Y)$, $p(p_1, \cdots, p_n)$ 叫做 $K$ 的命题演算型永真式, 简称永真式.
+        \end{theorem}
+        按照定理 \ref{thm:1.1}, 以下各式在 $K$ 中仍然成立
+        \begin{itemize}
+            \item $\vdash p\to p$\hfill (同一律)
+            \item $\vdash \lnot q\to (q\to p)$\hfill (否定前件律)
+            \item $\vdash (\lnot p\to p)\to p$\hfill (否定肯定律)
+            \item $\vdash \lnot \lnot p\to p$\hfill (双重否定律)
+            \item $\vdash (p\to q)\to ((q\to r)\to (p\to r))$\hfill (HS)
+        \end{itemize}
+
+        一公式集 $\Gamma$ 是无矛盾的, 仍指对任何公式 $q$, $\Gamma\vdash q$ 与 $\Gamma\vdash \lnot q$ 两者不同时成立.
+        \begin{proposition}
+            $\Gamma$ 有矛盾 $\ \Rightarrow\ $ $K$ 的任一公式从 $\Gamma$ 可证.
+        \end{proposition}
+        \begin{proposition}[$\exists_1$ 规则]
+            设项 $t$ 对 $p(x)$ 中的 $x$ 自由, 则有
+            $$
+                \vdash p(t)\to \exists xp(x)
+            $$
+        \end{proposition}
+        \begin{proposition}[演绎定律]
+            \hfill
+            \begin{enumerate}[label = $\arabic*^\circ$]
+                \item 若 $\Gamma\vdash p\to q$, 则 $\Gamma\cup \{p\}\vdash q$
+                \item 若 $\Gamma\cup\{p\}\vdash q$, 且证明中所用的 Gen 变元不在 $p$ 中自由出现, 则不增加新的 Gen 变元就可得 $\Gamma\vdash p\to q$
+            \end{enumerate}
+        \end{proposition}
+        \begin{deduction}
+            当 $p$ 是闭式时, 有
+            $$
+                \Gamma\cup\{p\}\vdash q\ \ \Leftrightarrow\ \ \Gamma \vdash p\to q
+            $$
+        \end{deduction}
+
+        \begin{proposition}
+            $\vdash \forall x(p\to q)\to (\exists xp\to \exists xq)$, 除了 $x$ 外不用其他 Gen 变元.
+        \end{proposition}
+        \begin{theorem}[反证律]
+            若 $\Gamma\cup\{\lnot p\}\vdash q\ \text{及}\ \lnot q$, 且所用 Gen 变元不在 $p$ 中自由出现, 则不增加新的 Gen 变元便可得 $\Gamma \vdash p$
+        \end{theorem}
+        \begin{theorem}[归谬律]
+            若 $\Gamma\cup\{p\}\vdash q\ \text{及}\ \lnot q$, 且所用 Gen 变元不在 $p$ 中自由出现, 则不增加新的 Gen 变元便可得 $\Gamma \vdash\lnot p$
+        \end{theorem}
+        \begin{proposition}[$\exists_2$ 规则]
+            设 $\Gamma\cup\{p\}\vdash q$, 其证明中 Gen 变元不在 $p$ 中自由出现, 且 $x$ 不在 $q$ 中自由出现, 那么有 $\Gamma\cup\{\exists xp\}\vdash q$, 且除了 $x$ 不增加其他 Gen 变元.
+        \end{proposition}
+        \begin{proposition}
+            对 $K$ 中任意公式 $p$, $q$, $r$, 有
+            \begin{enumerate}[label = $\arabic*^\circ$]
+                \item $\vdash p\leftrightarrow p$\hfill (自反性)
+                \item $\vdash p\leftrightarrow q\ \ \Rightarrow\ \ \vdash q\leftrightarrow p$\hfill (对称性)
+                \item $\vdash p\leftrightarrow q\ \text{且}\ \vdash q\leftrightarrow r\ \ \Rightarrow\ \ \vdash p\leftrightarrow r$\hfill (可递性)
+            \end{enumerate}
+        \end{proposition}
+        \begin{definition}[可证等价]
+            $p$ 与 $q$ 可证等价 (简称为等价), 指 $\vdash p\leftrightarrow q$ 成立.
+        \end{definition}
+        \begin{proposition}
+            $\Gamma\vdash p\leftrightarrow q\ \ \Leftrightarrow\ \ \Gamma\vdash p\to q\ \text{且}\ \Gamma\vdash q\to p$
+        \end{proposition}
+        \begin{proposition}
+            \hfill
+            \begin{enumerate}[label = $\arabic*^\circ$]
+                \item $\vdash \forall x p(x)\leftrightarrow \forall y p(y)$
+                \item $\vdash \exists x p(x)\leftrightarrow \exists y p(y)$
+            \end{enumerate}
+            其中 $y$ 不在 $p(x)$ 中出现.
+        \end{proposition}
+        \begin{proposition}
+            \hfill
+            \begin{enumerate}[label = $\arabic*^\circ$]
+                \item $\vdash \lnot \forall x p\leftrightarrow \exists x\lnot p$
+                \item $\vdash \lnot \exists x p\leftrightarrow \forall x\lnot p$
+            \end{enumerate}
+        \end{proposition}
+\end{document}
