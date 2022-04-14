@@ -250,4 +250,56 @@ $$
         \item $\vdash \lnot \exists x p\leftrightarrow \forall x\lnot p$
     \end{enumerate}
 \end{proposition}
+\subsection{对偶律与前束范式}
+\begin{theorem}[子公式的等价可替换性]
+    设公式 $q$ 是公式 $p$ 的子公式: $p = \cdots q \cdots$, 用公式 $q'$ 替换 $p$ 中的 $q$ (一次替换) 所得结果记为 $p' = \cdots q'\cdots$. 则有
+    $$
+        \Gamma\vdash q\leftrightarrow q' \ \Rightarrow\  \Gamma\vdash p\leftrightarrow p'
+    $$
+\end{theorem}
+\begin{theorem}[对偶律]
+    设公式 $p$ 已表示成含原子公式及 $\lnot$, $\lor$, $\land$, $\forall$, $\exists$ 的公式. 现把 $p$ 中所有原子公式都改为它们的否定, $\lor$ 与 $\land$ 互换, $\forall$ 与 $\exists$ 互换, 得公式 $p^*$, 则有
+    $$
+        \vdash p*\leftrightarrow \lnot p
+    $$
+\end{theorem}
+\begin{proposition}
+    若 $x$ 不在 $p$ 中自由出现, 则
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash \forall x (p\to q)\leftrightarrow (p\to \forall x q)$
+        \item $\vdash \exists x (p\to q)\leftrightarrow (p\to \exists x q)$
+    \end{enumerate}
+    若 $x$ 不在 $q$ 中自由出现, 则
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash \forall x (p\to q)\leftrightarrow (\forall x p\to q)$
+        \item $\vdash \exists x (p\to q)\leftrightarrow (\exists x p\to q)$
+    \end{enumerate}
+\end{proposition}
+\begin{definition}[前束范式]
+    前束范式, 指形如
+    $$
+        Q_1 x\cdots Q_n y p
+    $$
+    的公式, 其中 $Q_1, \cdots, Q_n$ 表示量词符号 $\forall$ 或 $\exists$, 尾部 $p$ 是不含有量词的公式.
+\end{definition}
+\begin{proposition}
+    用 $Q$ 表示量词符号 $\forall$ 或 $\exists$, 用 $Q^*$ 表示 $Q$ 的对偶符号 ($Q$ 为 $\forall$ 时 $Q^*$ 为 $\exists$, $Q$ 为 $\exists$ 时 $Q^*$ 为 $\forall$), 那么有
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 若 $y$ 不在 $p(x)$ 中自由出现, 则 $$\vdash Qxp(x)\leftrightarrow Qyp(y)$$
+        \item 若 $x$ 不在 $p$ 中自由出现, 则 $$\vdash (p\to Qxq)\leftrightarrow Qx(p\to q)$$
+
+              若 $x$ 不在 $q$ 中自由出现, 则 $$\vdash (Qxp\to q)\leftrightarrow Qx(p\to q)$$
+        \item $\vdash Qxp\leftrightarrow Q^*x\lnot p$
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash (\forall x p \land \forall x q)\leftrightarrow \forall x(p\land q)$
+        \item $\vdash (\exists x p \lor \exists x q)\leftrightarrow \exists x(p\lor q)$\\
+        若 $x$ 不在 $p$ 中自由出现, 则有
+        \item $\vdash (p\lor Qxq)\leftrightarrow Qx(p\lor q)$
+        \item $\vdash (p\land Qxq)\leftrightarrow Qx(p\land q)$
+    \end{enumerate}
+\end{proposition}
 \end{document}
