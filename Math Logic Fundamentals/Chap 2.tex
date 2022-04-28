@@ -297,9 +297,147 @@ $$
     \begin{enumerate}[label = $\arabic*^\circ$]
         \item $\vdash (\forall x p \land \forall x q)\leftrightarrow \forall x(p\land q)$
         \item $\vdash (\exists x p \lor \exists x q)\leftrightarrow \exists x(p\lor q)$\\
-        若 $x$ 不在 $p$ 中自由出现, 则有
+              若 $x$ 不在 $p$ 中自由出现, 则有
         \item $\vdash (p\lor Qxq)\leftrightarrow Qx(p\lor q)$
         \item $\vdash (p\land Qxq)\leftrightarrow Qx(p\land q)$
     \end{enumerate}
+\end{proposition}
+\begin{definition}[$\Pi_n$ 型和 $\Sigma_n$ 型前束范式]
+    设 $n>0$. 若前束范式是由全称量词开始, 从左至右改变 $n-1$ 次词性, 则叫做 $\Pi_n$ 型前束范式;
+    若是由存在两次开始, 从左至右改变 $n-1$ 次词性, 则叫做 $\Sigma_n$ 型前束范式.
+\end{definition}
+\begin{example}
+    $p = \exists x_1\exists x_2\forall x_3\exists x_4 (R_1^2(x_1, x_2)\to R_1^2(x_3, x_4))$ 是 $\Sigma_3$ 型前束范式;\\
+    $q = \forall x_3\exists x_1\exists x_2\exists x_4 (R_1^2(x_1, x_2)\to R_1^2(x_3, x_4))$ 是 $\Pi_2$ 型前束范式.
+\end{example}
+
+\section{谓词演算的语义}
+\subsection{谓词演算 \texorpdfstring{$K$}{K} 的解释域与项解释}
+\begin{definition}[$K$ 的解释域]
+    设非空集 $M$ 具有以下性质:
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 对 $K$ 的每个个体常元 $c_i$, 都有 $M$ 的元素 $\overline{c_i}$ 与之对应: $$c_i\mapsto \overline{c_i}, \overline{c_i}\in M$$
+        \item 对 $K$ 的每个运算符 $f_i^n$, 都有 $M$ 上的 $n$ 元运算 $\overline{f_i^n}$ 与之对应: $$f_i^n\mapsto \overline{f_i^n}, \overline{f_i^n}\ \text{是}\ M\ \text{上的}\ n\ \text{元运算}$$
+        \item 对 $K$ 的每个谓词 $R_i^n$, 都有 $M$ 上的 $n$ 元关系 $\overline{R_i^n}$ 与之对应: $$R_i^n\mapsto \overline{R_i^n}, \overline{R_i^n}\ \text{是}\ M\ \text{上的}\ n\ \text{元关系}$$
+    \end{enumerate}
+\end{definition}
+\begin{example}
+    设 $K$ 中的 $c = \{c_1\}$, $F=\{f_1^1, f_1^2, f_2^2\}$, $R=\{R_1^2\}$. 下面的 $\mathbb{N}$ 是 $K$ 的一个解释域:\\
+    $\mathbb{N}$: 自然数集, $\mathbb{N}=\{0, 1, 2, \cdots\}$,\\
+    $\overline{c_1}=0$,\\
+    $\overline{f_1^1}$: 后继函数, $\overline{f_1^1}(n)=n+1$,\\
+    $\overline{f_1^2}$: 加法 ($+$),\\
+    $\overline{f_2^2}$: 乘法 ($\times$),\\
+    $\overline{R_1^2}$: 相等 ($=$)
+
+    还可如下给出 $K$ 的另一个解释域:\\
+    $\mathbb{Q}^+$: 正有理数集\\
+    $\overline{c_1}=1$,\\
+    $\overline{f_1^1}$: 倒数函数, $\overline{f_1^1}(q)=1/q$,\\
+    $\overline{f_1^2}$: 乘法 ($\times$),\\
+    $\overline{f_2^2}$: 除法 ($\div$),\\
+    $\overline{R_1^2}$: 相等 ($=$)
+
+    现考察 $K$ 中只含有闭项的原子公式 $p$:
+    $$
+        R_1^2(f_1^2(f_1^1(c_1), c_1), f_2^2(f_1^1(c_1), c_1))
+    $$
+    $p$ 在解释域 $\mathbb{N}$ 中解释成 $(0+1)+0=(0+1)\times 0$, 这是假命题.\\
+    但 $p$ 在另一个解释域 $\mathbb{Q}^+$ 中解释成 $\displaystyle \frac{1}{1}\times 1 = \frac{1}{1}\div 1$, 这是真命题.
+\end{example}
+上面的例子说明, 有了解释域才可能讨论 $K$ 中公式的真假值.
+\begin{definition}[项解释]
+    对给定的解释域 $M$, 我们将映射 $\varphi_0: X\to M$ 叫做个体变元的 (个体) 对象指派. $\varphi_0$ 给变元 $x_i$ 指派的个体对象是 $\varphi_0(x_i)$. 项解释 $\varphi$ 是指具有如下性质 (1) 和 (2) 的映射 $\varphi: T\to M$.
+    \begin{enumerate}[(1)]
+        \item $\varphi(x_i)=\varphi_0(x_i)$, $\varphi(c_i)=\overline{c_i}$
+        \item 保运算性: $\varphi(f_i^n(t_1, \cdots, t_n))=\overline{f_i^n}(\varphi(t_1), \cdots, \varphi(t_n))$
+    \end{enumerate}
+\end{definition}
+给定解释域 $M$, 只要变元有了解释 (指派), 便有了确定的项解释, 即每个项都在 $M$ 中有了解释. 对同一解释域 $M$, 可有许多不同的变元指派, 因而存在许多不同的项解释, 把所有的项解释组成的集记作 $\Phi_M = \{\varphi\vert\varphi:T\to M\ \text{是项解释}\}$.
+\begin{definition}[项解释的变元变通]
+    设 $x$ 是给定的个体变元, $y$ 是任意的个体变元, 且 $\varphi, \varphi'\in\Phi_M$ 还满足条件
+    \begin{enumerate}[(1)]\setcounter{enumi}{2}
+        \item $y\neq x\quad\Rightarrow\quad \varphi'(y)=\varphi(y)$
+    \end{enumerate} 
+    则把 $\varphi'$ 叫做 $\varphi$ 的 $x$ 变通. (二者互为对方的 $x$ 变通)
+\end{definition}
+\subsection{公式的赋值函数}
+记 $\overline{x}=\varphi(x), x\in X$, $\overline{t}=\varphi(t), t\in T$
+\begin{definition}[公式的赋值函数]
+    设 $M$ 是给定的解释域, $p$ 是 $K$ 中任一公式. 由公式 $p$ 按下面的方式归纳定义的函数 $\lvert p\rvert:\Phi_M\to\mathbb{Z}_2$ 叫做公式 $p$ 的赋值函数.
+
+    对任一项解释 $\varphi\in\Phi_M$,
+    \begin{enumerate}[(i)]
+        \item 当 $p$ 为原子公式 $R_i^n(t_1, \cdots, t_n)$ 时, 令
+        $$
+            \lvert p\rvert (\varphi)=
+            \begin{cases}
+                1, &\text{若}\ (\overline{t_1}, \cdots, \overline{t_n})\in \overline{R_i^n}\\
+                0, &\text{若}\ (\overline{t_1}, \cdots, \overline{t_n})\notin \overline{R_i^n}
+            \end{cases}
+        $$
+        \item 当 $p$ 是 $\lnot q$ 或 $q\to r$ 时, 令
+        \begin{align*}
+            \lvert\lnot q\rvert(\varphi)&=\lnot\lvert q\rvert(\varphi)\\
+            \lvert q\to r\rvert(\varphi) &= \lvert q\rvert(\varphi)\to\lvert r\rvert(\varphi)
+        \end{align*}
+        \item 当 $p$ 是 $\forall xq$ 时, 令
+        $$
+            \lvert\forall x q\rvert(\varphi)
+            \begin{cases}
+                1, &\text{若}\ \varphi\ \text{的任一}\ x\ \text{变通}\ \varphi'\ \text{都使}\ \lvert q\rvert(\varphi')=1\\
+                0, &\text{若存在}\ \varphi\ \text{的}\ x\ \text{变通}\ \varphi'\ \text{使}\ \lvert q\rvert(\varphi')=0
+            \end{cases}
+        $$
+    \end{enumerate}
+\end{definition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\lvert p\lor q\rvert (\varphi) = \lvert p\rvert (\varphi)\lor \lvert q\rvert (\varphi)$
+        \item $\lvert p\land q\rvert (\varphi) = \lvert p\rvert (\varphi)\land \lvert q\rvert (\varphi)$
+        \item $\lvert p\leftrightarrow q\rvert (\varphi) = \lvert p\rvert (\varphi)\leftrightarrow \lvert q\rvert (\varphi)$
+        \item $\lvert \exists x q\rvert (\varphi) = 1\quad\Leftrightarrow\quad \text{存在}\ \varphi\ \text{的}\ x\ \text{变通}\ \varphi'\ \text{使}\ \lvert q\rvert(\varphi')=1$
+    \end{enumerate}
+\end{proposition}
+\subsection{闭式的语义特征}
+\begin{proposition}
+    设 $M$ 是 $K$ 的解释域, $\varphi, \psi\in\Phi_M$.
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 若对项 $t$ 中的任一变元 $x$ 都有 $\varphi(x)=\psi(x)$, 则 $\varphi(t)=\psi(t)$
+        \item 若对公式 $p$ 中任一自由出现的变元 $x$ 都有 $\varphi(x)=\psi(x)$, 则 $\lvert p\rvert (\varphi)=\lvert p\rvert (\psi)$
+    \end{enumerate}
+\end{proposition}
+\begin{definition}[公式在解释域中恒真与恒假]
+    公式 $p$ 在解释域 $M$ 中恒真, 记作 $\lvert p\rvert_M=1$, 是指对任一 $\varphi\in\Phi_M$, $\lvert p\rvert (\varphi)=1$;
+    公式 $p$ 在解释域 $M$ 中恒假, 记作 $\lvert p\rvert_M=0$, 是指对任一 $\varphi\in\Phi_M$, $\lvert p\rvert (\varphi)=0$.
+\end{definition}
+\begin{theorem}
+    对给定的解释域 $M$, 任一闭式 $p$ 在 $M$ 中恒真与恒假二者必居其一: 或 $\lvert p\rvert_M=1$, 或 $\lvert p\rvert_M=0$.
+\end{theorem}
+\begin{proposition}
+    $\lvert p\rvert_M=1\quad\Leftrightarrow \lvert\forall xp\rvert_M=1$
+\end{proposition}
+\begin{definition}[全称闭式]
+    设 $x_{i_1}, \cdots, x_{i_n}$ 是在 $p$ 中自由出现的全部变元, 则
+    $$
+        \forall x_{i_1}\cdots\forall x_{i_n} p
+    $$
+    叫做 $p$ 的全称闭式.
+\end{definition}
+\begin{proposition}
+    设 $p'$ 是 $p$ 的全称闭式, 则
+    $$
+        \lvert p\rvert_M=1\quad\Leftrightarrow\quad\lvert p'\rvert_M = 1
+    $$
+\end{proposition}
+\begin{proposition}
+    $\lvert p\rvert_M\quad\Rightarrow\quad \lvert\forall xp\rvert_M=0$
+\end{proposition}
+\begin{deduction}
+    $\lvert p\rvert_M\quad\Rightarrow\quad \lvert p'\rvert_M=0$, 这里 $p'$ 是 $p$ 的全称闭式.
+\end{deduction}
+\begin{proposition}
+    $\lvert p\rvert_M=1\ \text{且}\ \lvert p\to q\rvert_M = 1\quad\Rightarrow\quad \lvert q\rvert_M=1$
 \end{proposition}
 \end{document}
