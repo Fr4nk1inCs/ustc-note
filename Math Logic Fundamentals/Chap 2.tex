@@ -311,6 +311,7 @@ $$
     $q = \forall x_3\exists x_1\exists x_2\exists x_4 (R_1^2(x_1, x_2)\to R_1^2(x_3, x_4))$ 是 $\Pi_2$ 型前束范式.
 \end{example}
 
+\newpage
 \section{谓词演算的语义}
 \subsection{谓词演算 \texorpdfstring{$K$}{K} 的解释域与项解释}
 \begin{definition}[$K$ 的解释域]
@@ -357,7 +358,7 @@ $$
 \begin{definition}[项解释的变元变通]
     设 $x$ 是给定的个体变元, $y$ 是任意的个体变元, 且 $\varphi, \varphi'\in\Phi_M$ 还满足条件
     \begin{enumerate}[(1)]\setcounter{enumi}{2}
-        \item $y\neq x\quad\Rightarrow\quad \varphi'(y)=\varphi(y)$
+        \item $y\neq x\ \Rightarrow\  \varphi'(y)=\varphi(y)$
     \end{enumerate} 
     则把 $\varphi'$ 叫做 $\varphi$ 的 $x$ 变通. (二者互为对方的 $x$ 变通)
 \end{definition}
@@ -397,7 +398,7 @@ $$
         \item $\lvert p\lor q\rvert (\varphi) = \lvert p\rvert (\varphi)\lor \lvert q\rvert (\varphi)$
         \item $\lvert p\land q\rvert (\varphi) = \lvert p\rvert (\varphi)\land \lvert q\rvert (\varphi)$
         \item $\lvert p\leftrightarrow q\rvert (\varphi) = \lvert p\rvert (\varphi)\leftrightarrow \lvert q\rvert (\varphi)$
-        \item $\lvert \exists x q\rvert (\varphi) = 1\quad\Leftrightarrow\quad \text{存在}\ \varphi\ \text{的}\ x\ \text{变通}\ \varphi'\ \text{使}\ \lvert q\rvert(\varphi')=1$
+        \item $\lvert \exists x q\rvert (\varphi) = 1\ \Leftrightarrow\  \text{存在}\ \varphi\ \text{的}\ x\ \text{变通}\ \varphi'\ \text{使}\ \lvert q\rvert(\varphi')=1$
     \end{enumerate}
 \end{proposition}
 \subsection{闭式的语义特征}
@@ -416,7 +417,7 @@ $$
     对给定的解释域 $M$, 任一闭式 $p$ 在 $M$ 中恒真与恒假二者必居其一: 或 $\lvert p\rvert_M=1$, 或 $\lvert p\rvert_M=0$.
 \end{theorem}
 \begin{proposition}
-    $\lvert p\rvert_M=1\quad\Leftrightarrow \lvert\forall xp\rvert_M=1$
+    $\lvert p\rvert_M=1\ \Leftrightarrow\  \lvert\forall xp\rvert_M=1$
 \end{proposition}
 \begin{definition}[全称闭式]
     设 $x_{i_1}, \cdots, x_{i_n}$ 是在 $p$ 中自由出现的全部变元, 则
@@ -426,18 +427,99 @@ $$
     叫做 $p$ 的全称闭式.
 \end{definition}
 \begin{proposition}
-    设 $p'$ 是 $p$ 的全称闭式, 则
-    $$
-        \lvert p\rvert_M=1\quad\Leftrightarrow\quad\lvert p'\rvert_M = 1
-    $$
+    设 $p'$ 是 $p$ 的全称闭式, 则$\lvert p\rvert_M=1\ \Leftrightarrow\ \lvert p'\rvert_M = 1$
 \end{proposition}
 \begin{proposition}
-    $\lvert p\rvert_M\quad\Rightarrow\quad \lvert\forall xp\rvert_M=0$
+    $\lvert p\rvert_M = 0\ \Rightarrow\  \lvert\forall xp\rvert_M=0$
 \end{proposition}
 \begin{deduction}
-    $\lvert p\rvert_M\quad\Rightarrow\quad \lvert p'\rvert_M=0$, 这里 $p'$ 是 $p$ 的全称闭式.
+    $\lvert p\rvert_M = 0\ \Rightarrow\  \lvert p'\rvert_M=0$, 这里 $p'$ 是 $p$ 的全称闭式.
 \end{deduction}
 \begin{proposition}
-    $\lvert p\rvert_M=1\ \text{且}\ \lvert p\to q\rvert_M = 1\quad\Rightarrow\quad \lvert q\rvert_M=1$
+    $\lvert p\rvert_M=1\ \text{且}\ \lvert p\to q\rvert_M = 1\ \Rightarrow\  \lvert q\rvert_M=1$
 \end{proposition}
+\subsection{语义推论与有效式}
+\begin{definition}[模型]
+    设 $M$ 是 $K$ 的一个解释域.  $M$ 是公式集 $\Gamma$ 的模型, 指 $\Gamma$ 的每个公式都在 $M$ 中恒真:
+    $$
+        r\in \Gamma\ \Rightarrow\  \lvert r\rvert_M=1
+    $$
+    $\Gamma=\varnothing$ 时任何解释域都是 $\Gamma$ 的模型.
+\end{definition}
+\begin{definition}[语义推论]\label{def:2.8}
+    公式 $p$ 是公式集 $\Gamma$ 的语义推论, 记作 $\Gamma\vDash p$, 指 $p$ 在 $\Gamma$ 的所有模型中都恒真, 即: 在使 $\Gamma$ 的每个成员都恒真的解释域中, $p$ 也恒真；或者说, $\Gamma$ 的任何模型也都是 $\Gamma\cup \{p\}$ 的模型.
+\end{definition}
+定义 \ref{def:2.8} 也可以写成
+$$
+    \Gamma\vDash p\ \Leftrightarrow\ \text{当每个 $r\in\Gamma$ 都有 $\lvert r\rvert_M=1$ 时, 也有 $\lvert p\rvert_M = 1$}
+$$
+\begin{definition}[有效式与满足公式]
+    $\varnothing\vDash p$ 时, $p$ 叫做 $K$ 的有效式, 记为 $\vDash p$.\\
+    若 $\lnot p$ 不是有效式, 则 $p$ 叫做 $K$ 的可满足公式.
+\end{definition}
+由有效式的定义可知
+$$
+    \vDash p \ \Leftrightarrow\ \text{$p$ 在 $K$ 的所有解释域中恒真}
+$$
+\begin{proposition}
+    $K$ 中 (命题演算型) 永真式都是有效式.
+\end{proposition}
+\begin{deduction}
+    (K1), (K2), (K3) 三种模式的公理都是有效式.
+\end{deduction}
+\begin{proposition}
+    $\Gamma\vDash p\ \text{且}\ \Gamma\vDash p\to q\ \Rightarrow\  \Gamma\vDash q$
+\end{proposition}
+\begin{proposition}
+    $\Gamma\vDash p\ \Leftrightarrow\ \Gamma\vDash\forall xp$
+\end{proposition}
+\begin{proposition}
+    设 $p'$ 是 $p$ 的全程闭式, 则有 $\Gamma\vDash p\ \Leftrightarrow\  \Gamma\vDash p'$
+\end{proposition}
+
+\section{\texorpdfstring{$K$}{K} 的可靠性}
+\begin{lemma}
+    对给定的解释域, 设 $\varphi'$ 是项解释 $\varphi$ 的 $x$ 变通, 且满足 $\varphi'(x)=\varphi(t)$, $t$ 是某个项.
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 若 $u(x)$ 是项, 则 $\varphi'(u(x)) = \varphi(u(t))$.
+        \item 若 $t$ 对公式 $p(x)$ 中的 $x$ 自由, 则 $\lvert p(x)\rvert(\varphi')=\lvert p(t)\rvert(\varphi)$.
+    \end{enumerate}
+\end{lemma}
+\begin{lemma}
+    $K$ 的公理都是有效式.
+\end{lemma}
+\begin{theorem}[$K$ 的可靠性]
+    $\Gamma\vdash p\ \Rightarrow\ \Gamma\vDash p$
+\end{theorem}
+\begin{deduction}[$K$ 的无矛盾性]
+    $K$ 是无矛盾的, 即: 对任何公式 $p$, $\vdash p$ 与 $\vdash\lnot p$ 不同时成立.
+\end{deduction}
+\begin{deduction}
+    $\Gamma$ 有模型 $\ \Rightarrow\ $ $\Gamma$ 是无矛盾的.
+\end{deduction}
+
+\section{\texorpdfstring{$K$}{K} 的完全性}
+\begin{definition}
+    无矛盾公式集一定有可数集模型.
+\end{definition}
+\begin{proof}
+    详见课本: 设 $\Gamma$ 是无矛盾公式集. 我们来给 $\Gamma$ 构造一个可数集模型 $M$.
+
+    整个过程分成一下六个步骤进行:
+    \begin{enumerate}[1.]
+        \item 作扩大的谓词演算 $K^+$
+        \item 作扩大的无矛盾公式集 $\Gamma'\supset \Gamma$
+        \item 作 $\Gamma'$ 的完备无矛盾扩张 $\Gamma^*$
+        \item 作 $K^+$ 的解释域
+        \item 命题: $\Gamma^*\vdash_{K^+}q\ \Leftrightarrow\ \lvert q\rvert_M = 1$, 其中 $q$ 是 $K^+$ 的任一闭式.
+        \item 整个证明的完成
+    \end{enumerate}
+\end{proof}
+\begin{theorem}[$K$ 的完全性]
+    $\Gamma\vDash p\ \Rightarrow\ \Gamma\vdash p$
+\end{theorem}
+把 $K$ 的可靠性和 $K$ 的完全性结合起来, 就得到关于谓词演算 $K$ 的 Gödel 完备性定理:
+$$
+    \Gamma\vdash p\ \Leftrightarrow\ \Gamma\vDash p
+$$
 \end{document}
