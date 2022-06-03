@@ -21,9 +21,9 @@
 \usepackage{multirow}
 \usepackage{cleveref}
 \usepackage{multicol}
-\newtheorem{axiom}{公理}[section]
-\newtheorem{quality}{性质}[section]
-\newtheorem{deduction}{推论}[section]
+\newtheorem{axiom}{公理}[subsection]
+\newtheorem{quality}{性质}[subsection]
+\newtheorem{deduction}{推论}[subsection]
 
 
 \begin{document}
@@ -189,9 +189,10 @@
 \end{example}
 \newpage
 
+
 \section{命题演算}
 \subsection{命题联结词与真值表}
-\subsection{命题}
+\subsubsection{命题}
 \begin{itemize}
     \item 命题: 判断结果惟一的陈述句.
     \item 命题的真值: 判断的结果.
@@ -199,8 +200,8 @@
           约定: 一命题若为真, 则它的真值为 1; 若为假, 则它的真值为 0.
 \end{itemize}
 本章使用字母 $p,q,r$ 等用来表示命题.
-\subsection{命题联结词}
-\subsubsection{否定词}
+\subsubsection{命题联结词}
+\paragraph{否定词}
 \begin{description}
     \item[符号] ``$\lnot$'', 给定命题 $p$, $\lnot p$ 表示 $p$ 的否定.
     \item[关系] $\lnot p\text{ 为真}\Leftrightarrow p\text{ 为假}$.
@@ -212,7 +213,7 @@
             0   & 1
         \end{tabular}
 \end{description}
-\subsubsection{合取词}
+\paragraph{合取词}
 \begin{description}
     \item[符号] ``$\land$'', 由命题 $p,q$ 用 $\land$ 连接得到新命题 $p\land q$.
     \item[含义] 相当于中文的 ``与'' 或 ``且''.
@@ -227,7 +228,7 @@
             0   & 0   & 0
         \end{tabular}
 \end{description}
-\subsubsection{析取词}
+\paragraph{析取词}
 \begin{description}
     \item[符号] ``$\lor$'', 由命题 $p,q$ 用 $\lor$ 连接得到新命题 $p\lor q$.
     \item[含义] 相当于中文的 ``或''.
@@ -242,7 +243,7 @@
             0   & 0   & 0
         \end{tabular}
 \end{description}
-\subsubsection{蕴含词}
+\paragraph{蕴含词}
 \begin{description}
     \item[符号] ``$\to$'', 由命题 $p,q$ 用 $\to$ 连接得到新命题 $p\to q$, $p$ 叫做该式的 ``前件'', $q$ 叫做该式的 ``后件''.
     \item[含义] 相当于中文的 ``如果 ... 那么 ...'', 但是有所差别, 两个命题之间可以没有因果关系.
@@ -257,7 +258,7 @@
             0   & 0   & 1
         \end{tabular}
 \end{description}
-\subsubsection{等价词 (或等值词)}
+\paragraph{等价词 (或等值词)}
 \begin{description}
     \item[符号] ``$\leftrightarrow$'', 由命题 $p,q$ 用 $\leftrightarrow$ 连接得到新命题 $p\leftrightarrow q$.
     \item[含义] 相当于中文的 ``当且仅当''.
@@ -272,7 +273,7 @@
             0   & 0   & 1
         \end{tabular}
 \end{description}
-\subsection{复合命题的真值表}
+\subsubsection{复合命题的真值表}
 复合命题的真假如何由构成它的支命题的真假来确定?
 \begin{example}\label{ex:1.1}
     $(\lnot p)\land q$ 的真值表
@@ -296,7 +297,7 @@
 \end{enumerate}
 在例 \ref{ex:1.1} 中, 只有当 $(p, q)$ 取真值 $(0,1)$ 时命题才为真. 所以我们称 $(0,1)$ 是 $(\lnot p)\land q$ 的 ``成真指派'', 其他三种指派均为 ``成假指派''.
 
-\subsection{联结词之间的关系}
+\subsubsection{联结词之间的关系}
 \begin{example}\label{ex:1.2}
     复合命题 $(p \lor q)\leftrightarrow ((\lnot p)\to q)$ 的真值表是
     \begin{table}[!htbp]
@@ -322,7 +323,7 @@
 
 \subsection{命题演算的建立}
 命题演算的形式化, 公理化.
-\subsection{命题演算公式集}
+\subsubsection{命题演算公式集}
 \begin{definition}[命题演算公式]
     我们采用的字母表由下面两类符号组成.
     \begin{enumerate}[(1), topsep = -1em]
@@ -365,14 +366,14 @@
     \item 从层 $L_2$ 开始出现了括号.
     \item $L_i(X)$ 是可数集, $L(X)$ 是可数集.
 \end{enumerate}
-\subsection{命题演算 \texorpdfstring{$L$}{L}}
+\subsubsection{命题演算 \texorpdfstring{$L$}{L}}
 \begin{definition}[命题演算 $L$]
     \label{def:2.3}
     命题变元集 $X=\{x_1, x_2,\cdots\}$ 上的命题演算 $L$ 是指带有下面规定的 ``公理'' 和 ``证明'' 的命题代数 $L(X)$:
     \begin{enumerate}[(1)]
         \item ``公理''\\
               取 $L(X)$ 的具有以下形状的公式作为 ``公理'':
-              \begin{enumerate}[label=(L\arabic*), topsep = -1em]
+              \begin{enumerate}[label=(L\arabic*)]
                   \item $p\to (q\to p)$ \hfill (肯定后件律)
                   \item $(p\to (q\to r))\to ((p\to q)\to (q\to r))$ \hfill (蕴含词分配律)
                   \item $(\lnot p\to \lnot q)\to (q\to p)$ \hfill (换位律)
@@ -380,7 +381,7 @@
               其中 $p,q,r\in L(X)$
         \item ``证明''\\
               设 $\Gamma\subseteq L(X)$, $p\in L(X)$. 当我们说 ``公式 $p$ 是从公式集 $\Gamma$ 可证的'', 是指存在着 $L(X)$ 的公式的有序序列 $p_1, \cdots, p_n$, 其中尾项 $p_n=p$, 且每个 $p_k(k=1,\cdots, n)$ 满足:
-              \begin{enumerate}[(i), topsep = -1em]
+              \begin{enumerate}[(i)]
                   \item $p_k\in\Gamma$, 或
                   \item $p_k$ 是 ``公理'', 或
                   \item 存在 $i,j < k$ 使 $p_j=p_i\to p_k$
@@ -389,7 +390,7 @@
     \end{enumerate}
 \end{definition}
 \begin{definition}[语法推论]
-    \begin{enumerate}[(1), topsep = -1em]
+    \begin{enumerate}[(1)]
         \item 如果公式 $p$ 从公式集 $\Gamma$ 可证, 那么我们写 $\Gamma\vdash p$, 必要时也可写成 $\Gamma\vdash_L p$, 这时 $\Gamma$ 中的公式叫做 ``假定'', $p$ 叫做假定集 $\Gamma$ 的语法推论.
         \item 若 $\varnothing\vdash p$, 则称 $p$ 是 $L$ 的 ``定理'', 记为 $\vdash p$. $p$ 在 $L$ 中从 $\varnothing$ 的证明 $p_1, \cdots, p_n$ 简称为 $p$ 在 $L$ 中的证明.
         \item 在一个证明中, 当 $p_j=p_i\to p_k\ (i,j<k)$ 时, 就说 $p_k$ 由 $p_i, p_i\to p_k$ 使用假言推理 (Modus Ponens) 这条推理规则而得, 或简单地说 ``使用 MP 而得''.
@@ -417,7 +418,7 @@
 \begin{proposition}
     若 $\Gamma$ 是有矛盾公式集, 则对 $L$ 的任一公式 $p$, 都有 $\Gamma\vdash p$.
 \end{proposition}
-\subsection{演绎定理}
+\subsubsection{演绎定理}
 \begin{theorem}[演绎定理]
     $\Gamma \cup \{p\}\vdash q\quad\Leftrightarrow\quad \Gamma\vdash p\to q$
 \end{theorem}
@@ -429,7 +430,7 @@
 \begin{proposition}[否定肯定律]
     $\vdash (\lnot p\to p)\to p$
 \end{proposition}
-\subsection{反证律与归谬律}
+\subsubsection{反证律与归谬律}
 \begin{theorem}[反证律]
     $$
         \left.
@@ -458,7 +459,7 @@
 \end{deduction}
 
 % ************************************************************************
-\subsection{常用重要结论}
+\subsubsection{常用重要结论}
 \noindent$\vdash p\to p$\hfill (同一律)\\
 $\vdash \lnot q\to(q\to p)$\hfill (否定前件律)\\
 $\vdash (\lnot p\to p)\to p$\hfill (否定肯定律)\\
@@ -468,7 +469,7 @@ $\vdash p\to \lnot \lnot p$\hfill (第二双重否定律)\\
 $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 % ************************************************************************
 
-\subsection{析取, 合取与等值}
+\subsubsection{析取, 合取与等值}
 在 $\{\lnot,\to\}$ 型代数 $L(X)$ 中, 还可以定义三个新的二元运算 $\lor$ (析取), $\land$ (合取) 及 $\leftrightarrow$ (等值) 如下:
 \begin{align*}
      & p\lor q=\lnot p\to q                      \\
@@ -510,7 +511,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
     \end{enumerate}
 \end{proposition}
 \subsection{命题演算的语义}
-\subsection{真值函数}
+\subsubsection{真值函数}
 记 $\mathbb{Z}_2=\{0,1\}$.
 \begin{definition}[真值函数]
     函数 $f\ :\ \mathbb{Z}_2^n\to\mathbb{Z}_2$ (即 $\mathbb{Z}_2$ 上的 $n$ 元运算) 叫做 $n$ 元真值函数.
@@ -570,7 +571,7 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
     任一真值函数都可用一元运算 $\lnot$ 和二元运算 $\to$ 表示出来.
 \end{proposition}
 
-\subsection{赋值与语义推论}
+\subsubsection{赋值与语义推论}
 现在要在 $L(X)$ 和 $\mathbb{Z}_2=\{0,1\}$ 这两种命题代数之间建立起适当的联系. 注意 $L(X)$ 与 $\mathbb{Z}_2$ 之间的差异, 比如在 $L(X)$ 中 $\lnot \lnot x \neq x$, 但在 $\mathbb{Z}_2$ 中 $\lnot \lnot v = v$.
 
 \begin{definition}[赋值]
@@ -700,14 +701,14 @@ $$
           这样的算法是存在的: 任给 $L$ 中的公式 $p(x_1,\cdots,x_n)$, 我们来一一计算它的真值函数的函数值 $p(v_1, \cdots, v_n)$, 如果对所有 $v_1, \cdots,v_n\in\mathbb{Z}_2$, 都有 $p(v_1, \cdots, v_n) = 1$, 则 $p$ 是永真式, 否则 $p$ 不是永真式.
     \item $L$ 的语法可判定性
 
-          我们说命题演算 $L$ 是语法可判定的, 意思是说存在算法可用来确定 $L$ 的任意公式 $p(x_1,\cdots,x_n)$ 是不是 $L$ 的定理.
+          我们说命题演算 $L$ 是语法可判定的, 意思是说存在算法可用来确定 $L$ 中任给的公式 $p(x_1,\cdots,x_n)$ 是不是 $L$ 的定理.
 
           这样的算法是存在的: 根据 $L$ 的可靠性和完全性, 看公式 $p$ 是不是定理, 就看它是不是永真式.
 
           $L$ 的语义可判定导致了 $L$ 的语法可判定.
 \end{enumerate}
 \subsection{命题演算的其他课题}
-\subsection{等值公式与对偶律}
+\subsubsection{等值公式与对偶律}
 \begin{definition}[等值公式]
     $p$ 与 $q$ 等值, 是指 $p\leftrightarrow q$ 为永真式.
 \end{definition}
@@ -745,7 +746,7 @@ $$
         \item $\vDash (\lnot p_1\land\cdots\land\lnot p_n)\leftrightarrow\lnot (p_1\lor\cdots\lor p_n)$
     \end{enumerate}
 \end{deduction}
-\subsection{析取范式与合取范式}
+\subsubsection{析取范式与合取范式}
 \begin{definition}[基本析取式与基本合取式]
     形为 $y_1\lor y_2\lor \cdots\lor y_n$ 和形如 $x_1\land x_2\land \cdots\land x_n$ 的公式分别叫做基本析取式和基本合取式, 其中每个 $y_i$ 是命题变元或命题变元的否定.
 \end{definition}
@@ -774,7 +775,7 @@ $$
 \begin{theorem}
     每个非永真式必等值于一主合取范式.
 \end{theorem}
-\subsection{运算的完全组}
+\subsubsection{运算的完全组}
 \begin{definition}[运算的完全组]
     $\mathbb{Z}_2$ 上的一些运算构成完全组, 是指任一真值函数都可用该运算组中的运算表示出来.
 \end{definition}
@@ -807,7 +808,7 @@ $$
 \begin{proposition}
     除了 $\vert$, $\downarrow$ 外, 没有其他二元运算单独构成完全组.
 \end{proposition}
-\subsection{应用举例}
+\subsubsection{应用举例}
 在应用中, $\Gamma\vdash p$ 或 $\Gamma\vDash p$ 中假定集 $\Gamma$ 常常是有限集. 当我们需要从语法上证明 $\{r_1,\cdots,r_n\}\vdash p$ 时, 显而易见可以改为从语法上检查 $(r_1\land\cdots\land r_n)\to p$ 是不是永真式. 为此, 只需要写出真值表就可以了. 但是当命题变元的个数比较多时, 写真值表就可能行不通, 需要灵活采用其他的一些特殊方法.
 \begin{example}
     检查下面命题的正确性:
@@ -837,7 +838,7 @@ $$
 \newpage
 \section{谓词演算}
 \subsection{谓词演算的建立}
-\subsection{项与原子公式}
+\subsubsection{项与原子公式}
 我们从四个集出发
 \begin{itemize}[listparindent = 2em]
     \item 个体变元集 $X=\{x_1, x_2, \cdots\}$ 是可数集. 个体变元 $x_i$ 可用来表示某个个体对象. 有时为了方便, 我们也用 $x, y, z$ 等来表示个体变元.
@@ -892,7 +893,7 @@ $$
     以后常把原子公式 $(R_i^n, t_1, \cdots, t_n)$ 写成 $R_i^n(t_1, \cdots, t_n)$.
 \end{definition}
 原子公式是用来表示命题的最小单位, 项是构成原子公式的基础.
-\subsection{谓词演算公式集}
+\subsubsection{谓词演算公式集}
 建立谓词演算公式集前, 先列出我们所采用的这种形式语言的字母表如下:
 \begin{itemize}[listparindent = 2em]
     \item 个体变元 $x_1, x_2, \cdots$\hfill (可数个)
@@ -944,7 +945,7 @@ $$
 
 以后用 $p(t)$ 表示用项 $t$ 去代换公式 $p(x)$ 中所有自由出现的变元 $x$ 所得结果. (注意 $p(x)$ 中的 $x$ 是指公式中自由出现的 $x$)
 
-\subsection{谓词演算 \texorpdfstring{$K$}{K}}
+\subsubsection{谓词演算 \texorpdfstring{$K$}{K}}
 \begin{definition}[谓词演算 $K$]
     谓词演算 $K$ 是指带有如下规定的 ``公理'' 和 ``证明'' 的公式集 $K(Y)$:
     \begin{enumerate}[label = $\arabic*^\circ$]
@@ -1055,7 +1056,7 @@ $$
         \item $\vdash \lnot \exists x p\leftrightarrow \forall x\lnot p$
     \end{enumerate}
 \end{proposition}
-\subsection{对偶律与前束范式}
+\subsubsection{对偶律与前束范式}
 \begin{theorem}[子公式的等价可替换性]
     设公式 $q$ 是公式 $p$ 的子公式: $p = \cdots q \cdots$, 用公式 $q'$ 替换 $p$ 中的 $q$ (一次替换) 所得结果记为 $p' = \cdots q'\cdots$. 则有
     $$
@@ -1118,7 +1119,7 @@ $$
 
 \newpage
 \subsection{谓词演算的语义}
-\subsection{谓词演算 \texorpdfstring{$K$}{K} 的解释域与项解释}
+\subsubsection{谓词演算 \texorpdfstring{$K$}{K} 的解释域与项解释}
 \begin{definition}[$K$ 的解释域]
     设非空集 $M$ 具有以下性质:
     \begin{enumerate}[label = $\arabic*^\circ$]
@@ -1167,7 +1168,7 @@ $$
     \end{enumerate}
     则把 $\varphi'$ 叫做 $\varphi$ 的 $x$ 变通. (二者互为对方的 $x$ 变通)
 \end{definition}
-\subsection{公式的赋值函数}
+\subsubsection{公式的赋值函数}
 记 $\overline{x}=\varphi(x), x\in X$, $\overline{t}=\varphi(t), t\in T$
 \begin{definition}[公式的赋值函数]
     设 $M$ 是给定的解释域, $p$ 是 $K$ 中任一公式. 由公式 $p$ 按下面的方式归纳定义的函数 $\lvert p\rvert:\Phi_M\to\mathbb{Z}_2$ 叫做公式 $p$ 的赋值函数.
@@ -1206,7 +1207,7 @@ $$
         \item $\lvert \exists x q\rvert (\varphi) = 1\ \Leftrightarrow\  \text{存在}\ \varphi\ \text{的}\ x\ \text{变通}\ \varphi'\ \text{使}\ \lvert q\rvert(\varphi')=1$
     \end{enumerate}
 \end{proposition}
-\subsection{闭式的语义特征}
+\subsubsection{闭式的语义特征}
 \begin{proposition}
     设 $M$ 是 $K$ 的解释域, $\varphi, \psi\in\Phi_M$.
     \begin{enumerate}[label = $\arabic*^\circ$]
@@ -1243,7 +1244,7 @@ $$
 \begin{proposition}
     $\lvert p\rvert_M=1\ \text{且}\ \lvert p\to q\rvert_M = 1\ \Rightarrow\  \lvert q\rvert_M=1$
 \end{proposition}
-\subsection{语义推论与有效式}
+\subsubsection{语义推论与有效式}
 \begin{definition}[模型]
     设 $M$ 是 $K$ 的一个解释域.  $M$ 是公式集 $\Gamma$ 的模型, 指 $\Gamma$ 的每个公式都在 $M$ 中恒真:
     $$
@@ -1267,7 +1268,7 @@ $$
     \vDash p \ \Leftrightarrow\ \text{$p$ 在 $K$ 的所有解释域中恒真}
 $$
 \begin{proposition}
-    $K$ 中 (命��演���型) 永������都���有效式.
+    $K$ 中 (命题演算型) 永真式都是有效式.
 \end{proposition}
 \begin{deduction}
     (K1), (K2), (K3) 三种模式的公理都是有效式.
