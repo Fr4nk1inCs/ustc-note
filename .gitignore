@@ -2,4 +2,5 @@
 *.aux
 *.gz
 *.out
+*.toc
 .vscode

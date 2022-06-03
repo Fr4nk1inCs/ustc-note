@@ -1,0 +1,1330 @@
+% Copyright (c) 2022 Fr4nk1in-USTC
+% 
+% This software is released under the MIT License.
+% https://opensource.org/licenses/MIT
+
+\documentclass[
+    color=black,
+    device=normal,
+    lang=cn
+]{elegantnote}
+
+% Title Format
+\title{数理逻辑基础}
+\author{Fr4nk1in-USTC}
+\institute{中国科学技术大学计算机学院}
+\date{}
+
+% Packages
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amscd}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{cleveref}
+\usepackage{multicol}
+\newtheorem{axiom}{公理}[section]
+\newtheorem{quality}{性质}[section]
+\newtheorem{deduction}{推论}[section]
+
+
+\begin{document}
+\setlength\abovedisplayskip{.125em}
+\setlength\belowdisplayskip{.125em}
+\maketitle
+\tableofcontents
+\newpage
+\setcounter{section}{-1}
+\section{预备知识}
+\subsection{集论初等概念}
+\begin{itemize}
+    \item 子集与包含关系 $\subseteq$
+          $$
+              A\subseteq B \Leftrightarrow \forall x\in A, x\in B
+          $$
+    \item 集合相等 $=$
+          $$
+              A=B \Leftrightarrow A\subseteq B\ \text{且}\ B\subseteq A
+          $$
+    \item 幂集 $\mathcal{P(\cdot)}$
+          $$
+              \mathcal{P}(A) = \{a\ \vert\ a\subseteq A\}
+          $$
+    \item 集合运算 $\cup$ $\cap$ $-$
+          \begin{itemize}
+              \item 并集 $\cup$
+                    $$
+                        A\cup B = \{x\ \vert\ x\in A\ \text{或}\ x \in B\}
+                    $$
+              \item 交集 $\cap$
+                    $$
+                        A\cap B = \{x\ \vert\ x\in A\ \text{且}\ x \in B\}
+                    $$
+                    作为集的运算, 并和交都满足交换律, 结合律和分配律.
+              \item 差集 $-$
+                    $$
+                        A-B=\{x\ \vert x\in A\ \text{且}\ x \notin B\}
+                    $$
+          \end{itemize}
+    \item 积集 $\times$
+          $$
+              A\times B = \{(a,b)\ \vert\ a\in A,b \in B\}
+          $$
+          $$
+              \prod_{i=1}^n A_i = A_1\times \cdots \times A_n = \{(a_1, \cdots, a_n)\ \vert\ a_1\in A_1,\cdots, a_n\in A_n\}
+          $$
+          $$
+              A^0 = \varnothing  , A^1 = A, A^n = \prod_{i = 1}^n A
+          $$
+    \item 关系
+          \begin{itemize}
+              \item $A$ 到 $B$ 的关系 $R$ : $R\subseteq A\times B$
+              \item $A$ 上的 $n$ 元关系 $R$ : $R\subseteq A^n$
+          \end{itemize}
+    \item 等价关系
+          \begin{itemize}
+              \item $A$ 上的等价关系 $R$ : 满足以下三条性质的二元关系 $R(\subseteq A^2)$
+                    \begin{enumerate}[label=$\arabic*^\circ$]
+                        \item 自反性: $\forall x\in A, (x,x)\in R$
+                        \item 对称性: $\forall x,y\in A, (x,y)\in R\Leftrightarrow (y,x)\in R$
+                        \item 可递性: $\forall x,y\in A, (x,y), (y,z)\in R\Rightarrow (x,z)\in R$
+                    \end{enumerate}
+                    若 $(a,b)\in R$ 则称 $a$ 与 $b$ 等价, 记作 $a\sim b$.
+              \item 等价类
+
+                    A 中与 $a(\in A)$ 等价的所有元素形成的集叫做由 $a$ 形成的 $R$ 等价类, 记作
+
+                    $$
+                        [a] = \{x\ \vert\ x\in A, x\sim a\}
+                    $$
+
+                    不同的等价类之间没有公共元素, 所以 $A$ 上的任何等价关系 $R$ 都确定了 $A$ 的一个分类.
+
+              \item 商集: 设 $R$ 是 $A$ 上的等价关系, 所有 $R$ 等价类的集叫做商集, 记作 $A/R$.
+          \end{itemize}
+    \item 映射: 一种特殊的关系
+          \begin{description}
+              \item[定义] 设 $f$ 是集 $X$ 到集 $Y$ 的一个关系 (即 $f\subseteq X\times Y$), 且对任意 $ x\in X$ 都有且只有一个 $y\in Y$ 使得 $(x,y)\in f$, 那么我们称 $f$ 是从 $X$ 到 $Y$ 的函数或映射, 记作 $f:X\to Y$.
+              \item[象与原象] 若 $(x_0,y_0)\in f$, 那么我们称 $y_0$ 为 $x_0$ 的象, $x_0$ 是 $y_0$ 的原象, 记作 $x_0\mapsto y_0$ 或 $y_0=f(x_0)$.
+              \item[定义域与值域] $X$ 叫做 $f$ 的定义域. $X$ 中元素在 $Y$ 中的象的全体是 $Y$ 的一个子集, 叫做 $f$ 的值域.
+              \item[满射] 映射 $f:X\to Y$ 的值域就是 $Y$.
+              \item[单射] 映射 $f:X\to Y$ 满足对任意的 $x_1, x_2\in X$, 有
+                  $$
+                      x_1\neq x_2\Rightarrow f(x_1)\neq f(x_2)
+                  $$
+              \item[双射] 映射 $f:X\to Y$ 既是单射又是满射. 此时称 $X$ 和 $Y$ 之间存在一一对应, 或者称 $X$ 和 $Y$ 等势, 也称 $X$ 和 $Y$ 有相同的基数.
+                  \begin{itemize}
+                      \item 双射 $f:X\to Y$ 的逆映射 $f^{-1}:Y\to X$ 也是双射. ($f(x)=y\Leftrightarrow f^{-1}(y) = x$)
+                      \item 双射 $f:X\to Y$ 与双射 $g:Y\to Z$ 的复合映射 $g\circ f:X\to Z$ 也是双射. ($(g\circ f)(x)=g(f(x))$)
+                  \end{itemize}
+          \end{description}
+    \item $n$ 元运算: 集 $A$ 上的 $n$ 元函数 $f:A^n\to A$ 叫做 $A$ 上的 $n$ 元运算.
+\end{itemize}
+\subsection{Peano 自然数公理}
+我们把自然数集 $\mathbb{N}$ 看成是满足以下五条公理的集.
+\begin{axiom}
+    $0\in\mathbb{N}$.
+\end{axiom}
+\begin{axiom}
+    若 $x\in \mathbb{N}$, 则 $x$ 有且只有一个后继 $x'\in\mathbb{N}$.
+\end{axiom}
+\begin{axiom}
+    对任意 $x\in\mathbb{N}$, $x'\neq0$.
+\end{axiom}
+\begin{axiom}
+    对任意 $x_1,x_2\in \mathbb{N}$, 若 $x_1\neq x_2$, 则 $x_1'\neq x_2'$.
+\end{axiom}
+\begin{axiom}
+    设 $M\subseteq \mathbb{N}$. 若 $0\in M$, 且当 $x\in M$ 时也有 $x'\in M$, 则 $M=\mathbb{N}$.
+\end{axiom}
+有下面的常用结论.
+\begin{theorem}[强归纳法]
+    假设与自然数 $n$ 有关的命题 $P(n)$ 满足以下两个条件:
+    \begin{enumerate}[label=$\arabic*^\circ$]
+        \item $P(0)$ 成立;
+        \item 对于 $m>0$, 若 $k<m$ 时 $P(k)$ 都成立, 则 $P(m)$ 也成立,
+    \end{enumerate}
+    则 $P(n)$ 对所有的自然数 $n$ 都成立.
+\end{theorem}
+\begin{proof}
+    只要证明集合 $S=\{n\ \vert\ P(n)\text{ 不成立}\}$ 为空集即可, 使用反证法, 略.
+\end{proof}
+\subsection{可数集}
+\begin{definition}
+    有限集是指空集或与 $\{0,1,\cdots,n\}, n\in \mathbb{N}$ 等势的集.
+    可数集是指与自然数集 $\mathbb{N}$ 等势的集, $\mathbb{N}$ 显然也是可数集.
+\end{definition}
+\begin{proposition}
+    可数集的无限子集也是可数集.
+\end{proposition}
+\begin{proposition}
+    若存在无限集 $B$ 到可数集 $A$ 的单射, 则 $B$ 为可数集.
+\end{proposition}
+\begin{proposition}
+    \begin{enumerate}[label=$\arabic*^\circ$]
+        \item 若 $A$ 可数且 $B$ 非空有限或可数, 则 $A\times B$ 和 $B\times A$ 都可数.
+        \item 若 $A_1, \cdots, A_n$ 中至少有一个可数而其他为非空有限或可数, 则 $\prod_{i = 1}^n A_i$ 可数.
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    \begin{enumerate}[label=$\arabic*^\circ$]
+        \item 若 $A$ 可数且 $B$ 有限或可数, 则 $A\cup B$ 也可数.
+        \item 若 $A_1, \cdots, A_n$ 中至少有一个可数而其他为有限或可数, 则 $\bigcup_{i = 1}^n A_i$ 可数.
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    若 $A$ 可数, 则 $\bigcup_{n=1}^{\infty}A^n$ 可数.
+\end{proposition}
+\begin{proposition}
+    若 $A$ 可数, 则所有由 $A$ 的元素形成的有限序列构成的集 $B$ 也可数.
+\end{proposition}
+\begin{proposition}
+    若每个 $A_i$ 有限或可数, 且 $\bigcup_{i\in\mathbb{N}}A_i$ 是无限集, 则 $\bigcup_{i\in\mathbb{N}}A_i$ 可数.
+\end{proposition}
+根据下面的 Cantor 定理, 存在大量的不可数的无限集.
+\begin{theorem}
+    集 $A$ 和 $A$ 的幂集 $\mathcal{P}(A)$ 不等势.
+\end{theorem}
+说明可数集的幂集是不可数的.
+\begin{example}
+    实数集 $\mathbb{R}$, 区间 $(0,1)$ 都是不可数的.
+\end{example}
+\newpage
+
+\section{命题演算}
+\subsection{命题联结词与真值表}
+\subsection{命题}
+\begin{itemize}
+    \item 命题: 判断结果惟一的陈述句.
+    \item 命题的真值: 判断的结果.
+
+          约定: 一命题若为真, 则它的真值为 1; 若为假, 则它的真值为 0.
+\end{itemize}
+本章使用字母 $p,q,r$ 等用来表示命题.
+\subsection{命题联结词}
+\subsubsection{否定词}
+\begin{description}
+    \item[符号] ``$\lnot$'', 给定命题 $p$, $\lnot p$ 表示 $p$ 的否定.
+    \item[关系] $\lnot p\text{ 为真}\Leftrightarrow p\text{ 为假}$.
+    \item[真值表]
+        \begin{tabular}{c|c}
+            $p$ & $\lnot p$ \\
+            \hline
+            1   & 0         \\
+            0   & 1
+        \end{tabular}
+\end{description}
+\subsubsection{合取词}
+\begin{description}
+    \item[符号] ``$\land$'', 由命题 $p,q$ 用 $\land$ 连接得到新命题 $p\land q$.
+    \item[含义] 相当于中文的 ``与'' 或 ``且''.
+    \item[关系] $p\land q\text{ 为真}\Leftrightarrow p\text{ 与}\ q\text{ 皆为真}$.
+    \item[真值表]
+        \begin{tabular}{c|c|c}
+            $p$ & $q$ & $p\land q$ \\
+            \hline
+            1   & 1   & 1          \\
+            1   & 0   & 0          \\
+            0   & 1   & 0          \\
+            0   & 0   & 0
+        \end{tabular}
+\end{description}
+\subsubsection{析取词}
+\begin{description}
+    \item[符号] ``$\lor$'', 由命题 $p,q$ 用 $\lor$ 连接得到新命题 $p\lor q$.
+    \item[含义] 相当于中文的 ``或''.
+    \item[关系] $p\lor q\text{ 为真}\Leftrightarrow p\text{ 或}\ q\text{ 皆为真}$.
+    \item[真值表]
+        \begin{tabular}{c|c|c}
+            $p$ & $q$ & $p\lor q$ \\
+            \hline
+            1   & 1   & 1         \\
+            1   & 0   & 1         \\
+            0   & 1   & 1         \\
+            0   & 0   & 0
+        \end{tabular}
+\end{description}
+\subsubsection{蕴含词}
+\begin{description}
+    \item[符号] ``$\to$'', 由命题 $p,q$ 用 $\to$ 连接得到新命题 $p\to q$, $p$ 叫做该式的 ``前件'', $q$ 叫做该式的 ``后件''.
+    \item[含义] 相当于中文的 ``如果 ... 那么 ...'', 但是有所差别, 两个命题之间可以没有因果关系.
+    \item[关系] $p\to q\text{ 为假}\Leftrightarrow p\text{ 为真且}\ q\text{ 为假}$.
+    \item[真值表]
+        \begin{tabular}{c|c|c}
+            $p$ & $q$ & $p\to q$ \\
+            \hline
+            1   & 1   & 1        \\
+            1   & 0   & 0        \\
+            0   & 1   & 1        \\
+            0   & 0   & 1
+        \end{tabular}
+\end{description}
+\subsubsection{等价词 (或等值词)}
+\begin{description}
+    \item[符号] ``$\leftrightarrow$'', 由命题 $p,q$ 用 $\leftrightarrow$ 连接得到新命题 $p\leftrightarrow q$.
+    \item[含义] 相当于中文的 ``当且仅当''.
+    \item[关系] $p\leftrightarrow q\text{ 为真}\Leftrightarrow p\text{ 与}\ q\text{ 同为真或同为假}$.
+    \item[真值表]
+        \begin{tabular}{c|c|c}
+            $p$ & $q$ & $p\leftrightarrow q$ \\
+            \hline
+            1   & 1   & 1                    \\
+            1   & 0   & 0                    \\
+            0   & 1   & 0                    \\
+            0   & 0   & 1
+        \end{tabular}
+\end{description}
+\subsection{复合命题的真值表}
+复合命题的真假如何由构成它的支命题的真假来确定?
+\begin{example}\label{ex:1.1}
+    $(\lnot p)\land q$ 的真值表
+    \begin{table}[!htbp]
+        \centering
+        \begin{tabular}{cc|c|c}
+            $(\lnot$ & $p)$ & $\land$ & $p$ \\
+            \hline
+            0        & 1    & 0       & 1   \\
+            0        & 1    & 0       & 0   \\
+            1        & 0    & 1       & 1   \\
+            1        & 0    & 0       & 0
+        \end{tabular}
+    \end{table}
+\end{example}
+列表过程为
+\begin{enumerate}[topsep = -1em]
+    \item 将支命题所有可能的真值组合分别在对应的支命题下方一一写出. 在例 \ref{ex:1.1} 中共有四种 $(1, 1; 1, 0; 0, 1; 0, 0)$.
+    \item 按命题中联结词的作用顺序将每次作用所得的真值写在该联结词下方.
+    \item 最后得到的一列结果写在最后一个联结词 (例 \ref{ex:1.1} 为 $\land$) 下, 并用竖线标出.
+\end{enumerate}
+在例 \ref{ex:1.1} 中, 只有当 $(p, q)$ 取真值 $(0,1)$ 时命题才为真. 所以我们称 $(0,1)$ 是 $(\lnot p)\land q$ 的 ``成真指派'', 其他三种指派均为 ``成假指派''.
+
+\subsection{联结词之间的关系}
+\begin{example}\label{ex:1.2}
+    复合命题 $(p \lor q)\leftrightarrow ((\lnot p)\to q)$ 的真值表是
+    \begin{table}[!htbp]
+        \centering
+        \begin{tabular}{ccc|c|cccc}
+            $(p$ & $\lor$ & $q)$ & $\leftrightarrow$ & $((\lnot$ & $p)$ & $\to$ & $q)$ \\
+            \hline
+            1    & 1      & 1    & 1                 & 0         & 1    & 1     & 1    \\
+            1    & 1      & 0    & 1                 & 0         & 1    & 1     & 0    \\
+            0    & 1      & 1    & 1                 & 1         & 0    & 1     & 1    \\
+            0    & 0      & 0    & 1                 & 1         & 0    & 0     & 0
+        \end{tabular}
+    \end{table}
+    不论 $(p, q)$ 取哪个真值, 命题都为真, 这样的命题是永真式.
+\end{example}
+包括例 \ref{ex:1.2} 中的永真式, 我们还有下面的三个永真式.
+\begin{enumerate}[topsep = -1em]
+    \item $(p \lor q)\leftrightarrow ((\lnot p)\to q)$
+    \item $(p \land q)\leftrightarrow \lnot(p\to (\lnot q))$
+    \item $(p\leftrightarrow q)\leftrightarrow ((p\to q)\land (q\to p))$
+\end{enumerate}
+这说明五个联结词是相互关联的. 联结词 $\land$, $\lor$, $\leftrightarrow$ 可用 $\lnot$ 和 $\to$ 取代.
+
+\subsection{命题演算的建立}
+命题演算的形式化, 公理化.
+\subsection{命题演算公式集}
+\begin{definition}[命题演算公式]
+    我们采用的字母表由下面两类符号组成.
+    \begin{enumerate}[(1), topsep = -1em]
+        \item 两个运算符: $\lnot$ 和 $\to$.
+              前者为一元运算符, 后者为二元运算符.
+        \item 命题变元的可数序列:
+              $$
+                  x_1, x_2, \cdots, x_n, \cdots
+              $$
+    \end{enumerate}
+    公式的形成规则如下: (归纳定义)
+    \begin{enumerate}[(i), topsep = -1em]
+        \item 命题变元 $x_1, x_2, \cdots, x_n, \cdots$ 中的每一个都是公式.
+        \item 若 $p, q$ 是公式, 则 $\lnot p$, $p\to q$ 都是公式.
+        \item 任一公式皆由规则 (i), (ii) 的有限次使用形成.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[公式集的分层]
+    记 $X=\{x_1, x_2, \cdots, x_n, \cdots\}$. 用 $L(X)$ 表示所有公式构成的集.
+
+    公式集 $L(X)$ 可进行如下分层:
+    $$
+        L(X)=L_0\cup L_1\cup \cdots\cup L_n \cup\cdots
+    $$
+    其中
+    \begin{align*}
+        L_0=   & \ X=\{x_1, x_2, \cdots, x_n, \cdots\},                                    \\
+        L_1=   & \ \{\lnot x_1, \lnot x_2,\cdots,\lnot x_n,\cdots,                         \\
+               & \ x_1\to x_1, x_1\to x_2, x_2\to x_1,\cdots,x_i\to x_j,\cdots\},          \\
+        L_2=   & \ \{\lnot (\lnot x_1), \lnot (\lnot x_2),\cdots,\lnot (\lnot x_n),\cdots, \\
+               & \ x_1\to (\lnot x_1), (\lnot x_1)\to x_1, \cdots,                         \\
+               & \ x_1\to (x_1\to x_1), (x_1\to x_1)\to x_1, \cdots\}                      \\
+        \cdots & \cdots
+    \end{align*}
+\end{definition}
+有如下性质
+\begin{enumerate}[(1), topsep = -1em]
+    \item $i$ 层 $L_i$ 中公式由命题变元经过 $i$ 次运算得来.
+    \item (分层性) 不同层次之间没有公共元素.
+    \item 从层 $L_2$ 开始出现了括号.
+    \item $L_i(X)$ 是可数集, $L(X)$ 是可数集.
+\end{enumerate}
+\subsection{命题演算 \texorpdfstring{$L$}{L}}
+\begin{definition}[命题演算 $L$]
+    \label{def:2.3}
+    命题变元集 $X=\{x_1, x_2,\cdots\}$ 上的命题演算 $L$ 是指带有下面规定的 ``公理'' 和 ``证明'' 的命题代数 $L(X)$:
+    \begin{enumerate}[(1)]
+        \item ``公理''\\
+              取 $L(X)$ 的具有以下形状的公式作为 ``公理'':
+              \begin{enumerate}[label=(L\arabic*), topsep = -1em]
+                  \item $p\to (q\to p)$ \hfill (肯定后件律)
+                  \item $(p\to (q\to r))\to ((p\to q)\to (q\to r))$ \hfill (蕴含词分配律)
+                  \item $(\lnot p\to \lnot q)\to (q\to p)$ \hfill (换位律)
+              \end{enumerate}
+              其中 $p,q,r\in L(X)$
+        \item ``证明''\\
+              设 $\Gamma\subseteq L(X)$, $p\in L(X)$. 当我们说 ``公式 $p$ 是从公式集 $\Gamma$ 可证的'', 是指存在着 $L(X)$ 的公式的有序序列 $p_1, \cdots, p_n$, 其中尾项 $p_n=p$, 且每个 $p_k(k=1,\cdots, n)$ 满足:
+              \begin{enumerate}[(i), topsep = -1em]
+                  \item $p_k\in\Gamma$, 或
+                  \item $p_k$ 是 ``公理'', 或
+                  \item 存在 $i,j < k$ 使 $p_j=p_i\to p_k$
+              \end{enumerate}
+              具有上述性质的有限序列 $p_1, \cdots, p_n$ 叫做 $p$ 从 $\Gamma$ 的 ``证明''.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[语法推论]
+    \begin{enumerate}[(1), topsep = -1em]
+        \item 如果公式 $p$ 从公式集 $\Gamma$ 可证, 那么我们写 $\Gamma\vdash p$, 必要时也可写成 $\Gamma\vdash_L p$, 这时 $\Gamma$ 中的公式叫做 ``假定'', $p$ 叫做假定集 $\Gamma$ 的语法推论.
+        \item 若 $\varnothing\vdash p$, 则称 $p$ 是 $L$ 的 ``定理'', 记为 $\vdash p$. $p$ 在 $L$ 中从 $\varnothing$ 的证明 $p_1, \cdots, p_n$ 简称为 $p$ 在 $L$ 中的证明.
+        \item 在一个证明中, 当 $p_j=p_i\to p_k\ (i,j<k)$ 时, 就说 $p_k$ 由 $p_i, p_i\to p_k$ 使用假言推理 (Modus Ponens) 这条推理规则而得, 或简单地说 ``使用 MP 而得''.
+    \end{enumerate}
+\end{definition}
+\begin{quality}
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+        \item 若 $p$ 是 $L$ 的公理, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
+        \item 若 $\vdash p$, 则 $\Gamma\vdash p$ 对于任一公式集 $\Gamma$ 都成立.
+        \item 若 $p\in\Gamma$, 则$\Gamma\vdash p$.
+        \item $\{p,p\to q\}\vdash q$.
+        \item 若 $\Gamma\vdash p_n$, 且已知 $p_1,\cdots, p_n$ 是 $p_n$ 从 $\Gamma$ 的证明, 则当 $1\leq k\leq n$ 时, 有 $\Gamma \vdash p_k$, 且 $p_1, \cdots, p_k$ 是 $p_k$ 从 $\Gamma$ 的证明.
+        \item 若 $\Gamma$ 是无限集, 且 $\Gamma\vdash p$, 则存在 $\Gamma$ 的有限子集 $\Delta$ 使 $\Delta\vdash p$.
+    \end{enumerate}
+\end{quality}
+\begin{proposition}[同一律]
+    $\vdash p\to p$
+\end{proposition}
+\begin{proposition}[否定前件律]
+    $\vdash\lnot q\to(q\to p)$
+\end{proposition}
+\begin{definition}[无矛盾公式集]
+    如果对任何公式 $q$, $\Gamma\vdash q$ 和 $\Gamma\vdash\lnot q$二者都不同时成立, 就称公式集 $\Gamma$ 是无矛盾公式集, 否则称 $\Gamma$ 为有矛盾公式集.
+\end{definition}
+\begin{proposition}
+    若 $\Gamma$ 是有矛盾公式集, 则对 $L$ 的任一公式 $p$, 都有 $\Gamma\vdash p$.
+\end{proposition}
+\subsection{演绎定理}
+\begin{theorem}[演绎定理]
+    $\Gamma \cup \{p\}\vdash q\quad\Leftrightarrow\quad \Gamma\vdash p\to q$
+\end{theorem}
+\begin{lemma}[假设三段论]
+    $\{p\to q,q\to r\}\vdash p\to r$
+\end{lemma}
+假设三段论 (Hypothetical Syllogism) 简称 HS.
+
+\begin{proposition}[否定肯定律]
+    $\vdash (\lnot p\to p)\to p$
+\end{proposition}
+\subsection{反证律与归谬律}
+\begin{theorem}[反证律]
+    $$
+        \left.
+        \begin{matrix}
+            \Gamma\cup\{\lnot p\}\vdash q \\
+            \Gamma\cup\{\lnot p\}\vdash\lnot q
+        \end{matrix}
+        \right\}\Rightarrow \Gamma\vdash p
+    $$
+\end{theorem}
+\begin{theorem}[归谬律]
+    $$
+        \left.
+        \begin{matrix}
+            \Gamma\cup\{p\}\vdash p \\
+            \Gamma\cup\{p\}\vdash\lnot p
+        \end{matrix}
+        \right\}\Rightarrow \Gamma\vdash p
+    $$
+\end{theorem}
+\begin{deduction}[第二双重否定律]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
+        \item $\{p\}\vdash\lnot\lnot p$
+        \item $\vdash p\to \lnot\lnot p$
+    \end{enumerate}
+\end{deduction}
+
+% ************************************************************************
+\subsection{常用重要结论}
+\noindent$\vdash p\to p$\hfill (同一律)\\
+$\vdash \lnot q\to(q\to p)$\hfill (否定前件律)\\
+$\vdash (\lnot p\to p)\to p$\hfill (否定肯定律)\\
+$\vdash (p\to q)\to((q\to r)\to (p\to r))$\hfill (HS, 假设三段论)\\
+$\vdash \lnot\lnot p\to p$\hfill (双重否定律)\\
+$\vdash p\to \lnot \lnot p$\hfill (第二双重否定律)\\
+$\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
+% ************************************************************************
+
+\subsection{析取, 合取与等值}
+在 $\{\lnot,\to\}$ 型代数 $L(X)$ 中, 还可以定义三个新的二元运算 $\lor$ (析取), $\land$ (合取) 及 $\leftrightarrow$ (等值) 如下:
+\begin{align*}
+     & p\lor q=\lnot p\to q                      \\
+     & p\land q=\lnot( p\to \lnot q)             \\
+     & p\leftrightarrow q=(p\to q)\land (q\to p)
+\end{align*}
+\begin{proposition}[析取相关]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
+        \item $\vdash p\to (p\lor q)$
+        \item $\vdash q\to (p\lor q)$
+        \item $\vdash (p\lor q)\to (q\lor p)$
+        \item $\vdash (p\lor p)\to p$
+        \item $\vdash \lnot p\lor p$ (排中律)
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}[合取相关]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
+        \item $\vdash (p\land q)\to p$
+        \item $\vdash (p\land q)\to q$
+        \item $\vdash (p\land q)\to (q\land p)$
+        \item $\vdash p\to (p\land p)$
+        \item $\vdash p\to (q\to (p\land q))$
+        \item $\vdash \lnot (p\land \lnot p)$ (矛盾律)
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}[等值相关]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
+        \item $\vdash (p\leftrightarrow q)\to (p\to q)$
+        \item $\vdash (p\leftrightarrow q)\to (q\to p)$
+        \item $\vdash (p\leftrightarrow q)\leftrightarrow (q \leftrightarrow p)$
+        \item $\vdash (p\leftrightarrow q)\leftrightarrow (\lnot p\leftrightarrow\lnot q)$
+        \item $\vdash (p\to q)\to ((q\to p)\to (p\leftrightarrow q))$
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}[De. Morgan 律]
+    \begin{enumerate}[label=$\arabic*^\circ$, topsep = -1em]
+        \item $\vdash (p\land q)\leftrightarrow (\lnot p\lor \lnot q)$
+        \item $\vdash (p\lor q)\leftrightarrow (\lnot p\land \lnot q)$
+    \end{enumerate}
+\end{proposition}
+\subsection{命题演算的语义}
+\subsection{真值函数}
+记 $\mathbb{Z}_2=\{0,1\}$.
+\begin{definition}[真值函数]
+    函数 $f\ :\ \mathbb{Z}_2^n\to\mathbb{Z}_2$ (即 $\mathbb{Z}_2$ 上的 $n$ 元运算) 叫做 $n$ 元真值函数.
+\end{definition}
+\begin{example}[一元真值函数]
+    一元真值函数共有 4 个, 分别用 $f_1$, $f_2$, $f_3$, $f_4$ 表示:
+    \begin{center}
+        \begin{tabular}{c|cccc}
+            $v\in\mathbb{Z}_2$ & $f_1(v)$ & $f_2(v)$ & $f_3(v)$ & $f_4(v)$ \\
+            \hline
+            1                  & 1        & 1        & 0        & 0        \\
+            0                  & 1        & 0        & 1        & 0
+        \end{tabular}
+    \end{center}
+    $f_1$ 和 $f_4$ 是常值函数.
+    $f_2$ 是恒等函数, $f_2(v)=v$.
+    $f_3$ 叫做 ``非'' 运算或 ``否定'' 运算, 也用 $\lnot$ 表示: $\lnot v=f_3(v)=1-v$.
+\end{example}
+\begin{example}[二元真值函数]
+    二元真值函数一共有 16 个, 可将它们的函数值列成下表:
+    \begin{center}
+        \begin{tabular}{cc|cccccccccccccccc}
+            $v_1$ & $v_2$ & $f_1$ & $f_2$ & $f_3$ & $f_4$ & $f_5$ & $f_6$ & $f_7$ & $f_8$ & $f_9$ & $f_{10}$ & $f_{11}$ & $f_{12}$ & $f_{13}$ & $f_{14}$ & $f_{15}$ & $f_{16}$ \\
+            \hline
+            1     & 1     & 1     & 1     & 1     & 1     & 1     & 1     & 1     & 1     & 0     & 0        & 0        & 0        & 0        & 0        & 0        & 0        \\
+            1     & 0     & 1     & 1     & 1     & 1     & 0     & 0     & 0     & 0     & 1     & 1        & 1        & 1        & 0        & 0        & 0        & 0        \\
+            0     & 1     & 1     & 1     & 0     & 0     & 1     & 1     & 0     & 0     & 1     & 1        & 0        & 0        & 1        & 1        & 0        & 0        \\
+            0     & 0     & 1     & 0     & 1     & 0     & 1     & 0     & 1     & 0     & 1     & 0        & 1        & 0        & 1        & 0        & 1        & 0
+        \end{tabular}
+    \end{center}
+    $f_4$ 和 $f_6$ 是坐标函数, $f_4(v_1,v_2)=v_1,f_6(v_1,v_2)=v_2$.
+    $f_5$ 叫做 ``蕴含'' 运算, 也用符号 $\to$ 表示. 它的计算公式为:
+    $$
+        v_1\to v_2=f_5(v_1,v_2)=1-v_1+v_1v_2
+    $$
+\end{example}
+可以看出, $\mathbb{Z}_2$ 也是一种 $\{\lnot, \to\}$ 型代数, 是与 $L(X)$ 不同的另一种命题代数.
+
+由上面的表很容易验证以下公式成立:
+\begin{enumerate}[label = \textbf{公式 \arabic*}, topsep = -1em]
+    \item $\lnot\lnot v = v$
+    \item $1\to v = v$
+    \item $v\to 1 = 1$
+    \item $v\to 0 = \lnot v$
+    \item $0\to v = 1$
+\end{enumerate}
+
+现将 16 个二元真值函数中的 $f_2$, $f_8$ 及 $f_7$ 分别用 $\lor$, $\land$ 和 $\leftrightarrow$ 表示, 容易验证:
+\begin{enumerate}[label = \textbf{公式 \arabic*}, topsep = -1em]
+    \setcounter{enumi}{5}
+    \item $v_1\lor v_2 = \lnot v_1 \to v_2$
+    \item $v_1\land v_2 = \lnot (v_1 \to \lnot v_2)$
+    \item $v_1\leftrightarrow v_2 = (v_1\to v_2)\land(v_2\to v_1)$
+\end{enumerate}
+
+\begin{proposition}
+    任一真值函数都可用一元运算 $\lnot$ 和二元运算 $\to$ 表示出来.
+\end{proposition}
+
+\subsection{赋值与语义推论}
+现在要在 $L(X)$ 和 $\mathbb{Z}_2=\{0,1\}$ 这两种命题代数之间建立起适当的联系. 注意 $L(X)$ 与 $\mathbb{Z}_2$ 之间的差异, 比如在 $L(X)$ 中 $\lnot \lnot x \neq x$, 但在 $\mathbb{Z}_2$ 中 $\lnot \lnot v = v$.
+
+\begin{definition}[赋值]
+    具有 ``保运算性'' 的映射 $v:L(X)\to\mathbb{Z}_2$ 叫做 $\mathbb{Z}_2$ 的赋值. 映射 $v$ 具有保运算性, 是指对任意 $p,q\in L(X)$, $v$ 满足条件:
+    \begin{enumerate}[(1), topsep = -1em]
+        \item $v(\lnot p)=\lnot v(p)$
+        \item $v(p\to q)= v(p)\lnot v(q)$
+    \end{enumerate}
+    对任意公式 $p\in L(X)$, $v(p)$ 叫做 $p$ 的真值. 同样, 具有保运算性的映射 $v:L(X_n)\to \mathbb{Z}_2$ 叫做 $L(X_n)$ 的赋值. ($X_n=\{x_1,\cdots x_n\}$).
+\end{definition}
+\begin{proposition}
+    设 $v:L(X)\to\mathbb{Z}_2$ 是一个赋值, 则 $v$ 对 $\lor$, $\land$, $\leftrightarrow$ 也具有保运算性, 即对任意 $p,q\in L(X)$, 有
+    $$
+        v(p\lor q)=v(p)\lor v(q),\ v(p\land q)=v(p)\land v(q),\ v(p\leftrightarrow q)=v(p)\leftrightarrow v(q)
+    $$
+\end{proposition}
+\begin{definition}[真值指派]
+    映射 $v_0: X\to\mathbb{Z}_2$ 叫做命题变元的真值指派. 若把其中的 $X$ 换成 $X_n=\{x_1, \cdots, x_n\}$, 则 $v_0$ 叫做 $x_1, \cdots, x_n$ 的真值指派.
+\end{definition}
+\begin{theorem}
+    命题变元的任一真值指派, 必可唯一地扩张成 $L(X)$ 的赋值; $x_1, \cdots, x_n$ 的任一真值指派, 必可唯一地扩张成 $L(X_n)$ 的赋值.
+\end{theorem}
+\begin{proposition}
+    设 $m\geq n$, $v$ 是 $L(X_m)$ 或 $L(X)$ 的赋值. 若 $v$ 满足 $v(x_1)=v_1, \cdots, v(x_n)=v_n$, 则 $L(X_n)$ 的任一公式 $p(x_1, \cdots, x_n)$ 的真值是
+    $$
+        v(p(x_1, \cdots, x_n))=p(v_1, \cdots, v_n)
+    $$
+    其中 $p(x_1,\cdots,x_n)$ 是用 $v_1, \cdots, v_n$ 分别代换 $p(x_1, \cdots, x_n)$ 中的 $x_1, \cdots, x_n$ 所得的结果.
+\end{proposition}
+\begin{itemize}
+    \item $L(X_n)$ 的公式 $p(x_1,\cdots,x_n)$ 作为 $L(X)$ 的成员或 $L(X_m)$ 的成员 ($m>n$), 其真值只与其所含命题变元的真值指派有关, 而与其他变元的真值指派无关. 这是用真值表研究公式真值的基础.
+    \item 命题变元表示简单命题, 其他层次的公式表示复合命题. (只有) 命题变元的真值可随意指定, 且在命题变元真值指定之后, 涉及这些命题变元的所有公式的真值也随之唯一确定.
+    \item 设 $p\in L(X_n)$. 任取 $v_1, \cdots, v_n \in\mathbb{Z}_2$, 将 $v_1, \cdots, v_n$ 分别指派给 $x_1, \cdots, x_n$, 这时 $p$ 就有了唯一确定的真值 $v(p(x_1,\cdots,x_n))=p(v_1,\cdots,v_n)\in\mathbb{Z}_2$. 将此值对应于 $v_1, \cdots, v_n$ 的函数值, 就得到一个由公式 $p$ 所确定的真值函数, 简称 $p$ 的真值函数.
+    \item 公式的真值表就是该公式的真值函数的函数值表.
+\end{itemize}
+\begin{definition}[永真式]
+    若公式 $p$ 的真值指派取常数 1, 则 $p$ 叫做命题演算 $L$ 的永真式或重言式 (Tautology), 记作 $\vDash p$.
+\end{definition}
+\begin{theorem}[代换定理]
+    设 $p(x_1, \cdots, x_n)\in L(X_n)$, 而 $p_1, \cdots, p_n\in L(X_n)$. $p(p_1, \cdots, p_n)$ 是用 $p_1,\cdots,p_n$ 分别全部替换 $p(x_1,\cdots,x_n)$ 中的 $x_1, \cdots, x_n$ 所得结果. 则有
+    $$
+        \vDash p(x_1, \cdots, x_n)\quad\Rightarrow\quad \vDash p(p_1,\cdots,p_n)
+    $$
+\end{theorem}
+\begin{proposition}
+    $L$ 的所有公理都是永真式, 即对任意的 $p,q,r\in L(X)$,
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+        \item $\vDash p\to(q\to p)$
+        \item $\vDash (p\to (q\to r))\to ((p\to q)\to (p\to r))$
+        \item $\vDash (\lnot p\to \lnot q)\to (q\to p)$
+    \end{enumerate}
+\end{proposition}
+
+以下是常用的永真式.
+
+$\vDash p\to p$\hfill(同一律)
+
+$\vDash \lnot p\lor p$\hfill(排中律)
+
+$\vDash \lnot(\lnot p\land p)$\hfill(矛盾律)
+
+$\vDash ((p\lor q)\lor r)\leftrightarrow(p\lor(q\lor r))$\hfill(析取结合律)
+
+$\vDash (p\lor q)\leftrightarrow(q\lor p)$\hfill(析取交换律)
+
+$\vDash ((p\land q)\land r)\leftrightarrow(p\land(q\land r))$\hfill(合取结合律)
+
+$\vDash (p\land q)\leftrightarrow(q\land p)$\hfill(合取交换律)
+
+$\vDash (p\land(q\lor r))\leftrightarrow((p\land q)\lor(p\land r))$\hfill(分配律)
+
+$\vDash (p\lor (q\land r))\leftrightarrow((p\lor q)\land (p\lor r))$\hfill(分配律)
+
+$\vDash \lnot(p\lor q)\leftrightarrow(\lnot p\land\lnot q)$\hfill(De. Morgan 律)
+
+$\vDash \lnot(p\land q)\leftrightarrow(\lnot p\lor\lnot q)$\hfill(De. Morgan 律)
+
+\begin{definition}[永假式与可满足公式]
+    若 $\lnot p$ 是永真式, 则 $p$ 叫做永假式. 非永假式叫做可满足公式.
+\end{definition}
+\begin{definition}[语义推论]
+    设 $\Gamma \subseteq L(X)$, $p\in L(X)$. 如果 $\Gamma$ 中所有公式的任何公共成真指派都一定是公式 $p$ 的成真指派, 则说 $p$ 是公式集 $\Gamma$ 的语义推论, 记作 $\Gamma\vDash p$.
+\end{definition}
+立即有以下结论
+\begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+    \item $\varnothing\vDash p\Leftrightarrow L(X)\ \text{的任一赋值}\ v\ \text{都使}\ v(p)=1\Leftrightarrow\vDash p$
+    \item $p\in\Gamma\Rightarrow\Gamma\vDash p$
+    \item $\vDash p\Rightarrow\Gamma\vDash p$
+\end{enumerate}
+\begin{proposition}
+    $\{\lnot p\}\vDash p\to q$; $\{q\}\vDash p\to q$
+\end{proposition}
+\begin{proposition}
+    $\Gamma\vDash p\ \text{且}\ \Gamma\vDash p\to q\quad\Rightarrow\quad\Gamma\vDash q$
+\end{proposition}
+\begin{proposition}[语义演绎定理]
+    $\Gamma\cup\{p\}\vDash q\quad\Leftrightarrow\quad\Gamma\vDash p\to q$
+\end{proposition}
+更一般地, 有
+$$
+    \{p_1,\cdots,p_n\}\vDash p\quad\Leftrightarrow\quad \vDash(p_1\land\cdots\land p_n)\to p
+$$
+\subsection{命题演算 \textit{L} 的可靠性与完全性}
+开始证明命题演算 $L$ 的语法推论和语义推论的一致性: $\Gamma\vdash p\Leftrightarrow\Gamma\vDash p$
+\begin{theorem}[$L$ 的可靠性]
+    $\Gamma\vdash p\Rightarrow\Gamma\vDash p$
+\end{theorem}
+\begin{deduction}[$L$ 的无矛盾性]
+    命题演算 $L$ 是无矛盾的, 即不存在公式 $p$ 同时使 $\vdash p$ 和 $\vdash \lnot p$ 成立.
+\end{deduction}
+\begin{definition}[公式集的完备性]
+    设 $\Gamma\subseteq L(X)$. $\Gamma$ 是完备的, 意指对任一公式 $p$, $\Gamma\vdash p$ 与 $\Gamma\vdash\lnot p$ 必有一个成立.
+\end{definition}
+\begin{theorem}[$L$ 的完全性]
+    $\Gamma\vDash p\Rightarrow \Gamma\vdash p$
+\end{theorem}
+\begin{proposition}
+    无矛盾公式集必有无矛盾的完备扩张.
+\end{proposition}
+下面来讨论命题演算 $L$ 的可判定性.
+
+\begin{enumerate}[label = $\arabic*^\circ$, listparindent = 2em, topsep = -1em]
+    \item $L$ 的语义可判定性
+
+          我们说命题演算 $L$ 是语义可判定的, 意思是说存在算法可用来确定 $L$ 中任给的公式 $p(x_1,\cdots,x_n)$ 是不是永真式.
+
+          这样的算法是存在的: 任给 $L$ 中的公式 $p(x_1,\cdots,x_n)$, 我们来一一计算它的真值函数的函数值 $p(v_1, \cdots, v_n)$, 如果对所有 $v_1, \cdots,v_n\in\mathbb{Z}_2$, 都有 $p(v_1, \cdots, v_n) = 1$, 则 $p$ 是永真式, 否则 $p$ 不是永真式.
+    \item $L$ 的语法可判定性
+
+          我们说命题演算 $L$ 是语法可判定的, 意思是说存在算法可用来确定 $L$ 的任意公式 $p(x_1,\cdots,x_n)$ 是不是 $L$ 的定理.
+
+          这样的算法是存在的: 根据 $L$ 的可靠性和完全性, 看公式 $p$ 是不是定理, 就看它是不是永真式.
+
+          $L$ 的语义可判定导致了 $L$ 的语法可判定.
+\end{enumerate}
+\subsection{命题演算的其他课题}
+\subsection{等值公式与对偶律}
+\begin{definition}[等值公式]
+    $p$ 与 $q$ 等值, 是指 $p\leftrightarrow q$ 为永真式.
+\end{definition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+        \item $\vDash p \leftrightarrow p$\hfill (等值的反身性)
+        \item $\vDash p \leftrightarrow q \ \Rightarrow\ \vDash q\leftrightarrow p$\hfill (等值的对称性)
+        \item $\vDash p \leftrightarrow q\ \text{及}\ \vDash q \leftrightarrow r\ \Rightarrow\ \vDash p \leftrightarrow r$\hfill (等值的可递性)
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+        \item $\vDash p\leftrightarrow q\ \Rightarrow\ \vDash\lnot p\leftrightarrow \lnot q$
+        \item $\vDash p\leftrightarrow p'\ \text{及}\ \vDash q\leftrightarrow q'\ \Rightarrow\ \vDash(p\to q)\leftrightarrow(p'\to q')$
+    \end{enumerate}
+\end{proposition}
+\begin{theorem}[子公式等值可替换性]
+    设 $q$ 是 $p$ 的子公式: $p=\cdots q\cdots$, 用公式 $q'$ 替换 $p$ 中的子公式 $q$ (一处替换) 所得结果记为 $p'=\cdots q'\cdots$. 那么
+    $$
+        \vDash q\leftrightarrow q'\ \Rightarrow\ \vDash p\leftrightarrow p'
+    $$
+\end{theorem}
+\begin{definition}[公式的对偶]
+    设公式 $p$ 已被写成只含有命题变元和运算 $\lnot$, $\lor$, $\land$ 的形式. 把 $p$ 中的命题变元全部改为各自的否定, 把 $\lor$ 全改为 $\land$, 把 $\lnot$ 全改为 $\lor$, 这样得到的公式 $p^*$ 叫做公式 $p$ 的对偶.
+\end{definition}
+\begin{theorem}[对偶律]
+    $\vDash p^*\leftrightarrow \lnot p$, 其中 $p^*$ 是 $p$ 的对偶.
+\end{theorem}
+\begin{deduction}[推广的 De.Morgan 律]
+    $p_1,\cdots,p_n$ 是任意公式,
+    \begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em]
+        \item $\vDash (\lnot p_1\lor\cdots\lor\lnot p_n)\leftrightarrow\lnot (p_1\land\cdots\land p_n)$
+        \item $\vDash (\lnot p_1\land\cdots\land\lnot p_n)\leftrightarrow\lnot (p_1\lor\cdots\lor p_n)$
+    \end{enumerate}
+\end{deduction}
+\subsection{析取范式与合取范式}
+\begin{definition}[基本析取式与基本合取式]
+    形为 $y_1\lor y_2\lor \cdots\lor y_n$ 和形如 $x_1\land x_2\land \cdots\land x_n$ 的公式分别叫做基本析取式和基本合取式, 其中每个 $y_i$ 是命题变元或命题变元的否定.
+\end{definition}
+\begin{definition}[析取范式与合取范式]
+    形为 $\lor_{i=1}^m\left(\land_{j=1}^{n_i} y_{ij}\right)$ 的公式叫做析取范式, 形为 $\land_{i=1}^m\left(\lor_{j=1}^{n_i} x_{ij}\right)$ 的公式叫做合取范式, 其中每个 $y_{ij}$ 是某个命题变元 $x_k$ 或它的否定 $\lnot x_k$.
+\end{definition}
+析取范式就是以若干基本合取式为析取支的析取式; 合取范式就是以若干基本析取式为合取支的合取式.
+
+给出一个公式, 要找出与它等值的析取范式或合取范式, 大致可采取以下步骤:
+\begin{enumerate}[label = $\arabic*^\circ$, topsep = -1em, listparindent = 2em]
+    \item 消去 $\to$ 与 $\leftrightarrow$. 先用 $p\leftrightarrow q = (p\to q)\land (q\to p)$ 消去 $\leftrightarrow$, 再用 $\vDash (p\to q)\leftrightarrow (\lnot p\lor q)$ 消去 $\to$.
+    \item 把否定号 $\lnot$ 等值变换到命题变元之前, 用到以下几个等值式.
+          \begin{gather*}
+              \vDash \lnot (p\lor q) \leftrightarrow \lnot p\land \lnot q\\
+              \vDash \lnot (p\land q) \leftrightarrow \lnot p\lor \lnot q\\
+              \vDash \lnot\lnot p \leftrightarrow p
+          \end{gather*}
+    \item 利用交换律, 结合律及分配律作等值变换, 直到得出所需要的形式为止.
+\end{enumerate}
+\begin{definition}[主析取范式与主合取范式]
+    $L(X)$ 中的主析取范式 (主合取范式) 是这样的析取范式 (合取范式), 在它的每个析取支 (合取支) 中, 每个命题变元 $x_1, \cdots,x_n$ (带否定号或不带否定号) 按下标由小到大的次序都出现且都只出现一次.
+\end{definition}
+\begin{theorem}
+    每个非永假式必有与他等值的主析取范式.
+\end{theorem}
+\begin{theorem}
+    每个非永真式必等值于一主合取范式.
+\end{theorem}
+\subsection{运算的完全组}
+\begin{definition}[运算的完全组]
+    $\mathbb{Z}_2$ 上的一些运算构成完全组, 是指任一真值函数都可用该运算组中的运算表示出来.
+\end{definition}
+显然, $\{\lnot,\to\}$ 是完全组.
+\begin{proposition}
+    $\{\lnot, \lor\}$ 和 $\{\lnot,\land\}$ 都是运算完全组.
+\end{proposition}
+\begin{proposition}
+    $\{\lor,\land,\to,\leftrightarrow\}$ 不是运算完全组.
+\end{proposition}
+\begin{proposition}
+    $\{\lnot,\leftrightarrow\}$ 不是完全组.
+\end{proposition}
+\begin{deduction}
+    独元集 $\{\lnot\}$ 不是完全组.
+\end{deduction}
+\begin{deduction}
+    $\{\lnot,\not\leftrightarrow\}$ 不成完全组, 其中 $v_1\not\leftrightarrow v_2 = \lnot (v_1\leftrightarrow v_2)$
+\end{deduction}
+\begin{definition}[``与非'' 运算和 ``或非'' 运算]
+    与非运算用算符 ``$\vert$'' 表示, 或非运算用算符 ``$\downarrow$'' 表示. 它们的定义式为
+    \begin{gather*}
+        v_1\vert v_2 = \lnot (v_1\land v_2)\\
+        v_1\downarrow v_2 = \lnot (v_1\lor v_2)
+    \end{gather*}
+\end{definition}
+\begin{proposition}
+    独元集 $\{\vert\}$ 和独元集 $\{\downarrow\}$ 都是完全组.
+\end{proposition}
+\begin{proposition}
+    除了 $\vert$, $\downarrow$ 外, 没有其他二元运算单独构成完全组.
+\end{proposition}
+\subsection{应用举例}
+在应用中, $\Gamma\vdash p$ 或 $\Gamma\vDash p$ 中假定集 $\Gamma$ 常常是有限集. 当我们需要从语法上证明 $\{r_1,\cdots,r_n\}\vdash p$ 时, 显而易见可以改为从语法上检查 $(r_1\land\cdots\land r_n)\to p$ 是不是永真式. 为此, 只需要写出真值表就可以了. 但是当命题变元的个数比较多时, 写真值表就可能行不通, 需要灵活采用其他的一些特殊方法.
+\begin{example}
+    检查下面命题的正确性:
+    $$
+        \{\lnot x_1\lor x_2,x_1\to (x_3\land x_4), x_4\to x_2\}\vdash x_2\lor x_3
+    $$
+    要检查它的正确性, 可以从语义上进行, 检查 $\lnot x_1\lor x_2$, $x_1\to (x_3\land x_4)$, $x_4\to x_2$ 这三个公式的所有公共成真指派是否都是 $x_2\lor x_3$ 的成真指派. 为此, 只用检查是否存在使前三个公式为真而使 $x_2\lor x_3$ 为假的指派, 即下面的真值方程组 (1) \textasciitilde \ (4) 是否有解:
+    \begin{enumerate}[label = (\arabic*), listparindent = 2em, topsep = -1em]
+        \item $\lnot v_1\lor v_2 = 1$
+        \item $v_1\to (v_3\land v_4) = 1$
+        \item $v_4\to v_2 = 1$
+        \item $v_2\lor v_3 = 0$\\
+              由 (4) 式可得:
+        \item $v_2 = 0$, 且
+        \item $v_3 = 0$\\
+              由 (3) 式与 (5) 式得
+        \item $v_4 = 0$\\
+              由 (1) 式与 (5) 式得
+        \item $v_1 = 0$\\
+              将 (6), (7), (8) 式代入 (2) 式的左边, 得
+              $$
+                  v_1 \to (v_3\land v_4) = 0\to (0\land 0) = 1
+              $$
+    \end{enumerate}
+    即 $(0,0,0,0)$ 是方程组的解, 所以题中的命题不成立.
+\end{example}
+\newpage
+\section{谓词演算}
+\subsection{谓词演算的建立}
+\subsection{项与原子公式}
+我们从四个集出发
+\begin{itemize}[listparindent = 2em]
+    \item 个体变元集 $X=\{x_1, x_2, \cdots\}$ 是可数集. 个体变元 $x_i$ 可用来表示某个个体对象. 有时为了方便, 我们也用 $x, y, z$ 等来表示个体变元.
+    \item 个体常元集 $C=\{c_1, c_2, \cdots\}$ 是可数集, 也可以是有限集 (包括空集). 个体常元 $c_i$ 可用来表示确定的个体对象.
+    \item 运算集 $F=\{f_1^1, f_2^1, \cdots, f_1^2, f_2^2, \cdots, f_1^3, f_2^3, \cdots\}$ 是可数集, 也可以是有限集 (包括空集).
+          $f_i^n$ 叫做第 $i$ 个 $n$ 元运算符或函数词, 用来表示某个体对象集上的 $n$ 元运算. 注意符号 $f_i^n$ 的上标 $n$ 是该运算符的元数.
+    \item 谓词集 $R=\{R_1^1, R_2^1, \cdots, R_1^2, R_2^2, \cdots, R_1^3, R_2^3, \cdots\}$ 是可数集, 也可以是有限集, 但不能是空集.
+          $R_i^n$ 叫做第 $i$ 个 $n$ 元谓词, 用来表示某个体对象集上的 $n$ 元关系. 注意符号 $R_i^n$ 的上标 $n$ 是该谓词的元数.
+\end{itemize}
+用不同的 $C$, $F$ 和 $R$ 可以构造出不同的谓词演算系统.
+\begin{definition}[项集 $T$]
+    项的形成规则是:
+    \begin{enumerate}[(i)]
+        \item 个体变元 $x_i (\in X)$ 和个体常元 $c_i (\in C)$ 都是项.
+        \item 若 $t_1, \cdots, t_n$ 是项, 则 $f_i^n(t_1, \cdots, t_n)$ 也是项. ($f_i^n\in F$)
+        \item 任一项皆如此形成, 即皆由规则 (i), (ii) 的有限次使用形成.
+    \end{enumerate}
+    当运算符集 $F=\varnothing$ 时, 规定项集 $T=X\cup C$.
+\end{definition}
+当 $F\neq \varnothing$ 时, 项集 $T$ 可如下分层
+$$
+    T=T_0\cup T_1\cup T_2\cup \cdots\cup T_k\cdots
+$$
+其中
+$$
+    \begin{aligned}
+        T_0 = & X\cup C=\{x_1, x_2, \cdots, c_1, c_2, \cdots\},        \\
+        T_1 = & \{f_1^1(x_1), f_1^1(x_2), \cdots, f_1^1(c_1),\cdots    \\
+              & f_2^1(x_1), \cdots, f_2^1(c_1), \cdots                 \\
+              & \cdots\cdots                                           \\
+              & f_1^2(x_1, x_1), \cdots                                \\
+              & \cdots\cdots                                           \\
+              & f_1^3(x_1, x_1, x_1), \cdots                           \\
+              & \cdots\cdots\},                                        \\
+        T_2 = & \{f_1^1(f_1^1(x_1)), \cdots, f_1^2(x_1, f_1^1(x_1))\}, \\
+              & \cdots\cdots
+    \end{aligned}
+$$
+第 $k$ 层项由第零层项经 $k$ 次运算而来. 项集 $T$ 是由 $X\cup C$ 形成。$F$ 型代数.
+\begin{definition}[闭项]
+    只含个体常元的项叫做闭项.
+\end{definition}
+\begin{definition}[原子公式集]
+    原子公式集是指
+    $$
+        Y=\bigcup_{i,n} \left(\{R_i^n\}\times \underbrace{T\times\cdots\times T}_{n\ \text{个}\ T} \right)
+    $$
+    即
+    $$
+        Y=\{(R_i^n, t_1, \cdots, t_n)\vert R_i^n\in R, t_1, \cdots, t_n \in T\}
+    $$
+    以后常把原子公式 $(R_i^n, t_1, \cdots, t_n)$ 写成 $R_i^n(t_1, \cdots, t_n)$.
+\end{definition}
+原子公式是用来表示命题的最小单位, 项是构成原子公式的基础.
+\subsection{谓词演算公式集}
+建立谓词演算公式集前, 先列出我们所采用的这种形式语言的字母表如下:
+\begin{itemize}[listparindent = 2em]
+    \item 个体变元 $x_1, x_2, \cdots$\hfill (可数个)
+    \item 个体常元 $c_1, c_2, \cdots$\hfill (可数个或有限个)
+    \item 运算符 $f_1^1, f_2^1, \cdots, f_1^2, f_2^2, \cdots$\hfill (可数个或有限个)
+    \item 谓词 $R_1^1, R_2^1, \cdots, R_1^2, R_2^2, \cdots$\hfill (可数个或有限个, 至少一个)
+    \item 联结词 $\lnot, \to$
+    \item 全称量词 $\forall$
+    \item 左右括号, 逗号 ``('', ``)'', ``,''
+\end{itemize}
+谓词演算公式的形成过程是:
+\begin{enumerate}[(i)]
+    \item 每个原子公式是公式.
+    \item 若 $p$, $q$ 是公式, 则 $\lnot p$, $p\to q$, $\forall x_i p(i = 1, 2, \cdots)$ 都是公式.
+    \item 任一公式皆如此形成, 即皆由规则 (i), (ii) 的有限次使用形成.
+\end{enumerate}
+用 $K(Y)$ 表示谓词演算全体公式的集, 它是一个可数集. $K(Y)$ 也具有分层性, 它的零层由原子公式组成, 第 $k$ 层公式由原子公式经 $k$ 次运算而来.
+
+还可在 $K(Y)$ 上定义新的运算 $\lor$, $\land$, $\leftrightarrow$ 及 $\exists x_i$ (存在量词运算):
+\begin{gather*}
+    p\lor q = \lnot p \to q\\
+    p\land q = \lnot (p\to \lnot q)\\
+    p\leftrightarrow q = (p\to q)\land (q\to p)\\
+    \exists x_i p=\lnot \forall x_i \lnot p
+\end{gather*}
+注意 $\forall x(p\to q)$ 和 $\forall xp\to q$ 的区别, 前者 $\forall x$ 的作用范围 (简称 ``范围'') 是 $p\to q$, 而后者是 $p$.
+\begin{definition}[变元的自由出现与约束出现]
+    在一个公式中, 个体变元 $x$ 的出现如果不是在 $\forall x$ 中或 $\forall x$ 的范围中, 则叫做自由出现, 否则叫做约束出现.
+\end{definition}
+\begin{definition}
+    公式若不含自由出现的变元, 则叫做闭式.
+\end{definition}
+\begin{example}
+    在 $\forall x_1 (R_1^2(x_1, x_2)\to \forall x_2 R_2^1(x_2))$ 中, $x_1$ 约束出现两次, $x_2$ 约束出现两次且自由出现一次. 所以公式不是闭式.
+\end{example}
+\begin{definition}[项 $t$ 对公式 $p$ 中变元 $x$ 是自由的]\label{def:1.6}
+    用项 $t$ 去代换公式 $p$ 中自由出现的个体变元 $x$ 时, 若在代换后的新公式里, $t$ 的变元都是自由的, 则说 $t$ 对 $p$ 中 $x$ 是可自由代换的, 简称 $t$ 对 $p$ 中 $x$ 是可代换的, 或简称 $t$ 对 $p$ 中 $x$ 是自由的.
+
+    换句话说, 用项 $t$ 去代换公式 $p$ 中自由出现的个体变元 $x$ 时, 若在代换后的新公式里, 若 $t$ 中有变元在代换后受到约束, 则说 $t$ 对 $p$ 中 $x$ 是 ``不自由的'' (``不可自由代换的'', ``不可代换的'').
+\end{definition}
+下面两种情形, $t$ 对 $p$ 中 $x$ 是自由的:
+\begin{enumerate}[label = $\arabic*^\circ$]
+    \item $t$ 是闭项
+    \item $x$ 在 $p$ 中不自由出现
+\end{enumerate}
+在任何公式中, 项 $x_i$ 对 $x_i$ 自己总是自由的.
+
+定义 \ref{def:1.6} 的另一种说法是: 若对项 $t$ 中所含任一变元 $y$, $p$ 中所有出现的某变元 $x$ 全都不出现在 $p$ 中 $\forall y$ 的范围内, 则说 $t$ 对 $p$ 中 $x$ 是自由的.
+
+以后用 $p(t)$ 表示用项 $t$ 去代换公式 $p(x)$ 中所有自由出现的变元 $x$ 所得结果. (注意 $p(x)$ 中的 $x$ 是指公式中自由出现的 $x$)
+
+\subsection{谓词演算 \texorpdfstring{$K$}{K}}
+\begin{definition}[谓词演算 $K$]
+    谓词演算 $K$ 是指带有如下规定的 ``公理'' 和 ``证明'' 的公式集 $K(Y)$:
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item ``公理''\\
+              取 $K(Y)$ 中以下形状的公式作为 ``公理'':
+              \begin{enumerate}[label = (K\arabic*)]
+                  \item $p\to (q\to p)$
+                  \item $(p\to (q\to r))\to ((p\to q)\to (p\to r))$
+                  \item $(\lnot p\to \lnot q)\to (q\to p)$
+                  \item $\forall xp(x)\to p(t)$, 其中项 $t$ 对 $p(x)$ 中的 $x$ 是自由的.
+                  \item $\forall x(p\to q)\to (p\to \forall xq)$, 其中 $x$ 不在 $p$ 中自由出现.
+              \end{enumerate}
+              以上给出的五种公理模式中 $p$, $q$, $r$, $p(x)$ 都是任意的公式.
+        \item ``证明''\\
+              设 $p$ 是某公式, $\Gamma$ 是某公式集. $p$ 从 $\Gamma$ 可证, 记作 $\Gamma\vdash p$, 是指存在着公式的有限序列 $p_1, \cdots, p_n$, 其中 $p_n = p$, 且对每个 $k=1, \cdots, n$ 有
+              \begin{enumerate}[(i)]
+                  \item $p_k\in \Gamma$, 或
+                  \item $p_k$ 为公理, 或
+                  \item 存在 $i, j <k$ 使 $p_j=p_i\to p_k$ (此时说由 $p_i$, $p_i\to p_k$ 使用 MP 得到 $p_k$), 或
+                  \item 存在 $j<k$, 使 $p_k = \forall xp_j$. 此时说由 $p_j$ 使用 ``Gen'' (``推广'') 这条推理规则得到 $p_k$. $x$ 叫做 Gen 变元 (Gen 是 Generalization 的缩写).
+              \end{enumerate}
+              复合上述条件的 $p_1, \cdots, p_n$ 叫做 $p$ 从 $\Gamma$ 的 ``证明''. $\Gamma$ 叫做假定集, $p$ 叫做 $\Gamma$ 的语法推论.
+
+              若 $\varnothing\vdash p$, 则 $p$ 叫做 $K$ 的定理, 记作 $\vdash p$.
+    \end{enumerate}
+\end{definition}
+\begin{theorem}\label{thm:1.1}
+    设 $x_1, \cdots, x_n$ 是命题演算 $L$ 的命题变元, $p(x_1, \cdots, x_n)\in L(X_n)$, 我们有
+    $$
+        \vdash_L p(x_1, \cdots, x_n)\ \Rightarrow\ \vdash_K p(p_1, \cdots, p_n)
+    $$
+    其中 $p_1, \cdots, p_n\in K(Y)$, $p(p_1, \cdots, p_n)$ 是用 $p_1, \cdots, p_n$ 分别代换 $p(x_1, \cdots, x_n)$ 中的 $x_1, \cdots, x_n$ 所得结果.
+\end{theorem}
+\begin{theorem}[命题演算型永真式, 简称永真式]
+    若 $p(x_1, \cdots, x_n)\in L(X_n)$ 是命题演算 $L$ 中的永真式, 则对任意 $p_1, \cdots, p_n\in K(Y)$, $p(p_1, \cdots, p_n)$ 叫做 $K$ 的命题演算型永真式, 简称永真式.
+\end{theorem}
+按照定理 \ref{thm:1.1}, 以下各式在 $K$ 中仍然成立
+\begin{itemize}
+    \item $\vdash p\to p$\hfill (同一律)
+    \item $\vdash \lnot q\to (q\to p)$\hfill (否定前件律)
+    \item $\vdash (\lnot p\to p)\to p$\hfill (否定肯定律)
+    \item $\vdash \lnot \lnot p\to p$\hfill (双重否定律)
+    \item $\vdash (p\to q)\to ((q\to r)\to (p\to r))$\hfill (HS)
+\end{itemize}
+
+一公式集 $\Gamma$ 是无矛盾的, 仍指对任何公式 $q$, $\Gamma\vdash q$ 与 $\Gamma\vdash \lnot q$ 两者不同时成立.
+\begin{proposition}
+    $\Gamma$ 有矛盾 $\ \Rightarrow\ $ $K$ 的任一公式从 $\Gamma$ 可证.
+\end{proposition}
+\begin{proposition}[$\exists_1$ 规则]
+    设项 $t$ 对 $p(x)$ 中的 $x$ 自由, 则有
+    $$
+        \vdash p(t)\to \exists xp(x)
+    $$
+\end{proposition}
+\begin{proposition}[演绎定律]
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 若 $\Gamma\vdash p\to q$, 则 $\Gamma\cup \{p\}\vdash q$
+        \item 若 $\Gamma\cup\{p\}\vdash q$, 且证明中所用的 Gen 变元不在 $p$ 中自由出现, 则不增加新的 Gen 变元就可得 $\Gamma\vdash p\to q$
+    \end{enumerate}
+\end{proposition}
+\begin{deduction}
+    当 $p$ 是闭式时, 有
+    $$
+        \Gamma\cup\{p\}\vdash q\ \ \Leftrightarrow\ \ \Gamma \vdash p\to q
+    $$
+\end{deduction}
+
+\begin{proposition}
+    $\vdash \forall x(p\to q)\to (\exists xp\to \exists xq)$, 除了 $x$ 外不用其他 Gen 变元.
+\end{proposition}
+\begin{theorem}[反证律]
+    若 $\Gamma\cup\{\lnot p\}\vdash q\ \text{及}\ \lnot q$, 且所用 Gen 变元不在 $p$ 中自由出现, 则不增加新的 Gen 变元便可得 $\Gamma \vdash p$
+\end{theorem}
+\begin{theorem}[归谬律]
+    若 $\Gamma\cup\{p\}\vdash q\ \text{及}\ \lnot q$, 且所用 Gen 变元不在 $p$ 中自由出现, 则不增加新的 Gen 变元便可得 $\Gamma \vdash\lnot p$
+\end{theorem}
+\begin{proposition}[$\exists_2$ 规则]
+    设 $\Gamma\cup\{p\}\vdash q$, 其证明中 Gen 变元不在 $p$ 中自由出现, 且 $x$ 不在 $q$ 中自由出现, 那么有 $\Gamma\cup\{\exists xp\}\vdash q$, 且除了 $x$ 不增加其他 Gen 变元.
+\end{proposition}
+\begin{proposition}
+    对 $K$ 中任意公式 $p$, $q$, $r$, 有
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash p\leftrightarrow p$\hfill (自反性)
+        \item $\vdash p\leftrightarrow q\ \ \Rightarrow\ \ \vdash q\leftrightarrow p$\hfill (对称性)
+        \item $\vdash p\leftrightarrow q\ \text{且}\ \vdash q\leftrightarrow r\ \ \Rightarrow\ \ \vdash p\leftrightarrow r$\hfill (可递性)
+    \end{enumerate}
+\end{proposition}
+\begin{definition}[可证等价]
+    $p$ 与 $q$ 可证等价 (简称为等价), 指 $\vdash p\leftrightarrow q$ 成立.
+\end{definition}
+\begin{proposition}
+    $\Gamma\vdash p\leftrightarrow q\ \ \Leftrightarrow\ \ \Gamma\vdash p\to q\ \text{且}\ \Gamma\vdash q\to p$
+\end{proposition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash \forall x p(x)\leftrightarrow \forall y p(y)$
+        \item $\vdash \exists x p(x)\leftrightarrow \exists y p(y)$
+    \end{enumerate}
+    其中 $y$ 不在 $p(x)$ 中出现.
+\end{proposition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash \lnot \forall x p\leftrightarrow \exists x\lnot p$
+        \item $\vdash \lnot \exists x p\leftrightarrow \forall x\lnot p$
+    \end{enumerate}
+\end{proposition}
+\subsection{对偶律与前束范式}
+\begin{theorem}[子公式的等价可替换性]
+    设公式 $q$ 是公式 $p$ 的子公式: $p = \cdots q \cdots$, 用公式 $q'$ 替换 $p$ 中的 $q$ (一次替换) 所得结果记为 $p' = \cdots q'\cdots$. 则有
+    $$
+        \Gamma\vdash q\leftrightarrow q' \ \Rightarrow\  \Gamma\vdash p\leftrightarrow p'
+    $$
+\end{theorem}
+\begin{theorem}[对偶律]
+    设公式 $p$ 已表示成含原子公式及 $\lnot$, $\lor$, $\land$, $\forall$, $\exists$ 的公式. 现把 $p$ 中所有原子公式都改为它们的否定, $\lor$ 与 $\land$ 互换, $\forall$ 与 $\exists$ 互换, 得公式 $p^*$, 则有
+    $$
+        \vdash p*\leftrightarrow \lnot p
+    $$
+\end{theorem}
+\begin{proposition}
+    若 $x$ 不在 $p$ 中自由出现, 则
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash \forall x (p\to q)\leftrightarrow (p\to \forall x q)$
+        \item $\vdash \exists x (p\to q)\leftrightarrow (p\to \exists x q)$
+    \end{enumerate}
+    若 $x$ 不在 $q$ 中自由出现, 则
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash \forall x (p\to q)\leftrightarrow (\forall x p\to q)$
+        \item $\vdash \exists x (p\to q)\leftrightarrow (\exists x p\to q)$
+    \end{enumerate}
+\end{proposition}
+\begin{definition}[前束范式]
+    前束范式, 指形如
+    $$
+        Q_1 x\cdots Q_n y p
+    $$
+    的公式, 其中 $Q_1, \cdots, Q_n$ 表示量词符号 $\forall$ 或 $\exists$, 尾部 $p$ 是不含有量词的公式.
+\end{definition}
+\begin{proposition}
+    用 $Q$ 表示量词符号 $\forall$ 或 $\exists$, 用 $Q^*$ 表示 $Q$ 的对偶符号 ($Q$ 为 $\forall$ 时 $Q^*$ 为 $\exists$, $Q$ 为 $\exists$ 时 $Q^*$ 为 $\forall$), 那么有
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 若 $y$ 不在 $p(x)$ 中自由出现, 则 $$\vdash Qxp(x)\leftrightarrow Qyp(y)$$
+        \item 若 $x$ 不在 $p$ 中自由出现, 则 $$\vdash (p\to Qxq)\leftrightarrow Qx(p\to q)$$
+
+              若 $x$ 不在 $q$ 中自由出现, 则 $$\vdash (Qxp\to q)\leftrightarrow Qx(p\to q)$$
+        \item $\vdash Qxp\leftrightarrow Q^*x\lnot p$
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\vdash (\forall x p \land \forall x q)\leftrightarrow \forall x(p\land q)$
+        \item $\vdash (\exists x p \lor \exists x q)\leftrightarrow \exists x(p\lor q)$\\
+              若 $x$ 不在 $p$ 中自由出现, 则有
+        \item $\vdash (p\lor Qxq)\leftrightarrow Qx(p\lor q)$
+        \item $\vdash (p\land Qxq)\leftrightarrow Qx(p\land q)$
+    \end{enumerate}
+\end{proposition}
+\begin{definition}[$\Pi_n$ 型和 $\Sigma_n$ 型前束范式]
+    设 $n>0$. 若前束范式是由全称量词开始, 从左至右改变 $n-1$ 次词性, 则叫做 $\Pi_n$ 型前束范式;
+    若是由存在两次开始, 从左至右改变 $n-1$ 次词性, 则叫做 $\Sigma_n$ 型前束范式.
+\end{definition}
+\begin{example}
+    $p = \exists x_1\exists x_2\forall x_3\exists x_4 (R_1^2(x_1, x_2)\to R_1^2(x_3, x_4))$ 是 $\Sigma_3$ 型前束范式;\\
+    $q = \forall x_3\exists x_1\exists x_2\exists x_4 (R_1^2(x_1, x_2)\to R_1^2(x_3, x_4))$ 是 $\Pi_2$ 型前束范式.
+\end{example}
+
+\newpage
+\subsection{谓词演算的语义}
+\subsection{谓词演算 \texorpdfstring{$K$}{K} 的解释域与项解释}
+\begin{definition}[$K$ 的解释域]
+    设非空集 $M$ 具有以下性质:
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 对 $K$ 的每个个体常元 $c_i$, 都有 $M$ 的元素 $\overline{c_i}$ 与之对应: $$c_i\mapsto \overline{c_i}, \overline{c_i}\in M$$
+        \item 对 $K$ 的每个运算符 $f_i^n$, 都有 $M$ 上的 $n$ 元运算 $\overline{f_i^n}$ 与之对应: $$f_i^n\mapsto \overline{f_i^n}, \overline{f_i^n}\ \text{是}\ M\ \text{上的}\ n\ \text{元运算}$$
+        \item 对 $K$ 的每个谓词 $R_i^n$, 都有 $M$ 上的 $n$ 元关系 $\overline{R_i^n}$ 与之对应: $$R_i^n\mapsto \overline{R_i^n}, \overline{R_i^n}\ \text{是}\ M\ \text{上的}\ n\ \text{元关系}$$
+    \end{enumerate}
+\end{definition}
+\begin{example}
+    设 $K$ 中的 $c = \{c_1\}$, $F=\{f_1^1, f_1^2, f_2^2\}$, $R=\{R_1^2\}$. 下面的 $\mathbb{N}$ 是 $K$ 的一个解释域:\\
+    $\mathbb{N}$: 自然数集, $\mathbb{N}=\{0, 1, 2, \cdots\}$,\\
+    $\overline{c_1}=0$,\\
+    $\overline{f_1^1}$: 后继函数, $\overline{f_1^1}(n)=n+1$,\\
+    $\overline{f_1^2}$: 加法 ($+$),\\
+    $\overline{f_2^2}$: 乘法 ($\times$),\\
+    $\overline{R_1^2}$: 相等 ($=$)
+
+    还可如下给出 $K$ 的另一个解释域:\\
+    $\mathbb{Q}^+$: 正有理数集\\
+    $\overline{c_1}=1$,\\
+    $\overline{f_1^1}$: 倒数函数, $\overline{f_1^1}(q)=1/q$,\\
+    $\overline{f_1^2}$: 乘法 ($\times$),\\
+    $\overline{f_2^2}$: 除法 ($\div$),\\
+    $\overline{R_1^2}$: 相等 ($=$)
+
+    现考察 $K$ 中只含有闭项的原子公式 $p$:
+    $$
+        R_1^2(f_1^2(f_1^1(c_1), c_1), f_2^2(f_1^1(c_1), c_1))
+    $$
+    $p$ 在解释域 $\mathbb{N}$ 中解释成 $(0+1)+0=(0+1)\times 0$, 这是假命题.\\
+    但 $p$ 在另一个解释域 $\mathbb{Q}^+$ 中解释成 $\displaystyle \frac{1}{1}\times 1 = \frac{1}{1}\div 1$, 这是真命题.
+\end{example}
+上面的例子说明, 有了解释域才可能讨论 $K$ 中公式的真假值.
+\begin{definition}[项解释]
+    对给定的解释域 $M$, 我们将映射 $\varphi_0: X\to M$ 叫做个体变元的 (个体) 对象指派. $\varphi_0$ 给变元 $x_i$ 指派的个体对象是 $\varphi_0(x_i)$. 项解释 $\varphi$ 是指具有如下性质 (1) 和 (2) 的映射 $\varphi: T\to M$.
+    \begin{enumerate}[(1)]
+        \item $\varphi(x_i)=\varphi_0(x_i)$, $\varphi(c_i)=\overline{c_i}$
+        \item 保运算性: $\varphi(f_i^n(t_1, \cdots, t_n))=\overline{f_i^n}(\varphi(t_1), \cdots, \varphi(t_n))$
+    \end{enumerate}
+\end{definition}
+给定解释域 $M$, 只要变元有了解释 (指派), 便有了确定的项解释, 即每个项都在 $M$ 中有了解释. 对同一解释域 $M$, 可有许多不同的变元指派, 因而存在许多不同的项解释, 把所有的项解释组成的集记作 $\Phi_M = \{\varphi\vert\varphi:T\to M\ \text{是项解释}\}$.
+\begin{definition}[项解释的变元变通]
+    设 $x$ 是给定的个体变元, $y$ 是任意的个体变元, 且 $\varphi, \varphi'\in\Phi_M$ 还满足条件
+    \begin{enumerate}[(1)]\setcounter{enumi}{2}
+        \item $y\neq x\ \Rightarrow\  \varphi'(y)=\varphi(y)$
+    \end{enumerate}
+    则把 $\varphi'$ 叫做 $\varphi$ 的 $x$ 变通. (二者互为对方的 $x$ 变通)
+\end{definition}
+\subsection{公式的赋值函数}
+记 $\overline{x}=\varphi(x), x\in X$, $\overline{t}=\varphi(t), t\in T$
+\begin{definition}[公式的赋值函数]
+    设 $M$ 是给定的解释域, $p$ 是 $K$ 中任一公式. 由公式 $p$ 按下面的方式归纳定义的函数 $\lvert p\rvert:\Phi_M\to\mathbb{Z}_2$ 叫做公式 $p$ 的赋值函数.
+
+    对任一项解释 $\varphi\in\Phi_M$,
+    \begin{enumerate}[(i)]
+        \item 当 $p$ 为原子公式 $R_i^n(t_1, \cdots, t_n)$ 时, 令
+              $$
+                  \lvert p\rvert (\varphi)=
+                  \begin{cases}
+                      1, & \text{若}\ (\overline{t_1}, \cdots, \overline{t_n})\in \overline{R_i^n}    \\
+                      0, & \text{若}\ (\overline{t_1}, \cdots, \overline{t_n})\notin \overline{R_i^n}
+                  \end{cases}
+              $$
+        \item 当 $p$ 是 $\lnot q$ 或 $q\to r$ 时, 令
+              \begin{align*}
+                  \lvert\lnot q\rvert(\varphi) & =\lnot\lvert q\rvert(\varphi)                       \\
+                  \lvert q\to r\rvert(\varphi) & = \lvert q\rvert(\varphi)\to\lvert r\rvert(\varphi)
+              \end{align*}
+        \item 当 $p$ 是 $\forall xq$ 时, 令
+              $$
+                  \lvert\forall x q\rvert(\varphi)
+                  \begin{cases}
+                      1, & \text{若}\ \varphi\ \text{的任一}\ x\ \text{变通}\ \varphi'\ \text{都使}\ \lvert q\rvert(\varphi')=1 \\
+                      0, & \text{若存在}\ \varphi\ \text{的}\ x\ \text{变通}\ \varphi'\ \text{使}\ \lvert q\rvert(\varphi')=0
+                  \end{cases}
+              $$
+    \end{enumerate}
+\end{definition}
+\begin{proposition}
+    \hfill
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item $\lvert p\lor q\rvert (\varphi) = \lvert p\rvert (\varphi)\lor \lvert q\rvert (\varphi)$
+        \item $\lvert p\land q\rvert (\varphi) = \lvert p\rvert (\varphi)\land \lvert q\rvert (\varphi)$
+        \item $\lvert p\leftrightarrow q\rvert (\varphi) = \lvert p\rvert (\varphi)\leftrightarrow \lvert q\rvert (\varphi)$
+        \item $\lvert \exists x q\rvert (\varphi) = 1\ \Leftrightarrow\  \text{存在}\ \varphi\ \text{的}\ x\ \text{变通}\ \varphi'\ \text{使}\ \lvert q\rvert(\varphi')=1$
+    \end{enumerate}
+\end{proposition}
+\subsection{闭式的语义特征}
+\begin{proposition}
+    设 $M$ 是 $K$ 的解释域, $\varphi, \psi\in\Phi_M$.
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 若对项 $t$ 中的任一变元 $x$ 都有 $\varphi(x)=\psi(x)$, 则 $\varphi(t)=\psi(t)$
+        \item 若对公式 $p$ 中任一自由出现的变元 $x$ 都有 $\varphi(x)=\psi(x)$, 则 $\lvert p\rvert (\varphi)=\lvert p\rvert (\psi)$
+    \end{enumerate}
+\end{proposition}
+\begin{definition}[公式在解释域中恒真与恒假]
+    公式 $p$ 在解释域 $M$ 中恒真, 记作 $\lvert p\rvert_M=1$, 是指对任一 $\varphi\in\Phi_M$, $\lvert p\rvert (\varphi)=1$;
+    公式 $p$ 在解释域 $M$ 中恒假, 记作 $\lvert p\rvert_M=0$, 是指对任一 $\varphi\in\Phi_M$, $\lvert p\rvert (\varphi)=0$.
+\end{definition}
+\begin{theorem}
+    对给定的解释域 $M$, 任一闭式 $p$ 在 $M$ 中恒真与恒假二者必居其一: 或 $\lvert p\rvert_M=1$, 或 $\lvert p\rvert_M=0$.
+\end{theorem}
+\begin{proposition}
+    $\lvert p\rvert_M=1\ \Leftrightarrow\  \lvert\forall xp\rvert_M=1$
+\end{proposition}
+\begin{definition}[全称闭式]
+    设 $x_{i_1}, \cdots, x_{i_n}$ 是在 $p$ 中自由出现的全部变元, 则
+    $$
+        \forall x_{i_1}\cdots\forall x_{i_n} p
+    $$
+    叫做 $p$ 的全称闭式.
+\end{definition}
+\begin{proposition}
+    设 $p'$ 是 $p$ 的全称闭式, 则$\lvert p\rvert_M=1\ \Leftrightarrow\ \lvert p'\rvert_M = 1$
+\end{proposition}
+\begin{proposition}
+    $\lvert p\rvert_M = 0\ \Rightarrow\  \lvert\forall xp\rvert_M=0$
+\end{proposition}
+\begin{deduction}
+    $\lvert p\rvert_M = 0\ \Rightarrow\  \lvert p'\rvert_M=0$, 这里 $p'$ 是 $p$ 的全称闭式.
+\end{deduction}
+\begin{proposition}
+    $\lvert p\rvert_M=1\ \text{且}\ \lvert p\to q\rvert_M = 1\ \Rightarrow\  \lvert q\rvert_M=1$
+\end{proposition}
+\subsection{语义推论与有效式}
+\begin{definition}[模型]
+    设 $M$ 是 $K$ 的一个解释域.  $M$ 是公式集 $\Gamma$ 的模型, 指 $\Gamma$ 的每个公式都在 $M$ 中恒真:
+    $$
+        r\in \Gamma\ \Rightarrow\  \lvert r\rvert_M=1
+    $$
+    $\Gamma=\varnothing$ 时任何解释域都是 $\Gamma$ 的模型.
+\end{definition}
+\begin{definition}[语义推论]\label{def:2.8}
+    公式 $p$ 是公式集 $\Gamma$ 的语义推论, 记作 $\Gamma\vDash p$, 指 $p$ 在 $\Gamma$ 的所有模型中都恒真, 即: 在使 $\Gamma$ 的每个成员都恒真的解释域中, $p$ 也恒真；或者说, $\Gamma$ 的任何模型也都是 $\Gamma\cup \{p\}$ 的模型.
+\end{definition}
+定义 \ref{def:2.8} 也可以写成
+$$
+    \Gamma\vDash p\ \Leftrightarrow\ \text{当每个 $r\in\Gamma$ 都有 $\lvert r\rvert_M=1$ 时, 也有 $\lvert p\rvert_M = 1$}
+$$
+\begin{definition}[有效式与满足公式]
+    $\varnothing\vDash p$ 时, $p$ 叫做 $K$ 的有效式, 记为 $\vDash p$.\\
+    若 $\lnot p$ 不是有效式, 则 $p$ 叫做 $K$ 的可满足公式.
+\end{definition}
+由有效式的定义可知
+$$
+    \vDash p \ \Leftrightarrow\ \text{$p$ 在 $K$ 的所有解释域中恒真}
+$$
+\begin{proposition}
+    $K$ 中 (命��演���型) 永������都���有效式.
+\end{proposition}
+\begin{deduction}
+    (K1), (K2), (K3) 三种模式的公理都是有效式.
+\end{deduction}
+\begin{proposition}
+    $\Gamma\vDash p\ \text{且}\ \Gamma\vDash p\to q\ \Rightarrow\  \Gamma\vDash q$
+\end{proposition}
+\begin{proposition}
+    $\Gamma\vDash p\ \Leftrightarrow\ \Gamma\vDash\forall xp$
+\end{proposition}
+\begin{proposition}
+    设 $p'$ 是 $p$ 的全程闭式, 则有 $\Gamma\vDash p\ \Leftrightarrow\  \Gamma\vDash p'$
+\end{proposition}
+
+\subsection{\texorpdfstring{$K$}{K} 的可靠性}
+\begin{lemma}
+    对给定的解释域, 设 $\varphi'$ 是项解释 $\varphi$ 的 $x$ 变通, 且满足 $\varphi'(x)=\varphi(t)$, $t$ 是某个项.
+    \begin{enumerate}[label = $\arabic*^\circ$]
+        \item 若 $u(x)$ 是项, 则 $\varphi'(u(x)) = \varphi(u(t))$.
+        \item 若 $t$ 对公式 $p(x)$ 中的 $x$ 自由, 则 $\lvert p(x)\rvert(\varphi')=\lvert p(t)\rvert(\varphi)$.
+    \end{enumerate}
+\end{lemma}
+\begin{lemma}
+    $K$ 的公理都是有效式.
+\end{lemma}
+\begin{theorem}[$K$ 的可靠性]
+    $\Gamma\vdash p\ \Rightarrow\ \Gamma\vDash p$
+\end{theorem}
+\begin{deduction}[$K$ 的无矛盾性]
+    $K$ 是无矛盾的, 即: 对任何公式 $p$, $\vdash p$ 与 $\vdash\lnot p$ 不同时成立.
+\end{deduction}
+\begin{deduction}
+    $\Gamma$ 有模型 $\ \Rightarrow\ $ $\Gamma$ 是无矛盾的.
+\end{deduction}
+
+\subsection{\texorpdfstring{$K$}{K} 的完全性}
+\begin{definition}
+    无矛盾公式集一定有可数集模型.
+\end{definition}
+\begin{proof}
+    详见课本: 设 $\Gamma$ 是无矛盾公式集. 我们来给 $\Gamma$ 构造一个可数集模型 $M$.
+
+    整个过程分成一下六个步骤进行:
+    \begin{enumerate}[1.]
+        \item 作扩大的谓词演算 $K^+$
+        \item 作扩大的无矛盾公式集 $\Gamma'\supset \Gamma$
+        \item 作 $\Gamma'$ 的完备无矛盾扩张 $\Gamma^*$
+        \item 作 $K^+$ 的解释域
+        \item 命题: $\Gamma^*\vdash_{K^+}q\ \Leftrightarrow\ \lvert q\rvert_M = 1$, 其中 $q$ 是 $K^+$ 的任一闭式.
+        \item 整个证明的完成
+    \end{enumerate}
+\end{proof}
+\begin{theorem}[$K$ 的完全性]
+    $\Gamma\vDash p\ \Rightarrow\ \Gamma\vdash p$
+\end{theorem}
+把 $K$ 的可靠性和 $K$ 的完全性结合起来, 就得到关于谓词演算 $K$ 的 Gödel 完备性定理:
+$$
+    \Gamma\vdash p\ \Leftrightarrow\ \Gamma\vDash p
+$$
+\end{document}
