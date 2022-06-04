@@ -448,7 +448,7 @@
             \Gamma\cup\{p\}\vdash p \\
             \Gamma\cup\{p\}\vdash\lnot p
         \end{matrix}
-        \right\}\Rightarrow \Gamma\vdash p
+        \right\}\Rightarrow \Gamma\vdash \lnot p
     $$
 \end{theorem}
 \begin{deduction}[第二双重否定律]
@@ -575,10 +575,10 @@ $\vdash (p\to q)\to (\lnot q\to \lnot p)$\hfill (换位律)
 现在要在 $L(X)$ 和 $\mathbb{Z}_2=\{0,1\}$ 这两种命题代数之间建立起适当的联系. 注意 $L(X)$ 与 $\mathbb{Z}_2$ 之间的差异, 比如在 $L(X)$ 中 $\lnot \lnot x \neq x$, 但在 $\mathbb{Z}_2$ 中 $\lnot \lnot v = v$.
 
 \begin{definition}[赋值]
-    具有 ``保运算性'' 的映射 $v:L(X)\to\mathbb{Z}_2$ 叫做 $\mathbb{Z}_2$ 的赋值. 映射 $v$ 具有保运算性, 是指对任意 $p,q\in L(X)$, $v$ 满足条件:
+    具有 ``保运算性'' 的映射 $v:L(X)\to\mathbb{Z}_2$ 叫做 $L(X)$ 的赋值. 映射 $v$ 具有保运算性, 是指对任意 $p,q\in L(X)$, $v$ 满足条件:
     \begin{enumerate}[(1), topsep = -1em]
         \item $v(\lnot p)=\lnot v(p)$
-        \item $v(p\to q)= v(p)\lnot v(q)$
+        \item $v(p\to q)= v(p)\to v(q)$
     \end{enumerate}
     对任意公式 $p\in L(X)$, $v(p)$ 叫做 $p$ 的真值. 同样, 具有保运算性的映射 $v:L(X_n)\to \mathbb{Z}_2$ 叫做 $L(X_n)$ 的赋值. ($X_n=\{x_1,\cdots x_n\}$).
 \end{definition}
@@ -1110,7 +1110,7 @@ $$
 \end{proposition}
 \begin{definition}[$\Pi_n$ 型和 $\Sigma_n$ 型前束范式]
     设 $n>0$. 若前束范式是由全称量词开始, 从左至右改变 $n-1$ 次词性, 则叫做 $\Pi_n$ 型前束范式;
-    若是由存在两次开始, 从左至右改变 $n-1$ 次词性, 则叫做 $\Sigma_n$ 型前束范式.
+    若是由存在量词开始, 从左至右改变 $n-1$ 次词性, 则叫做 $\Sigma_n$ 型前束范式.
 \end{definition}
 \begin{example}
     $p = \exists x_1\exists x_2\forall x_3\exists x_4 (R_1^2(x_1, x_2)\to R_1^2(x_3, x_4))$ 是 $\Sigma_3$ 型前束范式;\\
@@ -1280,7 +1280,7 @@ $$
     $\Gamma\vDash p\ \Leftrightarrow\ \Gamma\vDash\forall xp$
 \end{proposition}
 \begin{proposition}
-    设 $p'$ 是 $p$ 的全程闭式, 则有 $\Gamma\vDash p\ \Leftrightarrow\  \Gamma\vDash p'$
+    设 $p'$ 是 $p$ 的全称闭式, 则有 $\Gamma\vDash p\ \Leftrightarrow\  \Gamma\vDash p'$
 \end{proposition}
 
 \subsection{\texorpdfstring{$K$}{K} 的可靠性}
